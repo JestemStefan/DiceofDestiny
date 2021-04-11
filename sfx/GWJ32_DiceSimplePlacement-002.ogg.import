@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ32_DiceSimplePlacement-002.ogg-36ad59e7891b753a8e201cc4a6945dd0.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ32_DiceSimplePlacement-002.ogg"
+dest_files=[ "res://.import/GWJ32_DiceSimplePlacement-002.ogg-36ad59e7891b753a8e201cc4a6945dd0.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

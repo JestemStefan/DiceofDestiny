@@ -10,6 +10,8 @@ var initial_position: Vector2
 
 var interaction_box: InteractionBox = null
 
+signal dice_used
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -43,6 +45,7 @@ func set_dice_value(value: int):
 
 
 func _on_Dice_input_event(viewport, event, shape_idx):
+	
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			
@@ -56,6 +59,8 @@ func _on_Dice_input_event(viewport, event, shape_idx):
 					if interaction_box != null:
 						enter_state(State.USED)
 						interaction_box.use_dice(dice_value)
+						
+						emit_signal("dice_used")
 						call_deferred("free")
 						
 					else:
@@ -63,7 +68,9 @@ func _on_Dice_input_event(viewport, event, shape_idx):
 
 
 func _on_Dice_area_entered(area):
+	
 	if area is InteractionBox:
+		#print(area)
 		interaction_box = area
 
 

@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/tiles/EmptyTile.tscn" type="PackedScene" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://scenes/Board/Board_Tile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Board/Board_Map.gd" type="Script" id=3]
-[ext_resource path="res://scenes/Board/Player.gd" type="Script" id=4]
 
 [node name="Board_Map" type="Node2D" groups=[
 "BoardMap",
@@ -12,56 +11,28 @@ script = ExtResource( 3 )
 
 [node name="Board_Tiles" type="Node2D" parent="."]
 
-[node name="EmptyTile" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 96, 96 )
+[node name="Board_Tile" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 160, 64 )
+connected_tiles = [ NodePath("../Board_Tile2") ]
 isStartTile = true
-connected_tiles = [ NodePath("../EmptyTile2") ]
 
-[node name="EmptyTile2" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 160, 96 )
-connected_tiles = [ NodePath("../EmptyTile3"), NodePath("../EmptyTile") ]
+[node name="Board_Tile2" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 224, 128 )
+Tile_Type = 2
+connected_tiles = [ NodePath("../Board_Tile"), NodePath("../Board_Tile3"), NodePath("../Board_Tile4") ]
 
-[node name="EmptyTile3" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 224, 96 )
-connected_tiles = [ NodePath("../EmptyTile4"), NodePath("../EmptyTile5"), NodePath("../EmptyTile2") ]
+[node name="Board_Tile3" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 320, 64 )
+Tile_Type = 1
+connected_tiles = [ NodePath("../Board_Tile2") ]
 
-[node name="EmptyTile4" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 224, 32 )
-connected_tiles = [ NodePath("../EmptyTile6"), NodePath("../EmptyTile3") ]
+[node name="Board_Tile4" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 256, 224 )
+connected_tiles = [ NodePath("../Board_Tile2"), NodePath("../Board_Tile5") ]
 
-[node name="EmptyTile5" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 224, 160 )
-connected_tiles = [ NodePath("../EmptyTile3"), NodePath("../EmptyTile7") ]
+[node name="Board_Tile5" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 384, 224 )
+Tile_Type = 1
+connected_tiles = [ NodePath("../Board_Tile4") ]
 
-[node name="EmptyTile6" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 288, 32 )
-connected_tiles = [ NodePath("../EmptyTile4"), NodePath("../EmptyTile8") ]
-
-[node name="EmptyTile7" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 288, 160 )
-connected_tiles = [ NodePath("../EmptyTile5"), NodePath("../EmptyTile9") ]
-
-[node name="EmptyTile8" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 352, 32 )
-connected_tiles = [ NodePath("../EmptyTile6"), NodePath("../EmptyTile10") ]
-
-[node name="EmptyTile9" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 352, 160 )
-connected_tiles = [ NodePath("../EmptyTile7"), NodePath("../EmptyTile10") ]
-
-[node name="EmptyTile10" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 352, 96 )
-connected_tiles = [ NodePath("../EmptyTile8"), NodePath("../EmptyTile9"), NodePath("../EmptyTile11") ]
-
-[node name="EmptyTile11" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 416, 96 )
-connected_tiles = [ NodePath("../EmptyTile10") ]
-
-[node name="Player" type="Node2D" parent="."]
-position = Vector2( 96, 32 )
-script = ExtResource( 4 )
-
-[node name="Sprite" type="Sprite" parent="Player"]
-modulate = Color( 1, 0.866667, 0, 1 )
-scale = Vector2( 0.4, 0.4 )
-texture = ExtResource( 2 )
+[node name="Player" parent="." instance=ExtResource( 2 )]
