@@ -1,9 +1,14 @@
 extends Node
 
-enum GameState{BOARD_WAITING, BOARD_TRAVELING}
+enum GameState{BOARD_WAITING, BOARD_TRAVELING, ENCOUNTER}
 var current_game_state: int = GameState.BOARD_WAITING
 
 var player: Node2D
+
+var board_layer: CanvasLayer
+var encounter_layer: CanvasLayer
+
+onready var fight_encounter_instance = preload("res://scenes/Encounters/FightEncounter.tscn")
 
 var current_board_tile: BoardTile
 
@@ -18,6 +23,13 @@ func _ready():
 
 func enter_state(new_state):
 	current_game_state = new_state
+	
+	match current_game_state:
+		GameState.BOARD_WAITING:
+			pass
+		
+		GameState.BOARD_TRAVELING:
+			pass
 
 
 func update_open_tiles(tile_list: Array):
@@ -42,12 +54,29 @@ func move_to_tile(tile: BoardTile):
 								Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	tween.start()
 	
-	yield(tween, "tween_completed")
-	tween.call_deferred("free")
-	
 	close_opened_tiles()
 	tile.open_connected_tiles()
 	tile.set_as_current_tile()
 	
-	enter_state(GameState.BOARD_WAITING)
+	yield(tween, "tween_completed")
+	tween.call_deferred("free")
 	
+	
+	
+	enter_state(GameState.BOARD_WAITING)
+
+
+func start_encounter(encounter_type: String):
+	enter_state(GameState.ENCOUNTER)
+	match encounter_type:
+		"Fight":
+			var encounter: Encounter = fight_encounter_instance.instance()
+			encounter_layer.add_child(encounter)
+			
+			encounter.start_encounter()
+
+
+func end_encounter():
+	enter_state(GameState.BOARD_WAITING)
+	current_board_tile.update_tile_type(current_board_tile.TileTypes.EMPTY_TILE)
+	current_board_tile.enter_state(current_board_tile.TileState.CURRENT)

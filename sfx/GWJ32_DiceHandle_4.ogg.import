@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ32_DiceHandle_4.ogg-d5a3d95e64c284995ed5406b8837b1c5.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ32_DiceHandle_4.ogg"
+dest_files=[ "res://.import/GWJ32_DiceHandle_4.ogg-d5a3d95e64c284995ed5406b8837b1c5.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

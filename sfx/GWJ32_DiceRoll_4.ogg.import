@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ32_DiceRoll_4.ogg-b7bf48d01b985c2d21a70485bd4da358.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ32_DiceRoll_4.ogg"
+dest_files=[ "res://.import/GWJ32_DiceRoll_4.ogg-b7bf48d01b985c2d21a70485bd4da358.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

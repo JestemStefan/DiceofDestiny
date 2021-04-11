@@ -6,16 +6,16 @@
 [node name="Test_DiceBox" type="Node2D"]
 
 [node name="Interaction_Box" parent="." instance=ExtResource( 2 )]
-position = Vector2( 137, 77 )
+position = Vector2( 192, 64 )
 
 [node name="Interaction_Box2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 137, 210 )
+position = Vector2( 320, 64 )
 Action = 1
 
 [node name="Box_Sprite" parent="Interaction_Box2" index="1"]
 self_modulate = Color( 0, 0.509804, 0.784314, 1 )
 
 [node name="Dice_Roller" parent="." instance=ExtResource( 1 )]
-position = Vector2( 349, 52 )
+position = Vector2( 256, 192 )
 
 [editable path="Interaction_Box2"]

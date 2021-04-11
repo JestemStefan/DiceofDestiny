@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://art/Placeholders/Dice_Placeholder_Spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://art/dice.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Dice/Test_Dice.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]

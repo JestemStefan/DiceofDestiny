@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://art/tiles.png" type="Texture" id=1]
 [ext_resource path="res://src/Board/Board_Tile.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -30,11 +30,28 @@ script = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="icon" type="Sprite" parent="."]
-scale = Vector2( 0.5, 0.5 )
+[node name="TileSprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+hframes = 6
+vframes = 5
 
 [node name="ActiveAnimation" type="AnimationPlayer" parent="."]
 anims/Active = SubResource( 2 )
 
+[node name="Tween" type="Tween" parent="."]
+
+[node name="InteractionButton" type="Button" parent="."]
+visible = false
+margin_left = -32.0
+margin_top = -40.0
+margin_right = 30.0
+margin_bottom = -20.0
+text = "Interact"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="input_event" from="." to="." method="_on_Board_Tile_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_Board_Tile_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Board_Tile_mouse_exited"]
+[connection signal="button_up" from="InteractionButton" to="." method="_on_InteractionButton_button_up"]
