@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Area2D",
+"class": "BoardTile",
+"language": "GDScript",
+"path": "res://src/Board/Board_Tile.gd"
+}, {
+"base": "Area2D",
 "class": "Dice",
 "language": "GDScript",
 "path": "res://scenes/Dice/Test_Dice.gd"
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://scenes/InteractionBox/Interaction_Box.gd"
 } ]
 _global_script_class_icons={
+"BoardTile": "",
 "Dice": "",
 "InteractionBox": ""
 }
@@ -30,6 +36,10 @@ config/name="GWJ32"
 run/main_scene="res://scenes/Testing/Test_DiceBox.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameController="*res://src/Global/GameController.gd"
+
 [display]
 
 window/size/width=512
@@ -38,6 +48,13 @@ window/size/test_width=1024
 window/size/test_height=576
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="Board"
+2d_physics/layer_3="Dice"
+2d_physics/layer_4="Player"
 
 [physics]
 
