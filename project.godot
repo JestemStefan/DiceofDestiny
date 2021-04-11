@@ -27,7 +27,17 @@ _global_script_class_icons={
 [application]
 
 config/name="GWJ32"
+run/main_scene="res://scenes/Testing/Test_DiceBox.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=512
+window/size/height=288
+window/size/test_width=1024
+window/size/test_height=576
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [physics]
 
