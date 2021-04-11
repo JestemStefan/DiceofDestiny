@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ32_DiceHandle_4.ogg-d5a3d95e64c284995ed5406b8837b
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
