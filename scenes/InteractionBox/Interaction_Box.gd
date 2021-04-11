@@ -10,8 +10,10 @@ export(Action_type) var Action = Action_type.ATTACK
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	match Action:
+		
+		Action_type.ATTACK: $Box_Sprite.self_modulate = Color.lightcoral
+		Action_type.DEFEND: $Box_Sprite.self_modulate = Color.lightblue
 
 func use_dice(dice_value: int):
 	match Action:

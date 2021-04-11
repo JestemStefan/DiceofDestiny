@@ -55,13 +55,13 @@ func move_to_tile(tile: BoardTile):
 	tween.start()
 	
 	close_opened_tiles()
-	tile.open_connected_tiles()
-	tile.set_as_current_tile()
+	
 	
 	yield(tween, "tween_completed")
 	tween.call_deferred("free")
 	
-	
+	tile.open_connected_tiles()
+	tile.set_as_current_tile()
 	
 	enter_state(GameState.BOARD_WAITING)
 

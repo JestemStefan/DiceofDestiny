@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ32_DiceRoll_1.ogg-c90e80e285c17db395035b2138ee980
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

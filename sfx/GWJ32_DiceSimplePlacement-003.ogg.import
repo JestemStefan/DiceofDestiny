@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ32_DiceSimplePlacement-003.ogg-50fe7e458b23e2af34
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
