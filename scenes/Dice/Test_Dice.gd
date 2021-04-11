@@ -3,26 +3,30 @@ class_name Dice
 
 enum State{FREE, DRAG, USED}
 var current_state: int = State.FREE
+
+var dice_value: int = 1
+
 var initial_position: Vector2
 
-var interaction_box: Area2D = null
+var interaction_box: InteractionBox = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	initial_position = get_global_transform().origin
+	pass
 
 func enter_state(new_state: int):
 	current_state = new_state
 	
 	match current_state:
 		State.FREE:
-			transform.origin = initial_position
+			global_position = initial_position
 		
 		State.DRAG:
 			pass
 		
 		State.USED:
-			transform.origin = interaction_box.transform.origin
+			global_position = interaction_box.transform.origin
+
 
 func _process(delta):
 	match current_state:
@@ -30,13 +34,18 @@ func _process(delta):
 			pass
 		
 		State.DRAG:
-			transform.origin = get_viewport().get_mouse_position()
-			
+			global_position = get_viewport().get_mouse_position()
+
+
+func set_dice_value(value: int):
+	dice_value = value
+	$Dice_Sprite.frame = value - 1
 
 
 func _on_Dice_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
+			
 			match event.button_index:
 				1:
 					enter_state(State.DRAG)
@@ -46,6 +55,8 @@ func _on_Dice_input_event(viewport, event, shape_idx):
 				1:
 					if interaction_box != null:
 						enter_state(State.USED)
+						interaction_box.use_dice(dice_value)
+						call_deferred("free")
 						
 					else:
 						enter_state(State.FREE)
