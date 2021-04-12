@@ -10,9 +10,9 @@ signal actionbox_triggered
 
 func _ready():
 	yield(get_tree(), "idle_frame")
-	print(GameController.current_encounter.get_name())
+	#print(GameController.current_encounter.get_name())
 	
-	connect("actionbox_triggered", 
+	var _err = connect("actionbox_triggered", 
 			GameController.current_encounter, 
 			"_on_Action_Box_actionbox_triggered")
 
@@ -31,7 +31,6 @@ func update_actionbox():
 		
 		Action_type.ATTACK: $Box_Sprite.self_modulate = Color.lightcoral
 		Action_type.BLOCK: $Box_Sprite.self_modulate = Color.lightblue
-
 
 
 func use_dice(dice_value: int):

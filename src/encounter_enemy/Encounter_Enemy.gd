@@ -1,24 +1,33 @@
 extends Node2D
+class_name EncounterEnemy
+
+export(Resource) var enemy_stats
+
+var enemy_name: String
+var enemy_level: int
+var enemy_dice_count: int
+var enemy_max_health: int
+var enemy_health: int
+var skills: Array
+
+signal enemy_died
 
 enum State{IDLE, DEAD}
 var current_state: int = State.IDLE
 
-var enemy_max_health: int = 10
-var enemy_health: int = 7
-
 onready var enemy_sprite: Sprite = $EnemySprite
 onready var hp_bar: ProgressBar = $EnemyHealthBar
+onready var enemy_hand: Tween = $EnemyFilthyHand
 
 var isShaking: bool = false
 
-signal enemy_died
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	load_enemy_data()
 	update_healthbar()
 
 
-func _process(delta):
+func _process(_delta):
 	if isShaking:
 		enemy_sprite.set_offset(Vector2(rand_range(-1, 1), rand_range(-1, 1)) * 2)
 
@@ -32,6 +41,24 @@ func enter_state(new_state: int):
 		
 		State.DEAD:
 			emit_signal("enemy_died")
+
+
+func load_enemy_data():
+	enemy_name = enemy_stats.enemy_name
+	print("Enemy name: " + enemy_name)
+	
+	enemy_level = enemy_stats.enemy_level
+	print("Level: " + str(enemy_level))
+	
+	enemy_dice_count = enemy_stats.enemy_dice_count
+	print("Enemy has " + str(enemy_dice_count) + " dices")
+	
+	enemy_max_health = enemy_stats.get_enemyHP()
+	enemy_health = enemy_stats.get_enemyHP()
+	print("HP: " + str(enemy_max_health))
+	
+	skills = enemy_stats.get_enemy_skill_list()
+	print(skills)
 
 
 func update_healthbar():
@@ -57,3 +84,23 @@ func take_damage(damage: int):
 
 func shake(on_off: bool):
 	isShaking = on_off
+
+
+func play_turn():
+	var generated_dices: Array = GameController.current_encounter.dices.roll_random(enemy_dice_count)
+	
+	for dice in generated_dices:
+		
+		var selected_skill: ActionBox = $Action_Box
+		
+		enemy_hand.interpolate_property(dice, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		enemy_hand.start()
+		
+		yield(enemy_hand, "tween_completed")
+		
+		dice.enter_state(dice.State.USED)
+		dice.interaction_box.use_dice(dice.dice_value)
+		dice.emit_signal("dice_used")
+		dice.call_deferred("free")
+	
+	GameController.current_encounter.switch_turns(GameController.current_encounter.Turn.PLAYER)

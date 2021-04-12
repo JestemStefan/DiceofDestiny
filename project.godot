@@ -28,12 +28,30 @@ _global_script_classes=[ {
 "class": "Encounter",
 "language": "GDScript",
 "path": "res://src/encounters/Encounter.gd"
+}, {
+"base": "Node2D",
+"class": "EncounterEnemy",
+"language": "GDScript",
+"path": "res://src/encounter_enemy/Encounter_Enemy.gd"
+}, {
+"base": "Node2D",
+"class": "EncounterPlayer",
+"language": "GDScript",
+"path": "res://src/Encounter_Player/Encounter_Player.gd"
+}, {
+"base": "Resource",
+"class": "EnemyStats",
+"language": "GDScript",
+"path": "res://src/Enemies/EnemyStats.gd"
 } ]
 _global_script_class_icons={
 "ActionBox": "",
 "BoardTile": "",
 "Dice": "",
-"Encounter": ""
+"Encounter": "",
+"EncounterEnemy": "",
+"EncounterPlayer": "",
+"EnemyStats": ""
 }
 
 [application]

@@ -17,9 +17,8 @@ var current_encounter: Encounter
 onready var fight_encounter_instance = preload("res://scenes/Encounters/FightEncounter.tscn")
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 func enter_state(new_state):
@@ -40,7 +39,7 @@ func enter_state(new_state):
 			current_encounter.show()
 			
 
-
+# make selected tile available to travel
 func update_open_tiles(tile_list: Array):
 	open_tiles = tile_list
 
@@ -53,9 +52,13 @@ func close_opened_tiles():
 func move_to_tile(tile: BoardTile):
 	enter_state(GameState.BOARD_TRAVELING)
 	
-	print("Trying to move to tile: " + str(tile.get_name()))
+	#print("Trying to move to tile: " + str(tile.get_name()))
 	
 	var tween = Tween.new()
+	
+	if current_board_tile != null:
+		current_board_tile.enter_state(BoardTile.TileState.CLOSED)
+	
 	add_child(tween)
 	tween.interpolate_property(
 								player, "global_position", 
@@ -64,7 +67,6 @@ func move_to_tile(tile: BoardTile):
 	tween.start()
 	
 	close_opened_tiles()
-	
 	
 	yield(tween, "tween_completed")
 	tween.call_deferred("free")

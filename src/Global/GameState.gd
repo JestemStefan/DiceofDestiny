@@ -1,7 +1,7 @@
 extends Node
 
-var player_max_health: int = 100
-var player_health: int = 75
+var player_max_health: int = 25
+var player_health: int = 25
 
 var player_skills = {"Attack":true,
 					"Block": false}
@@ -13,6 +13,7 @@ func _ready():
 	get_player_skill_list()
 	unlock_player_skill("Block")
 	get_player_skill_list()
+
 
 
 func get_player_skill_list():
