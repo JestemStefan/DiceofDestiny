@@ -46,7 +46,7 @@ func set_dice_value(value: int):
 
 func _on_Dice_input_event(_viewport, event, _shape_idx):
 	
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and GameController.current_encounter.current_turn == GameController.current_encounter.Turn.PLAYER:
 		if event.is_pressed():
 			
 			match event.button_index:
@@ -69,9 +69,9 @@ func _on_Dice_input_event(_viewport, event, _shape_idx):
 
 func _on_Dice_area_entered(area):
 	if area is ActionBox:
-		#print(area)
 		interaction_box = area
 
 
-func _on_Dice_area_exited(_area):
-	interaction_box = null
+func _on_Dice_area_exited(area):
+	if area == interaction_box:
+		interaction_box = null

@@ -9,6 +9,8 @@ func _ready():
 
 func roll_random(dice_amount: int):
 	
+	var generated_dices: Array = []
+	
 	randomize()
 	for i in range(dice_amount):
 		
@@ -18,9 +20,14 @@ func roll_random(dice_amount: int):
 		var new_dice = dice_instance.instance()
 		
 		add_child(new_dice)
+		
+		generated_dices.append(new_dice)
+		
 		new_dice.connect("dice_used", get_parent(), "_on_Dice_dice_used")
 		
 		new_dice.set_dice_value(dice_value)
 		
 		new_dice.translate(Vector2(-dice_amount * 16 + i * 36, 0))
 		new_dice.initial_position = new_dice.get_global_position()
+	
+	return generated_dices
