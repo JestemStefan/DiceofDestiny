@@ -6,14 +6,15 @@ var current_game_state: int = GameState.BOARD_WAITING
 var player: Node2D
 
 var board_layer: CanvasLayer
-var encounter_layer: CanvasLayer
-
-onready var fight_encounter_instance = preload("res://scenes/Encounters/FightEncounter.tscn")
-
+var current_board: Node2D
 var current_board_tile: BoardTile
-
 var all_tiles: Array
 var open_tiles: Array
+
+var encounter_layer: CanvasLayer
+var current_encounter: Encounter
+
+onready var fight_encounter_instance = preload("res://scenes/Encounters/FightEncounter.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,10 +27,18 @@ func enter_state(new_state):
 	
 	match current_game_state:
 		GameState.BOARD_WAITING:
-			pass
-		
+			current_board.show()
+			
+			if current_encounter != null:
+				current_encounter.hide()
+				
 		GameState.BOARD_TRAVELING:
 			pass
+		
+		GameState.ENCOUNTER:
+			current_board.hide()
+			current_encounter.show()
+			
 
 
 func update_open_tiles(tile_list: Array):
@@ -67,16 +76,22 @@ func move_to_tile(tile: BoardTile):
 
 
 func start_encounter(encounter_type: String):
-	enter_state(GameState.ENCOUNTER)
+	
 	match encounter_type:
 		"Fight":
+			
 			var encounter: Encounter = fight_encounter_instance.instance()
 			encounter_layer.add_child(encounter)
 			
 			encounter.start_encounter()
-
+			
+	enter_state(GameState.ENCOUNTER)
+	
 
 func end_encounter():
+	current_encounter.call_deferred("free")
+	current_encounter = null
+	
 	enter_state(GameState.BOARD_WAITING)
 	current_board_tile.update_tile_type(current_board_tile.TileTypes.EMPTY_TILE)
 	current_board_tile.enter_state(current_board_tile.TileState.CURRENT)
