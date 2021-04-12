@@ -112,7 +112,7 @@ func _on_Board_Tile_input_event(_viewport, event, _shape_idx):
 
 
 func _on_Board_Tile_mouse_entered():
-	if current_tilestate != TileState.CURRENT:
+	if current_tilestate != TileState.CURRENT and GameController.current_game_state == GameController.GameState.BOARD_WAITING:
 		$Tween.interpolate_property($TileSprite, "scale", $TileSprite.get_scale(), Vector2(1.5, 1.5), 0.25, Tween.TRANS_CUBIC, Tween.EASE_IN)
 		$Tween.start()
 

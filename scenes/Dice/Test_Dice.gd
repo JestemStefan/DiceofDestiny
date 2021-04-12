@@ -8,7 +8,7 @@ var dice_value: int = 1
 
 var initial_position: Vector2
 
-var interaction_box: InteractionBox = null
+var interaction_box: ActionBox = null
 
 signal dice_used
 
@@ -30,7 +30,7 @@ func enter_state(new_state: int):
 			global_position = interaction_box.transform.origin
 
 
-func _process(delta):
+func _process(_delta):
 	match current_state:
 		State.FREE: 
 			pass
@@ -44,7 +44,7 @@ func set_dice_value(value: int):
 	$Dice_Sprite.frame = value - 1
 
 
-func _on_Dice_input_event(viewport, event, shape_idx):
+func _on_Dice_input_event(_viewport, event, _shape_idx):
 	
 	if event is InputEventMouseButton:
 		if event.is_pressed():
@@ -68,11 +68,10 @@ func _on_Dice_input_event(viewport, event, shape_idx):
 
 
 func _on_Dice_area_entered(area):
-	
-	if area is InteractionBox:
+	if area is ActionBox:
 		#print(area)
 		interaction_box = area
 
 
-func _on_Dice_area_exited(area):
+func _on_Dice_area_exited(_area):
 	interaction_box = null
