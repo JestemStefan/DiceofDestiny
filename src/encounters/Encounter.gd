@@ -3,9 +3,11 @@ class_name Encounter
 
 onready var encounter_player: EncounterPlayer = $Encounter_Player
 onready var player_sprite = $Encounter_Player/PlayerSprite
+onready var player_animplayer: AnimationPlayer = $Encounter_Player/PlayerAnimationPlayer
 
 onready var encounter_enemy: Node2D = $Encounter_Enemy
 onready var enemy_sprite = $Encounter_Enemy/EnemySprite
+onready var enemy_animplayer: AnimationPlayer = $Encounter_Enemy/EnemyAnimationPlayer
 
 onready var dices: Node2D = $Dices
 
@@ -19,9 +21,11 @@ func _ready():
 
 
 func start_encounter():
+	player_animplayer.play("Idle")
 	slide_player_in()
 	$Encounter_Player/PlayerHealth.show()
 	
+	enemy_animplayer.play("Idle")
 	slide_enemy_in()
 	$Encounter_Enemy/EnemyHealthBar.show()
 	
@@ -62,6 +66,7 @@ func slide_enemy_in():
 
 
 func end_encounter():
+	GameState.add_dice()
 	GameController.end_encounter()
 
 
