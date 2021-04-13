@@ -58,10 +58,10 @@ hframes = 4
 frame = 2
 
 [node name="Skills" type="Node2D" parent="Encounter_Player"]
+visible = false
 position = Vector2( -128, 0 )
 
 [node name="PlayerHealth" type="ProgressBar" parent="Encounter_Player"]
-visible = false
 margin_left = -64.0
 margin_top = -96.0
 margin_right = 64.0
@@ -75,6 +75,17 @@ __meta__ = {
 
 [node name="PlayerAnimationPlayer" type="AnimationPlayer" parent="Encounter_Player"]
 anims/Idle = SubResource( 1 )
+
+[node name="BlockAmount" type="Label" parent="Encounter_Player"]
+margin_left = -48.0
+margin_top = -80.0
+margin_right = -8.0
+margin_bottom = -66.0
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Encounter_Enemy" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -90,7 +101,6 @@ hframes = 6
 vframes = 4
 
 [node name="EnemyHealthBar" type="ProgressBar" parent="Encounter_Enemy"]
-visible = false
 margin_top = 64.0
 margin_right = 128.0
 margin_bottom = 78.0
@@ -100,15 +110,30 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="EnemyBlockAmount" type="Label" parent="Encounter_Enemy"]
+margin_left = 32.0
+margin_top = 80.0
+margin_right = 72.0
+margin_bottom = 94.0
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="EnemyControllerTween" type="Tween" parent="Encounter_Enemy"]
 
-[node name="Action_Box" parent="Encounter_Enemy" instance=ExtResource( 7 )]
+[node name="EnemySkills" type="Node2D" parent="Encounter_Enemy"]
+visible = false
+
+[node name="Action_Box" parent="Encounter_Enemy/EnemySkills" instance=ExtResource( 7 )]
 position = Vector2( 160, 128 )
 
 [node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="Encounter_Enemy"]
 anims/Idle = SubResource( 2 )
 
 [node name="EnemyFilthyHand" type="Node2D" parent="Encounter_Enemy"]
+visible = false
 position = Vector2( 96, 128 )
 
 [node name="EnemyHandSprite" type="Sprite" parent="Encounter_Enemy/EnemyFilthyHand"]
@@ -119,7 +144,27 @@ texture = ExtResource( 9 )
 [node name="HandTween" type="Tween" parent="Encounter_Enemy/EnemyFilthyHand"]
 
 [node name="Dices" parent="." instance=ExtResource( 3 )]
-position = Vector2( 224, 224 )
+position = Vector2( 240, 256 )
+
+[node name="Dice1" type="Position2D" parent="Dices"]
+
+[node name="Dice2" type="Position2D" parent="Dices"]
+position = Vector2( -32, 0 )
+
+[node name="Dice3" type="Position2D" parent="Dices"]
+position = Vector2( 32, 0 )
+
+[node name="Dice4" type="Position2D" parent="Dices"]
+position = Vector2( -64, 0 )
+
+[node name="Dice5" type="Position2D" parent="Dices"]
+position = Vector2( 64, 0 )
+
+[node name="Dice6" type="Position2D" parent="Dices"]
+position = Vector2( -96, 0 )
+
+[node name="Dice7" type="Position2D" parent="Dices"]
+position = Vector2( 96, 0 )
 
 [node name="RollButton" type="Button" parent="."]
 visible = false

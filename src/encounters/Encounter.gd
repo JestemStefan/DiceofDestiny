@@ -23,11 +23,19 @@ func _ready():
 
 func start_encounter():
 	player_animplayer.play("Idle")
-	slide_player_in()
-	$Encounter_Player/PlayerHealth.show()
+	var player_tween:Tween = slide_player_in()
+	
 	
 	enemy_animplayer.play("Idle")
-	slide_enemy_in()
+	var enemy_tween:Tween = slide_enemy_in()
+	
+	yield(player_tween,"tween_completed")
+	player_tween.call_deferred("free")
+	yield(enemy_tween,"tween_completed")
+	enemy_tween.call_deferred("free")
+	
+	
+	$Encounter_Player/PlayerHealth.show()
 	$Encounter_Enemy/EnemyHealthBar.show()
 	
 	$RollButton.show()
@@ -47,8 +55,8 @@ func slide_player_in():
 										Tween.EASE_OUT)
 	
 	var _tween_start = player_tween.start()
-	yield(player_tween, "tween_completed")
-	player_tween.call_deferred("free")
+	
+	return player_tween
 
 
 func slide_enemy_in():
@@ -62,8 +70,8 @@ func slide_enemy_in():
 										Tween.EASE_OUT)
 	
 	var _tween_start = enemy_tween.start()
-	yield(enemy_tween, "tween_completed")
-	enemy_tween.call_deferred("free")
+	
+	return enemy_tween
 
 
 func end_encounter():
@@ -72,6 +80,10 @@ func end_encounter():
 
 
 func switch_turns(next_turn: int):
+	
+	for child in dices.get_children():
+		if child is Dice:
+			child.call_deferred("free")
 	
 	match next_turn:
 		
@@ -82,7 +94,8 @@ func switch_turns(next_turn: int):
 			current_turn = Turn.PLAYER
 			
 			encounter_player.get_node("Skills").show()
-			encounter_enemy.get_node("Action_Box").hide()
+			encounter_player.reset_block()
+			encounter_enemy.get_node("EnemySkills").hide()
 			
 		Turn.ENEMY:
 			$RollButton.hide()
@@ -90,12 +103,10 @@ func switch_turns(next_turn: int):
 			$EndTurnButton.hide()
 			
 			encounter_player.get_node("Skills").hide()
-			encounter_enemy.get_node("Action_Box").show()
+			encounter_enemy.get_node("EnemySkills").show()
 			
 			current_turn = Turn.ENEMY
 			encounter_enemy.play_turn()
-			
-	print(current_turn)
 
 
 func _on_Dice_dice_used():
@@ -116,7 +127,10 @@ func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
 					encounter_enemy.take_damage(dice_value)
 				
 				"Block":
-					encounter_enemy.take_damage(dice_value)
+					encounter_player.get_block(dice_value)
+				
+				"Heal":
+					encounter_player.heal(dice_value)
 		
 		Turn.ENEMY:
 			match action_name:
@@ -125,11 +139,21 @@ func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
 					encounter_player.take_damage(dice_value)
 				
 				"Block":
-					encounter_player.take_damage(dice_value)
+					encounter_enemy.get_block(dice_value)
+					
+				"Heal":
+					encounter_enemy.heal(dice_value)
+
 
 func _on_RollButton_button_up():
 	
-	dices.roll_random(GameState.player_dice_amount)
+	var generated_dices: Array = dices.roll_random(GameState.player_dice_amount)
+	
+	for dice in generated_dices:
+		var dice_tween: Tween = tween_dice(dice, dice.initial_position)
+		yield(dice_tween, "tween_completed")
+		dice_tween.call_deferred("free")
+	
 	$RollButton.set_disabled(true)
 
 
@@ -146,3 +170,19 @@ func _on_Encounter_Enemy_enemy_died():
 
 func _on_BackToMapButton_button_up():
 	end_encounter()
+
+
+func tween_dice(dice: Dice, final_pos: Vector2):
+	
+	var tween = Tween.new()
+	add_child(tween)
+	tween.interpolate_property(dice, 
+								"global_position", 
+								null, 
+								final_pos, 
+								0.3, 
+								Tween.TRANS_BOUNCE, 
+								Tween.EASE_OUT)
+	tween.start()
+	
+	return tween

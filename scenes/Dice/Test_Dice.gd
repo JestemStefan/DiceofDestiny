@@ -10,6 +10,7 @@ var initial_position: Vector2
 
 var interaction_box: ActionBox = null
 
+onready var tween_size: Tween = $Tween_Size
 signal dice_used
 
 # Called when the node enters the scene tree for the first time.
@@ -75,3 +76,13 @@ func _on_Dice_area_entered(area):
 func _on_Dice_area_exited(area):
 	if area == interaction_box:
 		interaction_box = null
+
+
+func _on_Dice_mouse_entered():
+	var _tween_err = tween_size.interpolate_property(self, "scale", Vector2.ONE, Vector2(1.2, 1.2), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	var _tween_start = tween_size.start()
+
+
+func _on_Dice_mouse_exited():
+	var _tween_err = tween_size.interpolate_property(self, "scale", null, Vector2.ONE, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	var _tween_start = tween_size.start()
