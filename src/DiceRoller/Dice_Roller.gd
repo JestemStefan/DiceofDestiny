@@ -2,12 +2,16 @@ extends Node2D
 
 onready var dice_instance: PackedScene = preload("res://scenes/Dice/Test_Dice.tscn")
 
+onready var audio_diceroll: AudioStreamPlayer = $Audio_DiceRoll
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
 
 func roll_random(dice_amount: int):
+	
+	audio_diceroll.play()
 	
 	var generated_dices: Array = []
 	

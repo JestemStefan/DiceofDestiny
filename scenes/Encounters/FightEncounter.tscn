@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/InteractionBox/ActionBox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://art/Goblin_Idle.png" type="Texture" id=8]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "Idle"
 loop = true
 step = 0.25
@@ -26,8 +26,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "Idle"
+[sub_resource type="Animation" id=2]
 length = 2.3
 loop = true
 tracks/0/type = "value"
@@ -74,7 +73,7 @@ __meta__ = {
 }
 
 [node name="PlayerAnimationPlayer" type="AnimationPlayer" parent="Encounter_Player"]
-anims/Idle = SubResource( 2 )
+anims/Idle = SubResource( 1 )
 
 [node name="Encounter_Enemy" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -106,7 +105,7 @@ __meta__ = {
 position = Vector2( 160, 128 )
 
 [node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="Encounter_Enemy"]
-anims/Idle = SubResource( 1 )
+anims/Idle = SubResource( 2 )
 
 [node name="Dices" parent="." instance=ExtResource( 3 )]
 position = Vector2( 224, 224 )

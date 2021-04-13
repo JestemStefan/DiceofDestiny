@@ -11,6 +11,7 @@ onready var enemy_animplayer: AnimationPlayer = $Encounter_Enemy/EnemyAnimationP
 
 onready var dices: Node2D = $Dices
 
+
 enum Turn{NOONE, PLAYER, ENEMY}
 var current_turn: int = Turn.PLAYER
 
@@ -127,6 +128,7 @@ func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
 					encounter_player.take_damage(dice_value)
 
 func _on_RollButton_button_up():
+	
 	dices.roll_random(GameState.player_dice_amount)
 	$RollButton.set_disabled(true)
 
