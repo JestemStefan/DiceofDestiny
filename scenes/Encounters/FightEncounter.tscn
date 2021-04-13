@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/encounters/Encounter.gd" type="Script" id=1]
 [ext_resource path="res://src/Encounter_Player/Encounter_Player.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://src/encounter_enemy/Encounter_Enemy.gd" type="Script" id=6]
 [ext_resource path="res://scenes/InteractionBox/ActionBox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://art/Goblin_Idle.png" type="Texture" id=8]
+[ext_resource path="res://icon.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -99,13 +100,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EnemyFilthyHand" type="Tween" parent="Encounter_Enemy"]
+[node name="EnemyControllerTween" type="Tween" parent="Encounter_Enemy"]
 
 [node name="Action_Box" parent="Encounter_Enemy" instance=ExtResource( 7 )]
 position = Vector2( 160, 128 )
 
 [node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="Encounter_Enemy"]
 anims/Idle = SubResource( 2 )
+
+[node name="EnemyFilthyHand" type="Node2D" parent="Encounter_Enemy"]
+visible = false
+position = Vector2( 96, 128 )
+
+[node name="EnemyHandSprite" type="Sprite" parent="Encounter_Enemy/EnemyFilthyHand"]
+scale = Vector2( 0.25, 0.25 )
+z_index = 2
+texture = ExtResource( 9 )
+
+[node name="HandTween" type="Tween" parent="Encounter_Enemy/EnemyFilthyHand"]
 
 [node name="Dices" parent="." instance=ExtResource( 3 )]
 position = Vector2( 224, 224 )
