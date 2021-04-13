@@ -16,8 +16,13 @@ enum State{IDLE, DEAD}
 var current_state: int = State.IDLE
 
 onready var enemy_sprite: Sprite = $EnemySprite
+onready var enemy_controller_tween: Tween = $EnemyControllerTween
+
+onready var enemy_hand: Node2D = $EnemyFilthyHand
+onready var enemy_hand_tween: Tween = $EnemyFilthyHand/HandTween
+
 onready var hp_bar: ProgressBar = $EnemyHealthBar
-onready var enemy_hand: Tween = $EnemyFilthyHand
+
 
 var isShaking: bool = false
 
@@ -87,20 +92,32 @@ func shake(on_off: bool):
 
 
 func play_turn():
+	enemy_hand.show()
 	var generated_dices: Array = GameController.current_encounter.dices.roll_random(enemy_dice_count)
 	
 	for dice in generated_dices:
 		
 		var selected_skill: ActionBox = $Action_Box
 		
-		enemy_hand.interpolate_property(dice, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-		enemy_hand.start()
+		enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, dice.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		enemy_hand_tween.start()
 		
-		yield(enemy_hand, "tween_completed")
+		yield(enemy_hand_tween, "tween_completed")
+		
+		enemy_controller_tween.interpolate_property(dice, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		enemy_controller_tween.start()
+		
+		enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		enemy_hand_tween.start()
+		
+		yield(enemy_controller_tween, "tween_completed")
+		yield(enemy_hand_tween, "tween_completed")
+	
 		
 		dice.enter_state(dice.State.USED)
 		dice.interaction_box.use_dice(dice.dice_value)
 		dice.emit_signal("dice_used")
 		dice.call_deferred("free")
 	
+	enemy_hand.hide()
 	GameController.current_encounter.switch_turns(GameController.current_encounter.Turn.PLAYER)
