@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://art/title_menu/btn_menu_focus_1.png" type="Texture" id=1]
+[ext_resource path="res://art/title_menu/btn_menu_normal_1.png" type="Texture" id=2]
+[ext_resource path="res://scenes/title_menu/ButtonItem.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeIn"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.00728584, -0.0201692, 0.00728584, 0.0201692, 1, -0.00982165, -0.0206903, 0.00982165, 0.0206903 ),
+"times": PoolRealArray( 0, 0.2 )
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "FadeOut"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.0197759, 0.0475287, 0.0197759, -0.0475287, 0, -0.0153728, 0.0137644, 0.0153728, -0.0137644 ),
+"times": PoolRealArray( 0, 0.2 )
+}
+
+[node name="ButtonItem" type="ReferenceRect"]
+margin_right = 192.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+border_color = Color( 1, 0.960784, 0, 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_mode = 0
+enabled_focus_mode = 0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 1 )
+texture_hover = ExtResource( 1 )
+texture_focused = ExtResource( 1 )
+expand = true
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 1 )
+anims/FadeOut = SubResource( 2 )
+
+[connection signal="gui_input" from="TextureButton" to="." method="_on_TextureButton_gui_input"]

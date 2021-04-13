@@ -1,0 +1,327 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/title_menu/Title.gd" type="Script" id=1]
+[ext_resource path="res://scenes/title_menu/ButtonItem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://font/alagard.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://font/Alagard_16.tres" type="DynamicFont" id=5]
+
+[sub_resource type="Animation" id=4]
+resource_name = "MainMenu_In"
+length = 0.1
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("MainMenu:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.00879693, -0.0735233, 0.00879693, 0.0735233, 1, -0.00436854, -0.0187802, 0.00436854, 0.0187802 ),
+"times": PoolRealArray( 0, 0.1 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MainMenu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "MainMenu_Out"
+length = 0.1
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("MainMenu:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.0367954, 0.0559937, 0.0367954, -0.0559937, 0, -0.00706419, 0.023824, 0.00706419, -0.023824 ),
+"times": PoolRealArray( 0, 0.1 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MainMenu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Options_In"
+length = 0.1
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Options:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.0117811, -0.0975074, 0.0117811, 0.0975074, 1, -0.00903154, -0.0371211, 0.00903154, 0.0371211 ),
+"times": PoolRealArray( 0, 0.1 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Options:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Options_Out"
+length = 0.1
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Options:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.0165836, 0.063048, 0.0165836, -0.063048, 0, -0.00663029, 0.0576841, 0.00663029, -0.0576841 ),
+"times": PoolRealArray( 0, 0.1 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Options:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeIn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.0322659, 0.110957, 0.0322659, -0.110957, 0, -0.0276484, 0.0786792, 0.0276484, -0.0786792 ),
+"times": PoolRealArray( 0, 0.3 )
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "FadeOut"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.0276484, 0.0786792, 0.0276484, -0.0786792, 1, -0.0322659, 0.110957, 0.0322659, -0.110957 ),
+"times": PoolRealArray( 0, 0.3 )
+}
+
+[node name="Title" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/MainMenu_In = SubResource( 4 )
+anims/MainMenu_Out = SubResource( 5 )
+anims/Options_In = SubResource( 6 )
+anims/Options_Out = SubResource( 7 )
+
+[node name="Background" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.717647, 0.717647, 0.717647, 1 )
+
+[node name="TitleLabel" type="Label" parent="Background"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -256.0
+margin_right = 256.0
+margin_bottom = 89.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Untitled Dice Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="VBox" type="VBoxContainer" parent="MainMenu"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -96.0
+margin_top = -176.0
+margin_right = 96.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnStartGame" parent="MainMenu/VBox" instance=ExtResource( 2 )]
+
+[node name="Label" type="Label" parent="MainMenu/VBox/BtnStartGame"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Start Game"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnOptions" parent="MainMenu/VBox" instance=ExtResource( 2 )]
+margin_top = 36.0
+margin_bottom = 68.0
+
+[node name="Label" type="Label" parent="MainMenu/VBox/BtnOptions"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Options"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnCredits" parent="MainMenu/VBox" instance=ExtResource( 2 )]
+margin_top = 72.0
+margin_bottom = 104.0
+
+[node name="Label" type="Label" parent="MainMenu/VBox/BtnCredits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Credits"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="BtnBack" parent="Options" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -96.0
+margin_top = -68.0
+margin_right = 96.0
+margin_bottom = -36.0
+
+[node name="Label" type="Label" parent="Options/BtnBack"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Back"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FadeRect" type="ColorRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FadeRect"]
+anims/FadeIn = SubResource( 1 )
+anims/FadeOut = SubResource( 2 )
+
+[connection signal="clicked" from="MainMenu/VBox/BtnStartGame" to="." method="_on_BtnStartGame_clicked"]
+[connection signal="clicked" from="MainMenu/VBox/BtnOptions" to="." method="_on_BtnOptions_clicked"]
+[connection signal="clicked" from="MainMenu/VBox/BtnCredits" to="." method="_on_BtnCredits_clicked"]
+[connection signal="clicked" from="Options/BtnBack" to="." method="_on_Options_BtnBack_clicked"]
