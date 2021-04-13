@@ -4,12 +4,14 @@ onready var dice_instance: PackedScene = preload("res://scenes/Dice/Test_Dice.ts
 
 onready var audio_diceroll: AudioStreamPlayer = $Audio_DiceRoll
 
+onready var dice_positions: Array = [$Dice1, $Dice2, $Dice3, $Dice4, $Dice5, $Dice6, $Dice7]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
 
-func roll_random(dice_amount: int):
+func roll_random(dice_amount: int)-> Array: 
 	
 	audio_diceroll.play()
 	
@@ -19,7 +21,6 @@ func roll_random(dice_amount: int):
 	for i in range(dice_amount):
 		
 		var dice_value: int = randi()%6 + 1
-		#print("Dice value: " + str(dice_value))
 		
 		var new_dice = dice_instance.instance()
 		
@@ -31,7 +32,8 @@ func roll_random(dice_amount: int):
 		
 		new_dice.set_dice_value(dice_value)
 		
-		new_dice.translate(Vector2(-dice_amount * 16 + i * 36, 0))
-		new_dice.initial_position = new_dice.get_global_position()
+		new_dice.global_position = dice_positions[i].get_global_position() + Vector2(0, -360)
+		
+		new_dice.initial_position = dice_positions[i].get_global_position()
 	
 	return generated_dices

@@ -4,7 +4,8 @@ var player_max_health: int = 25
 var player_health: int = 25
 
 var player_skills = {"Attack":true,
-					"Block": false}
+					"Block": false,
+					"Heal": false}
 
 var player_dice_amount: int = 2
 
@@ -12,6 +13,7 @@ var player_dice_amount: int = 2
 func _ready():
 	get_player_skill_list()
 	unlock_player_skill("Block")
+	unlock_player_skill("Heal")
 	get_player_skill_list()
 
 

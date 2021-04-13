@@ -8,6 +8,7 @@ var enemy_level: int
 var enemy_dice_count: int
 var enemy_max_health: int
 var enemy_health: int
+var enemy_block: int
 var skills: Array
 
 signal enemy_died
@@ -72,11 +73,23 @@ func update_healthbar():
 	hp_bar.value = enemy_health
 
 
+func update_block_amount():
+	$EnemyBlockAmount.text = "Block: " + str(enemy_block)
+	if enemy_block <= 0:
+		$EnemyBlockAmount.hide()
+	else:
+		$EnemyBlockAmount.show()
+
+
 func take_damage(damage: int):
-	enemy_health -= damage
-	update_healthbar()
-	
 	shake(true)
+	
+	#reduce damage by block value
+	damage = block_damage(damage)
+	
+	enemy_health -= damage
+	
+	update_healthbar()
 	yield(get_tree().create_timer(0.5), "timeout")
 	shake(false)
 	
@@ -87,28 +100,68 @@ func take_damage(damage: int):
 		enter_state(State.DEAD)
 
 
+func get_block(amount: int):
+	enemy_block += amount
+	update_block_amount()
+
+
+func reset_block():
+	enemy_block = 0
+	update_block_amount()
+
+
+func block_damage(damage: int):
+
+	# reduce damage by block value
+	var damage_left: int = damage - enemy_block
+	
+	enemy_block -= damage
+	if enemy_block < 0:
+		enemy_block = 0
+	
+	update_block_amount()
+	
+	if damage_left <= 0:
+		return 0
+	
+	else:
+		return damage_left
+
+
+func heal(amount: int):
+	enemy_health += amount
+	update_healthbar()
+
 func shake(on_off: bool):
 	isShaking = on_off
 
 
 func play_turn():
-	enemy_hand.show()
+	
 	var generated_dices: Array = GameController.current_encounter.dices.roll_random(enemy_dice_count)
+	
+	for spawned_dice in generated_dices:
+		var dice_tween: Tween = tween_dice(spawned_dice, spawned_dice.initial_position)
+		yield(dice_tween, "tween_completed")
+		dice_tween.call_deferred("free")
+	
+	enemy_hand.global_position = enemy_sprite.global_position
+	enemy_hand.show()
 	
 	for dice in generated_dices:
 		
-		var selected_skill: ActionBox = $Action_Box
+		var selected_skill: ActionBox = $EnemySkills/Action_Box
 		
-		enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, dice.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-		enemy_hand_tween.start()
+		var _eh_err = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, dice.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		var _et_start = enemy_hand_tween.start()
 		
 		yield(enemy_hand_tween, "tween_completed")
 		
-		enemy_controller_tween.interpolate_property(dice, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-		enemy_controller_tween.start()
+		var _ec_err = enemy_controller_tween.interpolate_property(dice, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		var _ec_start = enemy_controller_tween.start()
 		
-		enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-		enemy_hand_tween.start()
+		_eh_err = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		_et_start = enemy_hand_tween.start()
 		
 		yield(enemy_controller_tween, "tween_completed")
 		yield(enemy_hand_tween, "tween_completed")
@@ -121,3 +174,19 @@ func play_turn():
 	
 	enemy_hand.hide()
 	GameController.current_encounter.switch_turns(GameController.current_encounter.Turn.PLAYER)
+
+
+func tween_dice(dice: Dice, final_pos: Vector2):
+	
+	var tween = Tween.new()
+	add_child(tween)
+	tween.interpolate_property(dice, 
+								"global_position", 
+								null, 
+								final_pos, 
+								0.3, 
+								Tween.TRANS_BOUNCE, 
+								Tween.EASE_OUT)
+	tween.start()
+	
+	return tween
