@@ -1,3 +1,4 @@
+tool
 extends Area2D
 class_name BoardTile
 
@@ -5,7 +6,9 @@ enum TileState {CLOSED, OPEN, CURRENT}
 var current_tilestate: int = TileState.CLOSED
 
 enum TileTypes{EMPTY_TILE, FIGHT_TILE, CHEST_TILE}
-export(TileTypes) var Tile_Type = TileTypes.EMPTY_TILE
+export(TileTypes) var Tile_Type = TileTypes.EMPTY_TILE setget update_tile_type
+
+export(Resource) var enemy_to_fight
 
 export(Array, NodePath) var connected_tiles
 
@@ -62,7 +65,7 @@ func close_tile():
 
 func set_as_current_tile():
 	enter_state(TileState.CURRENT)
-	
+
 
 func update_tile_type(new_type: int = Tile_Type):
 	Tile_Type = new_type
@@ -127,4 +130,5 @@ func _on_Board_Tile_mouse_exited():
 
 
 func _on_InteractionButton_button_up():
-	GameController.start_encounter("Fight")
+	$InteractionButton.hide()
+	GameController.start_encounter("Fight", enemy_to_fight)

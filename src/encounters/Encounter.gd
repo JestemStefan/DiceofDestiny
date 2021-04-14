@@ -6,10 +6,12 @@ onready var player_sprite = $Encounter_Player/PlayerSprite
 onready var player_animplayer: AnimationPlayer = $Encounter_Player/PlayerAnimationPlayer
 
 onready var encounter_enemy: Node2D = $Encounter_Enemy
-onready var enemy_sprite = $Encounter_Enemy/EnemySprite
-onready var enemy_animplayer: AnimationPlayer = $Encounter_Enemy/EnemyAnimationPlayer
+onready var enemy_sprite: Sprite
+onready var enemy_animplayer: AnimationPlayer
 
 onready var dices: Node2D = $Dices
+
+var enemy_stats: Resource
 
 
 enum Turn{NOONE, PLAYER, ENEMY}
@@ -22,6 +24,8 @@ func _ready():
 
 
 func start_encounter():
+	encounter_enemy.load_enemy_data(enemy_stats)
+	
 	player_animplayer.play("Idle")
 	var player_tween:Tween = slide_player_in()
 	
@@ -63,9 +67,10 @@ func slide_enemy_in():
 	var enemy_tween: Tween = Tween.new()
 	add_child(enemy_tween)
 	var _err = enemy_tween.interpolate_property(enemy_sprite, 
-										"offset", 
-										enemy_sprite.offset, 
-										Vector2(0,0), 1, 
+										"offset:x", 
+										enemy_sprite.offset.x, 
+										0, 
+										1, 
 										Tween.TRANS_CUBIC, 
 										Tween.EASE_OUT)
 	

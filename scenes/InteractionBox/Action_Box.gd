@@ -22,11 +22,13 @@ func get_actionbox_type():
 
 
 func set_actionbox_type(type: int):
+	print(type)
 	ActionBox_Type = type
 	update_actionbox()
 
 
 func update_actionbox():
+	print(ActionBox_Type)
 	match ActionBox_Type:
 		
 		Action_type.ATTACK: $Box_Sprite.frame = 2

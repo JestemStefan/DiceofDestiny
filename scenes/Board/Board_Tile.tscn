@@ -34,6 +34,7 @@ shape = SubResource( 1 )
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 5
+frame = 3
 
 [node name="ActiveAnimation" type="AnimationPlayer" parent="."]
 anims/Active = SubResource( 2 )

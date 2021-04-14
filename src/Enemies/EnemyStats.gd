@@ -3,6 +3,9 @@ class_name EnemyStats
 
 export var enemy_name: String
 export var enemy_level: int = 1
+
+export var enemy_sprite: PackedScene
+
 export var enemy_dice_count: int = 1
 
 export var enemy_max_health: int

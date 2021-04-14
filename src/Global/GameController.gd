@@ -6,7 +6,7 @@ var current_game_state: int = GameState.BOARD_WAITING
 var player: Node2D
 
 var board_layer: CanvasLayer
-var current_board: Node2D
+var current_board: BoardMap
 var current_board_tile: BoardTile
 var all_tiles: Array
 var open_tiles: Array
@@ -26,7 +26,7 @@ func enter_state(new_state):
 	
 	match current_game_state:
 		GameState.BOARD_WAITING:
-			current_board.show()
+			current_board.cover(false)
 			
 			if current_encounter != null:
 				current_encounter.hide()
@@ -35,7 +35,7 @@ func enter_state(new_state):
 			pass
 		
 		GameState.ENCOUNTER:
-			current_board.hide()
+			current_board.cover(true)
 			current_encounter.show()
 			
 
@@ -77,7 +77,7 @@ func move_to_tile(tile: BoardTile):
 	enter_state(GameState.BOARD_WAITING)
 
 
-func start_encounter(encounter_type: String):
+func start_encounter(encounter_type: String, enemy_data: Resource):
 	
 	match encounter_type:
 		"Fight":
@@ -85,6 +85,7 @@ func start_encounter(encounter_type: String):
 			var encounter: Encounter = fight_encounter_instance.instance()
 			encounter_layer.add_child(encounter)
 			
+			encounter.enemy_stats = enemy_data
 			encounter.start_encounter()
 			
 	enter_state(GameState.ENCOUNTER)
