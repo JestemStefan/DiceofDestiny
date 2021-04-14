@@ -29,6 +29,9 @@ func _ready():
 func start_encounter():
 	encounter_enemy.load_enemy_data(enemy_stats)
 	
+	if enemy_stats.isBoss:
+		GameState.player_dice_amount = 7
+	
 	player_animplayer.play("Idle")
 	var player_tween:Tween = slide_player_in()
 	
@@ -161,8 +164,6 @@ func _on_RollButton_button_up():
 		dice_tween.call_deferred("free")
 	
 	
-
-
 func _on_Encounter_Enemy_enemy_died():
 	$RollButton.hide()
 	$EndTurnButton.hide()

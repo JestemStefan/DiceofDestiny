@@ -7,8 +7,10 @@
 script = ExtResource( 1 )
 enemy_name = "Bugbear"
 enemy_level = 1
+isBoss = false
 enemy_sprite = ExtResource( 2 )
 enemy_dice_count = 2
 enemy_max_health = 50
 attack_skill = true
 block_skill = true
+heal_skill = false

@@ -176,6 +176,10 @@ func block_damage(damage: int):
 
 func heal(amount: int):
 	enemy_health += amount
+	
+	if enemy_health > enemy_max_health:
+		enemy_health = enemy_max_health
+		
 	update_healthbar()
 
 
