@@ -10,6 +10,9 @@ onready var enemy_sprite: Sprite
 onready var enemy_animplayer: AnimationPlayer
 
 onready var dices: Node2D = $Dices
+var dice_in_hand: Dice
+
+var picked_action: ActionBox
 
 var enemy_stats: Resource
 
@@ -108,14 +111,11 @@ func switch_turns(next_turn: int):
 			$EndTurnButton.hide()
 			
 			encounter_player.get_node("Skills").hide()
+			encounter_enemy.reset_block()
 			encounter_enemy.get_node("EnemySkills").show()
 			
 			current_turn = Turn.ENEMY
 			encounter_enemy.play_turn()
-
-
-func _on_Dice_dice_used():
-	pass
 
 
 func _on_EndTurnButton_button_up():
@@ -151,6 +151,7 @@ func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
 
 
 func _on_RollButton_button_up():
+	$RollButton.set_disabled(true)
 	
 	var generated_dices: Array = dices.roll_random(GameState.player_dice_amount)
 	
@@ -159,7 +160,7 @@ func _on_RollButton_button_up():
 		yield(dice_tween, "tween_completed")
 		dice_tween.call_deferred("free")
 	
-	$RollButton.set_disabled(true)
+	
 
 
 func _on_Encounter_Enemy_enemy_died():
@@ -191,3 +192,22 @@ func tween_dice(dice: Dice, final_pos: Vector2):
 	tween.start()
 	
 	return tween
+
+
+func _on_Dice_dice_dropped(dice: Dice):
+	if picked_action != null:
+		picked_action.use_dice(dice_in_hand.dice_value)
+		
+		picked_action = null
+		dice.call_deferred("free")
+		
+	else:
+		dice.enter_state(dice.State.FREE)
+	
+	dice_in_hand = null
+
+
+func _on_Dice_dice_picked_up(dice: Dice):
+	dice_in_hand = dice
+	
+	

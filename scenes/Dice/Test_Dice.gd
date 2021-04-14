@@ -11,7 +11,9 @@ var initial_position: Vector2
 var interaction_box: ActionBox = null
 
 onready var tween_size: Tween = $Tween_Size
-signal dice_used
+
+signal dice_picked_up
+signal dice_dropped
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,7 +30,7 @@ func enter_state(new_state: int):
 			pass
 		
 		State.USED:
-			global_position = interaction_box.transform.origin
+			pass
 
 
 func _process(_delta):
@@ -53,29 +55,23 @@ func _on_Dice_input_event(_viewport, event, _shape_idx):
 			match event.button_index:
 				1:
 					enter_state(State.DRAG)
+					emit_signal("dice_picked_up", self)
 		
 		else:
 			match event.button_index:
 				1:
-					if interaction_box != null:
-						enter_state(State.USED)
-						interaction_box.use_dice(dice_value)
-						
-						emit_signal("dice_used")
-						call_deferred("free")
-						
-					else:
-						enter_state(State.FREE)
-
+					emit_signal("dice_dropped", self)
 
 func _on_Dice_area_entered(area):
-	if area is ActionBox:
-		interaction_box = area
+	pass
+	#if area is ActionBox:
+	#	interaction_box = area
 
 
 func _on_Dice_area_exited(area):
-	if area == interaction_box:
-		interaction_box = null
+	pass
+	#if area == interaction_box:
+		#interaction_box = null
 
 
 func _on_Dice_mouse_entered():

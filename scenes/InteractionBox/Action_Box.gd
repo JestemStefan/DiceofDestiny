@@ -28,7 +28,6 @@ func set_actionbox_type(type: int):
 
 
 func update_actionbox():
-	print(ActionBox_Type)
 	match ActionBox_Type:
 		
 		Action_type.ATTACK: $Box_Sprite.frame = 2
@@ -55,10 +54,12 @@ func use_dice(dice_value: int):
 
 
 func _on_Action_Box_mouse_entered():
+	GameController.current_encounter.picked_action = self
 	var _err_tween = tween_size.interpolate_property(self, "scale", Vector2.ONE, Vector2(1.2, 1.2), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	var _tween_start = tween_size.start()
 
 
 func _on_Action_Box_mouse_exited():
+	GameController.current_encounter.picked_action = null
 	var _err_tween = tween_size.interpolate_property(self, "scale", null, Vector2.ONE, 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	var _tween_start = tween_size.start()
