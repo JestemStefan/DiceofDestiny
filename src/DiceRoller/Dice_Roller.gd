@@ -28,7 +28,8 @@ func roll_random(dice_amount: int)-> Array:
 		
 		generated_dices.append(new_dice)
 		
-		new_dice.connect("dice_used", get_parent(), "_on_Dice_dice_used")
+		new_dice.connect("dice_picked_up", get_parent(), "_on_Dice_dice_picked_up")
+		new_dice.connect("dice_dropped", get_parent(), "_on_Dice_dice_dropped")
 		
 		new_dice.set_dice_value(dice_value)
 		

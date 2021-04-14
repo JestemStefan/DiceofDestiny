@@ -208,13 +208,17 @@ func play_turn():
 	# for every dice generated
 	for dice in generated_dices:
 		
+		dice.emit_signal("dice_picked_up", dice)
+		
 		# move hand on the dice
 		var _eh_err = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, dice.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 		var _et_start = enemy_hand_tween.start()
 		yield(enemy_hand_tween, "tween_completed")
 		
+		
 		# select skill that dice will be spend on
 		var selected_skill: ActionBox = pick_random_action()
+		GameController.current_encounter.picked_action = selected_skill
 		
 		# move dice and enemy to the selected action box
 		var _ec_err = enemy_controller_tween.interpolate_property(dice, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
@@ -227,10 +231,8 @@ func play_turn():
 		yield(enemy_hand_tween, "tween_completed")
 	
 		#spend dice	
-		dice.enter_state(dice.State.USED)
-		dice.interaction_box.use_dice(dice.dice_value)
-		dice.emit_signal("dice_used")
-		dice.call_deferred("free")
+		#dice.enter_state(dice.State.USED)
+		dice.emit_signal("dice_dropped", dice)
 	
 	enemy_hand.hide()
 	GameController.current_encounter.switch_turns(GameController.current_encounter.Turn.PLAYER)
