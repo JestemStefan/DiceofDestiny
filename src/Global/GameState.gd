@@ -1,7 +1,7 @@
 extends Node
 
-var player_max_health: int = 25
-var player_health: int = 25
+var player_max_health: int = 50
+var player_health: int = player_max_health
 
 var player_skills = {"Attack":true,
 					"Block": false,

@@ -2,6 +2,7 @@ extends Node2D
 class_name EncounterPlayer
 
 var action_box_instance: PackedScene = preload("res://scenes/InteractionBox/ActionBox.tscn")
+onready var skill_positions: Array = [$Skills/Skill1, $Skills/Skill2, $Skills/Skill3, $Skills/Skill4, $Skills/Skill5]
 
 onready var player_sprite: Sprite = $PlayerSprite
 
@@ -24,12 +25,7 @@ func _process(_delta):
 func update_player_info():
 	var skill_list: Array = GameState.get_player_skill_list()
 	
-	var i: int = 0
-	for skill in skill_list:
-		
-		create_action_box(skill, Vector2(0, len(skill_list) * -32 + i * 64))
-		i += 1
-	
+	create_action_box(skill_list)
 	
 	player_hp = GameState.player_health
 	player_maxHP = GameState.player_max_health
@@ -39,21 +35,27 @@ func update_player_info():
 	update_block_amount()
 
 
-func create_action_box(skill_name: String, box_position: Vector2):
+func create_action_box(skill_list: Array):
 	
-	var action_box: ActionBox = action_box_instance.instance()
-	$Skills.add_child(action_box)
-	action_box.position = box_position
+	var skill_index: int = 0
+	for skill in skill_list:
+
+		var action_box: ActionBox = action_box_instance.instance()
+		$Skills.add_child(action_box)
+		action_box.global_position = skill_positions[skill_index].global_position
+		
+		skill_index += 1
+		
+		match skill:
+			"Attack":
+				action_box.set_actionbox_type(action_box.Action_type.ATTACK)
+
+			"Block":
+				action_box.set_actionbox_type(action_box.Action_type.BLOCK)
+
+			"Heal":
+				action_box.set_actionbox_type(action_box.Action_type.HEAL)
 	
-	match skill_name:
-		"Attack":
-			action_box.set_actionbox_type(action_box.Action_type.ATTACK)
-		
-		"Block":
-			action_box.set_actionbox_type(action_box.Action_type.BLOCK)
-		
-		"Heal":
-			action_box.set_actionbox_type(action_box.Action_type.HEAL)
 	
 	
 func update_healthbar():

@@ -5,7 +5,7 @@
 [ext_resource path="res://font/alagard.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://font/Alagard_16.tres" type="DynamicFont" id=5]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=1]
 resource_name = "MainMenu_In"
 length = 0.1
 tracks/0/type = "bezier"
@@ -31,7 +31,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "MainMenu_Out"
 length = 0.1
 tracks/0/type = "bezier"
@@ -57,7 +57,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 resource_name = "Options_In"
 length = 0.1
 tracks/0/type = "bezier"
@@ -83,7 +83,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 resource_name = "Options_Out"
 length = 0.1
 tracks/0/type = "bezier"
@@ -109,12 +109,11 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=5]
 size = 32
 font_data = ExtResource( 3 )
 
-[sub_resource type="Animation" id=1]
-resource_name = "FadeIn"
+[sub_resource type="Animation" id=6]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:visible")
@@ -139,8 +138,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3 )
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "FadeOut"
+[sub_resource type="Animation" id=7]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:visible")
@@ -175,10 +173,10 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/MainMenu_In = SubResource( 4 )
-anims/MainMenu_Out = SubResource( 5 )
-anims/Options_In = SubResource( 6 )
-anims/Options_Out = SubResource( 7 )
+anims/MainMenu_In = SubResource( 1 )
+anims/MainMenu_Out = SubResource( 2 )
+anims/Options_In = SubResource( 3 )
+anims/Options_Out = SubResource( 4 )
 
 [node name="Background" type="Control" parent="."]
 anchor_right = 1.0
@@ -199,7 +197,7 @@ anchor_right = 0.5
 margin_left = -256.0
 margin_right = 256.0
 margin_bottom = 89.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Untitled Dice Game"
 align = 1
@@ -318,8 +316,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FadeRect"]
-anims/FadeIn = SubResource( 1 )
-anims/FadeOut = SubResource( 2 )
+anims/FadeIn = SubResource( 6 )
+anims/FadeOut = SubResource( 7 )
 
 [connection signal="clicked" from="MainMenu/VBox/BtnStartGame" to="." method="_on_BtnStartGame_clicked"]
 [connection signal="clicked" from="MainMenu/VBox/BtnOptions" to="." method="_on_BtnOptions_clicked"]
