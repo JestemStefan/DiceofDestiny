@@ -69,7 +69,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GWJ32"
-run/main_scene="res://scenes/Testing/GameWorld.tscn"
+run/main_scene="res://scenes/title_menu/Title.tscn"
 config/icon="res://icon.png"
 
 [autoload]

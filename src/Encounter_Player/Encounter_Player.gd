@@ -119,6 +119,10 @@ func block_damage(damage: int):
 
 func heal(amount: int):
 	player_hp += amount
+	
+	if player_hp > player_maxHP:
+		player_hp = player_maxHP
+	
 	update_healthbar()
 
 
