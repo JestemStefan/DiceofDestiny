@@ -100,7 +100,7 @@ func switch_turns(next_turn: int):
 		
 		Turn.PLAYER:
 			$RollButton.show()
-			$RollButton.set_disabled(false)
+			
 			$EndTurnButton.show()
 			current_turn = Turn.PLAYER
 			
@@ -110,7 +110,6 @@ func switch_turns(next_turn: int):
 			
 		Turn.ENEMY:
 			$RollButton.hide()
-			$RollButton.set_disabled(true)
 			$EndTurnButton.hide()
 			
 			encounter_player.get_node("Skills").hide()
@@ -154,12 +153,12 @@ func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
 
 
 func _on_RollButton_button_up():
-	$RollButton.set_disabled(true)
+	$RollButton.hide()
 	
 	var generated_dices: Array = dices.roll_random(GameState.player_dice_amount)
 	
 	for dice in generated_dices:
-		var dice_tween: Tween = tween_dice(dice, dice.initial_position)
+		var dice_tween: Tween = tween_dice(dice, dice.last_position)
 		yield(dice_tween, "tween_completed")
 		dice_tween.call_deferred("free")
 	
@@ -196,11 +195,12 @@ func tween_dice(dice: Dice, final_pos: Vector2):
 
 
 func _on_Dice_dice_dropped(dice: Dice):
+	
 	if picked_action != null:
-		picked_action.use_dice(dice_in_hand.dice_value)
+		picked_action.assign_dice(dice)
 		
-		picked_action = null
-		dice.call_deferred("free")
+		dice.last_position = picked_action.global_position
+		dice.enter_state(dice.State.ASSIGNED)
 		
 	else:
 		dice.enter_state(dice.State.FREE)
