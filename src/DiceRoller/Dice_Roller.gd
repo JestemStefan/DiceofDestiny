@@ -22,7 +22,7 @@ func roll_random(dice_amount: int)-> Array:
 		
 		var dice_value: int = randi()%6 + 1
 		
-		var new_dice: Dice = dice_instance.instance()
+		var new_dice = dice_instance.instance()
 		
 		add_child(new_dice)
 		
@@ -36,6 +36,5 @@ func roll_random(dice_amount: int)-> Array:
 		new_dice.global_position = dice_positions[i].get_global_position() + Vector2(0, -360)
 		
 		new_dice.initial_position = dice_positions[i].get_global_position()
-		new_dice.last_position = dice_positions[i].get_global_position()
 	
 	return generated_dices
