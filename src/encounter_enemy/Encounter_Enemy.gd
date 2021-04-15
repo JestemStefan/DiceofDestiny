@@ -201,7 +201,7 @@ func play_turn():
 	
 	# put dices on the screen
 	for spawned_dice in generated_dices:
-		var dice_tween: Tween = tween_dice(spawned_dice, spawned_dice.initial_position)
+		var dice_tween: Tween = tween_dice(spawned_dice, spawned_dice.last_position)
 		yield(dice_tween, "tween_completed")
 		dice_tween.call_deferred("free")
 	
@@ -234,9 +234,10 @@ func play_turn():
 		yield(enemy_controller_tween, "tween_completed")
 		yield(enemy_hand_tween, "tween_completed")
 	
-		#spend dice	
+		#spend dice
 		#dice.enter_state(dice.State.USED)
 		dice.emit_signal("dice_dropped", dice)
+		selected_skill._on_UseButton_button_up()
 	
 	enemy_hand.hide()
 	GameController.current_encounter.switch_turns(GameController.current_encounter.Turn.PLAYER)

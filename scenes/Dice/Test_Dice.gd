@@ -1,14 +1,13 @@
 extends Area2D
 class_name Dice
 
-enum State{FREE, DRAG, USED}
+enum State{FREE, DRAG, ASSIGNED, USED}
 var current_state: int = State.FREE
 
 var dice_value: int = 1
 
 var initial_position: Vector2
-
-var interaction_box: ActionBox = null
+var last_position: Vector2
 
 onready var tween_size: Tween = $Tween_Size
 
@@ -24,22 +23,29 @@ func enter_state(new_state: int):
 	
 	match current_state:
 		State.FREE:
-			global_position = initial_position
+			global_position = last_position
 		
 		State.DRAG:
 			pass
 		
+		State.ASSIGNED:
+			global_position = last_position
+		
 		State.USED:
-			pass
+			call_deferred("free")
 
 
-func _process(_delta):
+func _physics_process(delta):
 	match current_state:
 		State.FREE: 
 			pass
 		
 		State.DRAG:
 			global_position = get_viewport().get_mouse_position()
+
+
+func get_dice_value():
+	return dice_value
 
 
 func set_dice_value(value: int):
@@ -62,13 +68,14 @@ func _on_Dice_input_event(_viewport, event, _shape_idx):
 				1:
 					emit_signal("dice_dropped", self)
 
-func _on_Dice_area_entered(area):
+
+func _on_Dice_area_entered(_area):
 	pass
 	#if area is ActionBox:
 	#	interaction_box = area
 
 
-func _on_Dice_area_exited(area):
+func _on_Dice_area_exited(_area):
 	pass
 	#if area == interaction_box:
 		#interaction_box = null

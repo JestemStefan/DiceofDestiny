@@ -22,7 +22,8 @@ tracks/0/keys = {
 [node name="EnemySprite" type="Sprite"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
-offset = Vector2( -128, -8 )
+offset = Vector2( 128, -8 )
+flip_h = true
 
 [node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 1 )
