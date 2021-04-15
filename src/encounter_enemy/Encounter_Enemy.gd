@@ -118,13 +118,13 @@ func create_action_box(skill_list: Array):
 		
 		match skill:
 			"Attack":
-				action_box.set_actionbox_type(action_box.Action_type.ATTACK)
+				action_box.set_actionbox_type(action_box.Action_type.ATTACK, false)
 
 			"Block":
-				action_box.set_actionbox_type(action_box.Action_type.BLOCK)
+				action_box.set_actionbox_type(action_box.Action_type.BLOCK, false)
 
 			"Heal":
-				action_box.set_actionbox_type(action_box.Action_type.HEAL)
+				action_box.set_actionbox_type(action_box.Action_type.HEAL, false)
 
 
 func take_damage(damage: int):
@@ -265,3 +265,15 @@ func tween_dice(dice: Dice, final_pos: Vector2):
 	tween.start()
 	
 	return tween
+
+
+func hide_stuff():
+	$UI_Enemy_Stats.hide()
+	$UI_Enemy_HP.hide()
+	$EnemySkills.hide()
+
+
+func show_stuff():
+	$UI_Enemy_Stats.show()
+	$UI_Enemy_HP.show()
+	$EnemySkills.show()

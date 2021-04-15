@@ -129,4 +129,15 @@ func heal(amount: int):
 func shake(on_off: bool, shake_strength: float = 2):
 	isShaking = on_off
 	shake_offest = shake_strength
-	
+
+
+func hide_stuff():
+	$UI_Player_Stats.hide()
+	$UI_Player_HP.hide()
+	$Skills.hide()
+
+
+func show_stuff():
+	$UI_Player_Stats.show()
+	$UI_Player_HP.show()
+	$Skills.show()

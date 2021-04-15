@@ -104,18 +104,20 @@ func switch_turns(next_turn: int):
 			$EndTurnButton.show()
 			current_turn = Turn.PLAYER
 			
-			encounter_player.get_node("Skills").show()
+			encounter_player.show_stuff()
 			encounter_player.reset_block()
-			encounter_enemy.get_node("EnemySkills").hide()
+			
+			encounter_enemy.hide_stuff()
 			
 		Turn.ENEMY:
 			$RollButton.hide()
 			$RollButton.set_disabled(true)
 			$EndTurnButton.hide()
 			
-			encounter_player.get_node("Skills").hide()
+			encounter_player.hide_stuff()
+			
 			encounter_enemy.reset_block()
-			encounter_enemy.get_node("EnemySkills").show()
+			encounter_enemy.show_stuff()
 			
 			current_turn = Turn.ENEMY
 			encounter_enemy.play_turn()
