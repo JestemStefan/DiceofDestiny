@@ -8,7 +8,7 @@ var ActionBox_Type: int = Action_type.ATTACK
 onready var tween_size: Tween = $Tween_Size
 signal actionbox_triggered
 
-var assigned_dice: Dice = null
+var assigned_dice = null
 
 func _ready():
 	yield(get_tree(), "idle_frame")
@@ -32,15 +32,12 @@ func update_actionbox():
 		
 		Action_type.ATTACK: 
 			$Box_Sprite.frame = 2
-			$UseButton.text = "Attack"
 			
 		Action_type.BLOCK: 
 			$Box_Sprite.frame = 0
-			$UseButton.text = "Block"
 			
 		Action_type.HEAL: 
 			$Box_Sprite.frame = 1
-			$UseButton.text = "Heal"
 
 
 func use_dice(dice_value: int):
@@ -61,9 +58,23 @@ func use_dice(dice_value: int):
 	emit_signal("actionbox_triggered", action_name, dice_value)
 
 
-func assign_dice(dice: Dice):
-	assigned_dice = dice
-	$UseButton.disabled = false
+func assign_dice(dice):
+	
+	if assigned_dice != null:
+		assigned_dice.dice.last_position = dice.initial_position
+		assigned_dice.enter_state(dice.State.DRAG)
+		
+		
+	
+	else:
+		assigned_dice = dice
+		$UseButton.disabled = false
+
+
+func release_dice():
+	print("dice released")
+	assigned_dice = null
+	$UseButton.disabled = true
 
 
 func _on_Action_Box_mouse_entered():
