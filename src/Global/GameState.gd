@@ -1,5 +1,6 @@
 extends Node
 
+var player_name: String = "Player"
 var player_max_health: int = 50
 var player_health: int = player_max_health
 

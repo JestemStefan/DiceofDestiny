@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/encounters/Encounter.gd" type="Script" id=1]
 [ext_resource path="res://src/Encounter_Player/Encounter_Player.gd" type="Script" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://art/UI/UI_Player.png" type="Texture" id=13]
 [ext_resource path="res://art/UI/UI_Player_HP.png" type="Texture" id=14]
 [ext_resource path="res://art/UI/UI_Enemy.png" type="Texture" id=15]
+[ext_resource path="res://font/Alagard_16.tres" type="DynamicFont" id=16]
+[ext_resource path="res://art/Placeholders/block_skill_sprite.png" type="Texture" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -41,29 +43,47 @@ modulate = Color( 0.235294, 0.235294, 0.235294, 1 )
 position = Vector2( 120, 275 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 13 )
+offset = Vector2( -128, 0 )
 
 [node name="UI_Enemy" type="Sprite" parent="."]
 modulate = Color( 0.235294, 0.235294, 0.235294, 1 )
 position = Vector2( 360, 275 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 15 )
+offset = Vector2( 128, 0 )
 
 [node name="RollButton" type="Button" parent="."]
-margin_left = 144.0
-margin_top = 2.0
-margin_right = 208.0
-margin_bottom = 34.0
+visible = false
+margin_left = 213.0
+margin_top = 33.0
+margin_right = 277.0
+margin_bottom = 65.0
+custom_fonts/font = ExtResource( 16 )
 text = "ROLL"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="EndTurnButton" type="Button" parent="."]
+visible = false
 margin_left = 274.0
 margin_top = 1.0
 margin_right = 339.0
 margin_bottom = 33.0
+custom_fonts/font = ExtResource( 16 )
 text = "End turn"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UndoActionButton" type="Button" parent="."]
+visible = false
+margin_left = 139.0
+margin_top = 1.0
+margin_right = 216.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 16 )
+text = "UNDO"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -76,11 +96,13 @@ script = ExtResource( 2 )
 position = Vector2( 52, 7 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
+offset = Vector2( -128, 0 )
 
 [node name="PlayerSprite" type="Sprite" parent="Encounter_Player"]
 position = Vector2( 50, 4 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
+offset = Vector2( -128, 0 )
 flip_h = true
 hframes = 4
 
@@ -103,7 +125,76 @@ position = Vector2( 97, 144 )
 [node name="Skill5" type="Position2D" parent="Encounter_Player/Skills"]
 position = Vector2( 97, 103 )
 
+[node name="PlayerAnimationPlayer" type="AnimationPlayer" parent="Encounter_Player"]
+anims/Idle = SubResource( 1 )
+
+[node name="UI_Player_Stats" type="Sprite" parent="Encounter_Player"]
+visible = false
+position = Vector2( 139, 102 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 12 )
+
+[node name="UI_Player_Name" type="Sprite" parent="Encounter_Player"]
+position = Vector2( 6, -110 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+offset = Vector2( -128, 0 )
+
+[node name="PlayerName" type="Label" parent="Encounter_Player/UI_Player_Name"]
+margin_left = -28.0
+margin_top = -9.0
+margin_right = 100.0
+margin_bottom = 32.0
+rect_scale = Vector2( 0.5, 0.5 )
+text = "Player"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerBlock" type="Sprite" parent="Encounter_Player"]
+visible = false
+position = Vector2( 109, -28 )
+texture = ExtResource( 17 )
+
+[node name="BlockAmount" type="Label" parent="Encounter_Player/PlayerBlock"]
+margin_left = 4.0
+margin_top = 6.0
+margin_right = 30.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 16 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI_Player_HP" type="Sprite" parent="Encounter_Player"]
+visible = false
+position = Vector2( 58, 146 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 14 )
+
+[node name="PlayerStats" type="Label" parent="Encounter_Player"]
+visible = false
+margin_left = 113.0
+margin_top = 82.0
+margin_right = 177.0
+margin_bottom = 133.0
+rect_scale = Vector2( 0.8, 0.8 )
+text = "Attack: 0
+Block: 0
+Heal: 0"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="PlayerHealth" type="ProgressBar" parent="Encounter_Player"]
+visible = false
 margin_left = -61.0
 margin_top = 131.0
 margin_right = 179.0
@@ -115,44 +206,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerAnimationPlayer" type="AnimationPlayer" parent="Encounter_Player"]
-anims/Idle = SubResource( 1 )
-
-[node name="UI_Player_Stats" type="Sprite" parent="Encounter_Player"]
-visible = false
-position = Vector2( 139, 102 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 12 )
-
-[node name="BlockAmount" type="Label" parent="Encounter_Player"]
-margin_left = 116.0
-margin_top = 97.0
-margin_right = 156.0
-margin_bottom = 111.0
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="UI_Player_Name" type="Sprite" parent="Encounter_Player"]
-position = Vector2( 6, -110 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
-
-[node name="UI_Player_HP" type="Sprite" parent="Encounter_Player"]
-visible = false
-position = Vector2( 58, 146 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 14 )
-
 [node name="Encounter_Enemy" type="Node2D" parent="."]
 position = Vector2( 367, 163 )
 script = ExtResource( 6 )
 
 [node name="Combat_Platform" type="Sprite" parent="Encounter_Enemy"]
+position = Vector2( 1, 1 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
+offset = Vector2( 128, 0 )
 
 [node name="EnemyControllerTween" type="Tween" parent="Encounter_Enemy"]
 
@@ -185,7 +247,54 @@ position = Vector2( 126, -3 )
 [node name="Skill5" type="Position2D" parent="Encounter_Enemy/EnemySkills"]
 position = Vector2( 127, -47 )
 
+[node name="UI_Enemy_Stats" type="Sprite" parent="Encounter_Enemy"]
+visible = false
+position = Vector2( -88, 95 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 11 )
+
+[node name="UI_Enemy_Name" type="Sprite" parent="Encounter_Enemy"]
+position = Vector2( 45, -117 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+offset = Vector2( 128, 0 )
+
+[node name="EnemyName" type="Label" parent="Encounter_Enemy/UI_Enemy_Name"]
+margin_left = -33.0
+margin_top = -10.0
+margin_right = 90.0
+margin_bottom = 35.0
+rect_scale = Vector2( 0.5, 0.5 )
+text = "EnemyName"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI_Enemy_HP" type="Sprite" parent="Encounter_Enemy"]
+visible = false
+position = Vector2( -7, 139 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="EnemyStats" type="Label" parent="Encounter_Enemy"]
+visible = false
+margin_left = -112.0
+margin_top = 75.0
+margin_right = -48.0
+margin_bottom = 126.0
+rect_scale = Vector2( 0.8, 0.8 )
+text = "0 :Attack
+0 :Block
+0 :Heal"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="EnemyHealthBar" type="ProgressBar" parent="Encounter_Enemy"]
+visible = false
 margin_left = -127.0
 margin_top = 124.0
 margin_right = 113.0
@@ -197,33 +306,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UI_Enemy_Stats" type="Sprite" parent="Encounter_Enemy"]
+[node name="EnemyBlock" type="Sprite" parent="Encounter_Enemy"]
 visible = false
-position = Vector2( -88, 95 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 11 )
+position = Vector2( -57, -34 )
+texture = ExtResource( 17 )
 
-[node name="EnemyBlockAmount" type="Label" parent="Encounter_Enemy"]
-margin_left = -106.0
-margin_top = 90.0
-margin_right = -66.0
-margin_bottom = 104.0
+[node name="BlockAmount" type="Label" parent="Encounter_Enemy/EnemyBlock"]
+margin_left = -36.0
+margin_top = 7.0
+margin_right = 4.0
+margin_bottom = 22.0
+text = "0"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="UI_Enemy_Name" type="Sprite" parent="Encounter_Enemy"]
-position = Vector2( 45, -117 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 10 )
-
-[node name="UI_Enemy_HP" type="Sprite" parent="Encounter_Enemy"]
-visible = false
-position = Vector2( -7, 139 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
 
 [node name="Dices" parent="." instance=ExtResource( 3 )]
 position = Vector2( 240, 100 )
@@ -261,5 +359,6 @@ __meta__ = {
 
 [connection signal="button_up" from="RollButton" to="." method="_on_RollButton_button_up"]
 [connection signal="button_up" from="EndTurnButton" to="." method="_on_EndTurnButton_button_up"]
+[connection signal="button_up" from="UndoActionButton" to="." method="_on_UndoActionButton_button_up"]
 [connection signal="enemy_died" from="Encounter_Enemy" to="." method="_on_Encounter_Enemy_enemy_died"]
 [connection signal="button_up" from="BackToMapButton" to="." method="_on_BackToMapButton_button_up"]

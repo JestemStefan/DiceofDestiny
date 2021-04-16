@@ -70,24 +70,6 @@ func use_dice(dice_value: int):
 	emit_signal("actionbox_triggered", action_name, dice_value)
 
 
-func assign_dice(dice):
-	
-	if assigned_dice != null:
-		assigned_dice.dice.last_position = dice.initial_position
-		assigned_dice.enter_state(dice.State.DRAG)
-		
-		
-	
-	else:
-		assigned_dice = dice
-		$UseButton.disabled = false
-
-
-func release_dice():
-	print("dice released")
-	assigned_dice = null
-	$UseButton.disabled = true
-
 
 func _on_Action_Box_mouse_entered():
 	var _err_tween = tween_size.interpolate_property($Box_Sprite, "scale", null, Vector2(1.9, 1.9), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)

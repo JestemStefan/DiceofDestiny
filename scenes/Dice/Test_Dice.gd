@@ -7,6 +7,7 @@ var current_state: int = State.FREE
 var dice_value: int = 1
 
 var initial_position: Vector2
+var last_position: Vector2
 
 var interaction_box: ActionBox = null
 
@@ -30,7 +31,7 @@ func enter_state(new_state: int):
 			pass
 		
 		State.USED:
-			pass
+			global_position = last_position
 
 
 func _process(_delta):

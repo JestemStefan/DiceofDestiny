@@ -12,6 +12,10 @@ var enemy_skills: Array
 var enemy_actions: Dictionary = {"Attack": null,
 								"Block": null,
 								"Heal":null}
+								
+var enemy_stats: Dictionary = {"Attack": 0,
+								"Block": 0,
+								"Heal":0}
 
 var action_box_instance: PackedScene = preload("res://scenes/InteractionBox/ActionBox.tscn")
 onready var skill_positions: Array = [$EnemySkills/Skill1, $EnemySkills/Skill2, $EnemySkills/Skill3, $EnemySkills/Skill4, $EnemySkills/Skill5]
@@ -56,6 +60,7 @@ func enter_state(new_state: int):
 
 func load_enemy_data(enemy_stats: Resource):
 	enemy_name = enemy_stats.enemy_name
+	$UI_Enemy_Name/EnemyName.text = enemy_name
 	print("Enemy name: " + enemy_name)
 	
 	enemy_level = enemy_stats.enemy_level
@@ -94,11 +99,24 @@ func update_healthbar():
 
 
 func update_block_amount():
-	$EnemyBlockAmount.text = "Block: " + str(enemy_block)
-	if enemy_block <= 0:
-		$EnemyBlockAmount.hide()
+	if enemy_block > 0:
+		$EnemyBlock.show()
+		$EnemyBlock/BlockAmount.text = str(enemy_block)
+		
 	else:
-		$EnemyBlockAmount.show()
+		$EnemyBlock.hide()
+
+
+func update_stats(stats: Dictionary):
+	
+	enemy_stats = stats
+	
+	var text_to_insert: String = ""
+	
+	for stat_name in enemy_stats.keys():
+		text_to_insert += str(enemy_stats[stat_name]) + " :" + stat_name + "\n"
+
+	$EnemyStats.text = text_to_insert
 
 
 func create_action_box(skill_list: Array):
@@ -128,22 +146,21 @@ func create_action_box(skill_list: Array):
 
 
 func take_damage(damage: int):
-	shake(true)
-	
-	#reduce damage by block value
 	damage = block_damage(damage)
 	
 	enemy_health -= damage
+	
+	if enemy_health <= 0:
+		enter_state(State.DEAD)
+	
+	shake(true)
+		
+	#reduce damage by block value
 	
 	update_healthbar()
 	yield(get_tree().create_timer(0.5), "timeout")
 	shake(false)
 	
-	if enemy_health <= 0:
-		$EnemySprite.hide()
-		$EnemyHealthBar.hide()
-		
-		enter_state(State.DEAD)
 
 
 func get_block(amount: int):
@@ -194,10 +211,17 @@ func shake(on_off: bool):
 	isShaking = on_off
 
 
+func move_hand(final_position: Vector2):
+	# move hand on the dice
+	var _eh_err = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, final_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+	var _et_start = enemy_hand_tween.start()
+
+
 func play_turn():
 	
 	# spawn dices for enemy
 	var generated_dices: Array = GameController.current_encounter.dices.roll_random(enemy_dice_count)
+	GameController.current_encounter.dices_in_memory = generated_dices
 	
 	# put dices on the screen
 	for spawned_dice in generated_dices:
@@ -208,6 +232,7 @@ func play_turn():
 	# reset position of enemy hand visualization
 	enemy_hand.global_position = enemy_sprite.global_position
 	enemy_hand.show()
+	
 	
 	# for every dice generated
 	for dice in generated_dices:
@@ -238,7 +263,16 @@ func play_turn():
 		#dice.enter_state(dice.State.USED)
 		dice.emit_signal("dice_dropped", dice)
 	
+	
+	var _rest_hand = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, enemy_sprite.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+	var _rest_hand_start = enemy_hand_tween.start()
+	
+	yield(enemy_hand_tween, "tween_completed")
 	enemy_hand.hide()
+	
+	
+	GameController.current_encounter.execute_buffer_actions()
+	GameController.current_encounter.reset_action_buffer()
 	GameController.current_encounter.switch_turns(GameController.current_encounter.Turn.PLAYER)
 
 
@@ -269,11 +303,13 @@ func tween_dice(dice: Dice, final_pos: Vector2):
 
 func hide_stuff():
 	$UI_Enemy_Stats.hide()
+	$EnemyStats.hide()
 	$UI_Enemy_HP.hide()
 	$EnemySkills.hide()
 
 
 func show_stuff():
 	$UI_Enemy_Stats.show()
+	$EnemyStats.show()
 	$UI_Enemy_HP.show()
 	$EnemySkills.show()
