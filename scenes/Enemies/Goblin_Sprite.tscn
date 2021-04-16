@@ -22,8 +22,7 @@ tracks/0/keys = {
 [node name="EnemySprite" type="Sprite"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
-offset = Vector2( -128, 0 )
-flip_h = true
+offset = Vector2( 128, 0 )
 hframes = 6
 vframes = 4
 

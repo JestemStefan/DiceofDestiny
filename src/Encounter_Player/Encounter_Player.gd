@@ -10,6 +10,10 @@ var player_hp: int
 var player_maxHP: int
 var player_block: int
 
+var player_stats: Dictionary  = {"Attack": 0,
+								"Block": 0,
+								"Heal": 0}
+
 var isShaking: bool = false
 var shake_offest: float = 2
 
@@ -21,18 +25,21 @@ func _process(_delta):
 	if isShaking:
 		player_sprite.set_offset(Vector2(rand_range(-1, 1), rand_range(-1, 1)) * shake_offest)
 
+
 # get info about player stats from GameState
 func update_player_info():
 	var skill_list: Array = GameState.get_player_skill_list()
 	
 	create_action_box(skill_list)
 	
+	$UI_Player_Name/PlayerName.text = GameState.player_name
 	player_hp = GameState.player_health
 	player_maxHP = GameState.player_max_health
 	player_block = 0
 	
 	update_healthbar()
 	update_block_amount()
+	update_stats(player_stats)
 
 
 func create_action_box(skill_list: Array):
@@ -63,13 +70,27 @@ func update_healthbar():
 	$PlayerHealth.value = player_hp
 
 
+
 func update_block_amount():
-	$BlockAmount.text = "Block: " + str(player_block)
-	
-	if player_block <= 0:
-		$BlockAmount.hide()
+	print("Player block: " + str(player_block))
+	if player_block > 0:
+		$PlayerBlock.show()
+		$PlayerBlock/BlockAmount.text = str(player_block)
+		
 	else:
-		$BlockAmount.show()
+		$PlayerBlock.hide()
+
+
+func update_stats(stats: Dictionary):
+	
+	player_stats = stats
+	
+	var text_to_insert: String = ""
+	
+	for stat_name in player_stats.keys():
+		text_to_insert += stat_name + ": " + str(player_stats[stat_name]) + "\n"
+
+	$PlayerStats.text = text_to_insert
 
 
 func take_damage(damage: int):
@@ -129,4 +150,17 @@ func heal(amount: int):
 func shake(on_off: bool, shake_strength: float = 2):
 	isShaking = on_off
 	shake_offest = shake_strength
-	
+
+
+func hide_stuff():
+	$UI_Player_Stats.hide()
+	$PlayerStats.hide()
+	#$UI_Player_HP.hide()
+	$Skills.hide()
+
+
+func show_stuff():
+	$UI_Player_Stats.show()
+	$PlayerStats.show()
+	#$UI_Player_HP.show()
+	$Skills.show()
