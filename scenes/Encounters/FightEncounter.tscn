@@ -135,12 +135,13 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 12 )
 
 [node name="UI_Player_Name" type="Sprite" parent="Encounter_Player"]
-position = Vector2( 6, -110 )
+position = Vector2( 6, -102 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 offset = Vector2( -128, 0 )
 
 [node name="PlayerName" type="Label" parent="Encounter_Player/UI_Player_Name"]
+visible = false
 margin_left = -28.0
 margin_top = -9.0
 margin_right = 100.0
@@ -206,6 +207,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Player_SFX" type="AudioStreamPlayer" parent="Encounter_Player"]
+
 [node name="Encounter_Enemy" type="Node2D" parent="."]
 position = Vector2( 367, 163 )
 script = ExtResource( 6 )
@@ -254,12 +257,13 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 11 )
 
 [node name="UI_Enemy_Name" type="Sprite" parent="Encounter_Enemy"]
-position = Vector2( 45, -117 )
+position = Vector2( 45, -109 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 10 )
 offset = Vector2( 128, 0 )
 
 [node name="EnemyName" type="Label" parent="Encounter_Enemy/UI_Enemy_Name"]
+visible = false
 margin_left = -33.0
 margin_top = -10.0
 margin_right = 90.0

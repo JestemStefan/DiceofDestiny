@@ -6,6 +6,11 @@ onready var skill_positions: Array = [$Skills/Skill1, $Skills/Skill2, $Skills/Sk
 
 onready var player_sprite: Sprite = $PlayerSprite
 
+onready var player_sfx: AudioStreamPlayer = $Player_SFX
+onready var hurt_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_RecieveDamage_PlayerGWJ_DiceDungeon_VOX-003.ogg")
+onready var attack_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_AttackGWJ_Skills_Attack-001.ogg")
+onready var defend_sound:  AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_DefendGWJ_Skills_Defend-001.ogg")
+
 var player_hp: int
 var player_maxHP: int
 var player_block: int
@@ -100,6 +105,10 @@ func take_damage(damage: int):
 	#reduce damage by block value
 	damage = block_damage(damage)
 	
+	if damage > 0:
+		play_sound("Hurt")
+	else:
+		play_sound("Block")
 	
 	player_hp -= damage
 	
@@ -164,3 +173,18 @@ func show_stuff():
 	$PlayerStats.show()
 	#$UI_Player_HP.show()
 	$Skills.show()
+
+
+func play_sound(sound_name: String):
+	
+	match sound_name:
+		"Attack":
+			player_sfx.stream = attack_sound
+		
+		"Block":
+			player_sfx.stream = defend_sound
+			
+		"Hurt":
+			player_sfx.stream = hurt_sound
+	
+	player_sfx.play()

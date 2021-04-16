@@ -223,11 +223,37 @@ func play_turn():
 	var generated_dices: Array = GameController.current_encounter.dices.roll_random(enemy_dice_count)
 	GameController.current_encounter.dices_in_memory = generated_dices
 	
-	# put dices on the screen
+	var dice_tween: Tween = Tween.new()
+	add_child(dice_tween)
+	
+	var dice_drop_delay: float = 0
+	
 	for spawned_dice in generated_dices:
-		var dice_tween: Tween = tween_dice(spawned_dice, spawned_dice.initial_position)
-		yield(dice_tween, "tween_completed")
-		dice_tween.call_deferred("free")
+	
+		dice_tween.interpolate_property(spawned_dice, 
+									"global_position:y", 
+									null, 
+									spawned_dice.initial_position.y, 
+									1, 
+									Tween.TRANS_BOUNCE, 
+									Tween.EASE_OUT, 
+									dice_drop_delay)
+		
+		dice_tween.interpolate_property(spawned_dice, 
+									"global_position:x", 
+									spawned_dice.global_position.x + rand_range(-500, 500), 
+									spawned_dice.initial_position.x, 
+									1, 
+									Tween.TRANS_CUBIC, 
+									Tween.EASE_OUT, 
+									dice_drop_delay)
+		
+		dice_drop_delay += 0.1
+	
+	dice_tween.start()
+	yield(dice_tween, "tween_all_completed")
+	dice_tween.call_deferred("free")
+	
 	
 	# reset position of enemy hand visualization
 	enemy_hand.global_position = enemy_sprite.global_position
@@ -240,7 +266,7 @@ func play_turn():
 		dice.emit_signal("dice_picked_up", dice)
 		
 		# move hand on the dice
-		var _eh_err = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, dice.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		var _eh_err = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, dice.global_position, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 		var _et_start = enemy_hand_tween.start()
 		yield(enemy_hand_tween, "tween_completed")
 		
@@ -250,10 +276,10 @@ func play_turn():
 		GameController.current_encounter.picked_action = selected_skill
 		
 		# move dice and enemy to the selected action box
-		var _ec_err = enemy_controller_tween.interpolate_property(dice, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		var _ec_err = enemy_controller_tween.interpolate_property(dice, "global_position", null, selected_skill.global_position, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 		var _ec_start = enemy_controller_tween.start()
 		
-		_eh_err = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, selected_skill.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		_eh_err = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, selected_skill.global_position, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 		_et_start = enemy_hand_tween.start()
 		
 		yield(enemy_controller_tween, "tween_completed")
@@ -264,7 +290,7 @@ func play_turn():
 		dice.emit_signal("dice_dropped", dice)
 	
 	
-	var _rest_hand = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, enemy_sprite.global_position, 1, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+	var _rest_hand = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, enemy_sprite.global_position, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	var _rest_hand_start = enemy_hand_tween.start()
 	
 	yield(enemy_hand_tween, "tween_completed")
