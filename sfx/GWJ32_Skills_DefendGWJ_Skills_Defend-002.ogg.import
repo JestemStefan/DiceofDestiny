@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ32_Skills_DefendGWJ_Skills_Defend-002.ogg-ed202164f9da29e987956cc842145f8f.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ32_Skills_DefendGWJ_Skills_Defend-002.ogg"
+dest_files=[ "res://.import/GWJ32_Skills_DefendGWJ_Skills_Defend-002.ogg-ed202164f9da29e987956cc842145f8f.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

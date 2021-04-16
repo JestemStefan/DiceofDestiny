@@ -51,7 +51,9 @@ func start_encounter():
 	
 	
 	$Encounter_Player/PlayerHealth.show()
+	$Encounter_Player/UI_Player_Name/PlayerName.show()
 	$Encounter_Enemy/EnemyHealthBar.show()
+	$Encounter_Enemy/UI_Enemy_Name/EnemyName.show()
 	
 	$RollButton.show()
 	$EndTurnButton.show()
@@ -159,6 +161,7 @@ func execute_buffer_actions():
 						
 						"Attack":
 							encounter_enemy.take_damage(action_value)
+							encounter_player.play_sound("Attack")
 						
 						"Block":
 							encounter_player.get_block(action_value)
@@ -197,7 +200,7 @@ func switch_turns(next_turn: int):
 	#reset values in bufer
 	for action_name in action_buffer.keys():
 		
-		var action_value: int = 0
+		action_buffer[action_name] = 0
 	
 	dices_in_memory = []
 	
@@ -251,10 +254,35 @@ func _on_RollButton_button_up():
 	var generated_dices: Array = dices.roll_random(GameState.player_dice_amount)
 	GameController.current_encounter.dices_in_memory = generated_dices
 	
+	var dice_tween: Tween = Tween.new()
+	add_child(dice_tween)
+	
+	var dice_drop_delay: float = 0
 	for dice in generated_dices:
-		var dice_tween: Tween = tween_dice(dice, dice.initial_position)
-		yield(dice_tween, "tween_completed")
-		dice_tween.call_deferred("free")
+	
+		dice_tween.interpolate_property(dice, 
+									"global_position:y", 
+									null, 
+									dice.initial_position.y, 
+									1, 
+									Tween.TRANS_BOUNCE, 
+									Tween.EASE_OUT, 
+									dice_drop_delay)
+		
+		dice_tween.interpolate_property(dice, 
+									"global_position:x", 
+									dice.global_position.x + rand_range(-500, 500), 
+									dice.initial_position.x, 
+									1, 
+									Tween.TRANS_CUBIC, 
+									Tween.EASE_OUT, 
+									dice_drop_delay)
+		
+		dice_drop_delay += 0.1
+	
+	dice_tween.start()
+	yield(dice_tween, "tween_all_completed")
+	dice_tween.call_deferred("free")
 	
 	
 func _on_Encounter_Enemy_enemy_died():
@@ -290,28 +318,14 @@ func _on_BackToMapButton_button_up():
 	end_encounter()
 
 
-func tween_dice(dice: Dice, final_pos: Vector2):
-	
-	var tween = Tween.new()
-	add_child(tween)
-	tween.interpolate_property(dice, 
-								"global_position", 
-								null, 
-								final_pos, 
-								0.3, 
-								Tween.TRANS_BOUNCE, 
-								Tween.EASE_OUT)
-	tween.start()
-	
-	return tween
-
-
 func _on_Dice_dice_picked_up(dice: Dice):
+	dice.play_pick_up_sound()
 	dice_in_hand = dice
 
 
 func _on_Dice_dice_dropped(dice: Dice):
 	if picked_action != null:
+		dice.play_placement_sound()
 		
 		dice.last_position = picked_action.global_position
 		dice.enter_state(dice.State.USED)
@@ -324,6 +338,7 @@ func _on_Dice_dice_dropped(dice: Dice):
 		
 		
 	else:
+		dice.play_drop_sound()
 		dice.enter_state(dice.State.FREE)
 	
 	dice_in_hand = null

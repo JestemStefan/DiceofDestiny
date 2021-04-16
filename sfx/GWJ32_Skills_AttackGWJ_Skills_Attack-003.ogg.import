@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ32_Skills_AttackGWJ_Skills_Attack-003.ogg-42d21c11c02b03bdb382561104c1db42.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ32_Skills_AttackGWJ_Skills_Attack-003.ogg"
+dest_files=[ "res://.import/GWJ32_Skills_AttackGWJ_Skills_Attack-003.ogg-42d21c11c02b03bdb382561104c1db42.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

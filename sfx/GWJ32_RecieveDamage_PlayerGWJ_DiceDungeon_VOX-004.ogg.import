@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ32_RecieveDamage_PlayerGWJ_DiceDungeon_VOX-004.ogg-b5b162f062bb15888c7ad9a74b82d0fe.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ32_RecieveDamage_PlayerGWJ_DiceDungeon_VOX-004.ogg"
+dest_files=[ "res://.import/GWJ32_RecieveDamage_PlayerGWJ_DiceDungeon_VOX-004.ogg-b5b162f062bb15888c7ad9a74b82d0fe.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -13,8 +13,14 @@ var interaction_box: ActionBox = null
 
 onready var tween_size: Tween = $Tween_Size
 
+onready var dice_sfx_player: AudioStreamPlayer = $SFX
+onready var pick_up_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceHandle_2.ogg")
+onready var drop_sound:  AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceHandle_1.ogg")
+onready var placement_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceSimplePlacement-001.ogg")
+
 signal dice_picked_up
 signal dice_dropped
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,6 +54,21 @@ func set_dice_value(value: int):
 	$Dice_Sprite.frame = value - 1
 
 
+func play_drop_sound():
+	$SFX.stream = drop_sound
+	$SFX.play()
+
+
+func play_pick_up_sound():
+	$SFX.stream = pick_up_sound
+	$SFX.play()
+
+
+func play_placement_sound():
+	$SFX.stream = placement_sound
+	$SFX.play()
+
+
 func _on_Dice_input_event(_viewport, event, _shape_idx):
 	
 	if event is InputEventMouseButton and GameController.current_encounter.current_turn == GameController.current_encounter.Turn.PLAYER:
@@ -55,12 +76,14 @@ func _on_Dice_input_event(_viewport, event, _shape_idx):
 			
 			match event.button_index:
 				1:
+					
 					enter_state(State.DRAG)
 					emit_signal("dice_picked_up", self)
 		
 		else:
 			match event.button_index:
 				1:
+					
 					emit_signal("dice_dropped", self)
 
 

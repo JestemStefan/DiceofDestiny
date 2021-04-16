@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Idle"
+
+[node name="EnemySprite" type="Sprite"]
+offset = Vector2( 128, 0 )
+
+[node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 1 )
