@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/title_menu/Title.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_menu/ButtonItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://font/alagard.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://scenes/title_menu/VolumeControl.tscn" type="PackedScene" id=4]
 [ext_resource path="res://font/Alagard_16.tres" type="DynamicFont" id=5]
 
 [sub_resource type="Animation" id=1]
@@ -207,6 +208,7 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -299,6 +301,44 @@ margin_top = 4.0
 custom_fonts/font = ExtResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Back"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VolumeSFX" parent="Options" instance=ExtResource( 4 )]
+BusName = "SFX"
+
+[node name="Label" type="Label" parent="Options/VolumeSFX"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -14.0
+margin_right = 127.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Sound"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VolumeBGM" parent="Options" instance=ExtResource( 4 )]
+margin_top = -8.0
+margin_bottom = 24.0
+BusName = "BGM"
+
+[node name="Label" type="Label" parent="Options/VolumeBGM"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -14.0
+margin_right = 127.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Music"
 align = 1
 valign = 1
 __meta__ = {
