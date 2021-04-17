@@ -1,14 +1,14 @@
 extends Node
 
 var player_name: String = "Player"
-var player_max_health: int = 50
+var player_max_health: int = 30
 var player_health: int = player_max_health
 
 var player_skills = {"Attack":true,
 					"Block": false,
 					"Heal": false}
 
-var player_dice_amount: int = 2
+var player_dice_amount: int = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,12 +29,27 @@ func get_player_skill_list():
 	return available_skill_list
 
 
+func level_up():
+	match player_dice_amount:
+		0: player_max_health = 30
+		1: player_max_health = 30
+		2: player_max_health = 30
+		3: player_max_health = 30
+		4: player_max_health = 40
+		5: player_max_health = 50
+		6: player_max_health = 60
+		7: player_max_health = 70
+	
+	player_health = player_max_health
+
 func unlock_player_skill(skill_name: String):
 	player_skills[skill_name] = true
 
 
 func add_dice():
 	player_dice_amount += 1
+	
+	level_up()
 
 
 func remove_dice():

@@ -34,9 +34,6 @@ func _ready():
 func start_encounter():
 	encounter_enemy.load_enemy_data(enemy_stats)
 	
-	if enemy_stats.isBoss:
-		GameState.player_dice_amount = 7
-	
 	player_animplayer.play("Idle")
 	var player_tween:Tween = slide_player_in()
 	var enemy_tween:Tween = slide_enemy_in()
@@ -142,8 +139,12 @@ func slide_enemy_in():
 
 
 func end_encounter():
+	GameController.current_board_tile.unlock_tiles()
 	$BackToMapButton.hide()
-	GameState.add_dice()
+	
+	if enemy_stats.isBoss:
+		GameState.add_dice()
+		
 	GameController.end_encounter()
 
 

@@ -104,7 +104,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 offset = Vector2( -128, 0 )
 flip_h = true
-hframes = 4
+hframes = 6
 
 [node name="Skills" type="Node2D" parent="Encounter_Player"]
 visible = false
