@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ_DMWizardHits-001.ogg-d5dcd65082abee6a24f2b05e00b2b1ac.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ_DMWizardHits-001.ogg"
+dest_files=[ "res://.import/GWJ_DMWizardHits-001.ogg-d5dcd65082abee6a24f2b05e00b2b1ac.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

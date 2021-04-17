@@ -1,7 +1,7 @@
 extends Area2D
 class_name ActionBox
 
-enum Action_type{ATTACK, BLOCK, HEAL}
+enum Action_type{ATTACK, BLOCK, HEAL, SEVEN}
 #export(Action_type) var Action = Action_type.ATTACK
 var ActionBox_Type: int = Action_type.ATTACK
 

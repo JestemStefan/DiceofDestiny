@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ_DiceSlides-003.ogg-fcf32c9e1166be1408dd01f7d18b3a79.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ_DiceSlides-003.ogg"
+dest_files=[ "res://.import/GWJ_DiceSlides-003.ogg-fcf32c9e1166be1408dd01f7d18b3a79.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

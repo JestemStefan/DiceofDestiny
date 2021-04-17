@@ -108,25 +108,6 @@ offset = Vector2( -128, 0 )
 flip_h = true
 hframes = 6
 
-[node name="Skills" type="Node2D" parent="Encounter_Player"]
-visible = false
-position = Vector2( -176, -42 )
-
-[node name="Skill1" type="Position2D" parent="Encounter_Player/Skills"]
-position = Vector2( 250, 144 )
-
-[node name="Skill2" type="Position2D" parent="Encounter_Player/Skills"]
-position = Vector2( 196, 144 )
-
-[node name="Skill3" type="Position2D" parent="Encounter_Player/Skills"]
-position = Vector2( 142, 144 )
-
-[node name="Skill4" type="Position2D" parent="Encounter_Player/Skills"]
-position = Vector2( 97, 144 )
-
-[node name="Skill5" type="Position2D" parent="Encounter_Player/Skills"]
-position = Vector2( 97, 103 )
-
 [node name="PlayerAnimationPlayer" type="AnimationPlayer" parent="Encounter_Player"]
 anims/Idle = SubResource( 1 )
 
@@ -140,7 +121,6 @@ texture = ExtResource( 12 )
 position = Vector2( 6, -102 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
-offset = Vector2( -128, 0 )
 
 [node name="PlayerName" type="Label" parent="Encounter_Player/UI_Player_Name"]
 visible = false
@@ -173,6 +153,24 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Skills" type="Node2D" parent="Encounter_Player"]
+position = Vector2( -176, -42 )
+
+[node name="Skill1" type="Position2D" parent="Encounter_Player/Skills"]
+position = Vector2( 250, 144 )
+
+[node name="Skill2" type="Position2D" parent="Encounter_Player/Skills"]
+position = Vector2( 196, 144 )
+
+[node name="Skill3" type="Position2D" parent="Encounter_Player/Skills"]
+position = Vector2( 142, 144 )
+
+[node name="Skill4" type="Position2D" parent="Encounter_Player/Skills"]
+position = Vector2( 142, -13 )
+
+[node name="Skill5" type="Position2D" parent="Encounter_Player/Skills"]
+position = Vector2( 97, 103 )
 
 [node name="UI_Player_HP" type="Sprite" parent="Encounter_Player"]
 visible = false
