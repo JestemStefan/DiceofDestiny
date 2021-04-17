@@ -64,10 +64,12 @@ func start_encounter():
 	enemy_tween.call_deferred("free")
 	
 	
-	$Encounter_Player/PlayerHealth.show()
+	$Encounter_Player/PlayerHealthbar.show()
 	$Encounter_Player/UI_Player_Name/PlayerName.show()
-	$Encounter_Enemy/EnemyHealthBar.show()
+	$Encounter_Player/UI_Player_HP.show()
+	$Encounter_Enemy/EnemyHealthbar.show()
 	$Encounter_Enemy/UI_Enemy_Name/EnemyName.show()
+	$Encounter_Enemy/UI_Enemy_HP.show()
 	
 	$RollButton.show()
 	$EndTurnButton.show()

@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Healthbar/Healthbar.gd" type="Script" id=2]
+
+[node name="Healthbar" type="Node2D"]
+position = Vector2( 51, 45 )
+scale = Vector2( 3, 3 )
+script = ExtResource( 2 )
+
+[node name="HP_Number" type="Label" parent="."]
+margin_left = -4.0
+margin_top = -4.0
+margin_right = 42.0
+margin_bottom = 11.0
+rect_scale = Vector2( 0.5, 0.5 )
+text = "100"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -92,6 +92,8 @@ func update_tile_type(new_type: int = Tile_Type):
 				EnvironmentTypes.ISLAND: $TileSprite.frame = 2
 				EnvironmentTypes.DESERT: $TileSprite.frame = 5
 				EnvironmentTypes.SWAMP: $TileSprite.frame = 4
+				EnvironmentTypes.BOSS: $TileSprite.frame = 2
+				EnvironmentTypes.DM: $TileSprite.frame = 2
 			
 		
 		TileTypes.FIGHT_TILE:
