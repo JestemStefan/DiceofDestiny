@@ -18,6 +18,9 @@ var picked_action: ActionBox
 
 var enemy_stats: Resource
 
+enum Environment_Type{FOREST, ISLAND, DESERT, SWAMP, BOSS, DM}
+var encounter_environment: int = Environment_Type.FOREST
+
 
 enum Turn{NOONE, PLAYER, ENEMY}
 var current_turn: int = Turn.PLAYER
@@ -32,6 +35,20 @@ func _ready():
 
 
 func start_encounter():
+	
+	var combat_platform_index: int = 0
+	
+	match encounter_environment:
+		Environment_Type.FOREST: combat_platform_index = 2
+		Environment_Type.ISLAND: pass
+		Environment_Type.DESERT: combat_platform_index = 1
+		Environment_Type.SWAMP: combat_platform_index = 0
+		Environment_Type.BOSS: combat_platform_index = 3
+		Environment_Type.DM: combat_platform_index = 4
+	
+	$Encounter_Enemy/Combat_Platform.frame = combat_platform_index
+	$Encounter_Player/Combat_Platform.frame = combat_platform_index
+	
 	encounter_enemy.load_enemy_data(enemy_stats)
 	
 	player_animplayer.play("Idle")

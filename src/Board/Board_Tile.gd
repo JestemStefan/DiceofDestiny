@@ -5,10 +5,10 @@ class_name BoardTile
 enum TileState {CLOSED, OPEN, CURRENT}
 var current_tilestate: int = TileState.CLOSED
 
-enum TileTypes{EMPTY_TILE, FIGHT_TILE, BOSS_TILE, REST_TILE}
+enum TileTypes{EMPTY_TILE, FIGHT_TILE, BOSS_TILE, REST_TILE, DM_TILE}
 export(TileTypes) var Tile_Type = TileTypes.EMPTY_TILE setget update_tile_type
 
-enum EnvironmentTypes{FOREST, ISLAND, DESERT, SWAMP}
+enum EnvironmentTypes{FOREST, ISLAND, DESERT, SWAMP, BOSS, DM}
 export(EnvironmentTypes) var environment = EnvironmentTypes.FOREST
 
 export(Resource) var enemy_to_fight
@@ -105,12 +105,15 @@ func update_tile_type(new_type: int = Tile_Type):
 		TileTypes.REST_TILE:
 			match environment:
 				EnvironmentTypes.FOREST: $TileSprite.frame = 9
-				EnvironmentTypes.ISLAND: $TileSprite.frame = 11
-				EnvironmentTypes.DESERT: $TileSprite.frame = 8
+				EnvironmentTypes.ISLAND: $TileSprite.frame = 10
+				EnvironmentTypes.DESERT: $TileSprite.frame = 11
 				EnvironmentTypes.SWAMP: $TileSprite.frame = 10
 			
 			$InteractionButton.text = "Rest"
-
+		
+		TileTypes.DM_TILE:
+			$TileSprite.frame = 8
+			$InteractionButton.text = "BOSS"
 
 func unlock_tiles():
 	var list_of_tiles_to_unlock: Array = []
@@ -182,15 +185,15 @@ func _on_InteractionButton_button_up():
 			$InteractionButton.hide()
 		
 		TileTypes.FIGHT_TILE:
-			GameController.start_encounter("Fight", enemy_to_fight)
+			GameController.start_encounter("Fight", enemy_to_fight, environment)
 			$InteractionButton.hide()
 		
 		TileTypes.BOSS_TILE:
-			GameController.start_encounter("Fight", enemy_to_fight)
+			GameController.start_encounter("Fight", enemy_to_fight, environment)
 			$InteractionButton.hide()
 			
 		TileTypes.REST_TILE:
-			GameController.start_encounter("Rest", enemy_to_fight)
+			GameController.start_encounter("Rest", enemy_to_fight, environment)
 			#$InteractionButton.hide()
 	
 	
