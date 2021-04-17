@@ -1,10 +1,86 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/title_menu/Title.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_menu/ButtonItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://font/alagard.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scenes/title_menu/VolumeControl.tscn" type="PackedScene" id=4]
 [ext_resource path="res://font/Alagard_16.tres" type="DynamicFont" id=5]
+
+[sub_resource type="Animation" id=8]
+resource_name = "Credits_In"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Credits:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Credits:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.00367691, -0.0096063, 0.00367691, 0.0096063, 1, -0.00392889, -0.0156039, 0.00392889, 0.0156039 ),
+"times": PoolRealArray( 0, 0.1 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Credits/Text:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Credits_Out"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Credits:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Credits:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.00367691, 0.040004, 0.00367691, -0.040004, 0, -0.00182781, 0.0207253, 0.00182781, -0.0207253 ),
+"times": PoolRealArray( 0.1, 0.2 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Credits/Text:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0, 0.0 ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "MainMenu_In"
@@ -114,6 +190,10 @@ tracks/1/keys = {
 size = 32
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=10]
+extra_spacing_top = 10
+font_data = ExtResource( 3 )
+
 [sub_resource type="Animation" id=6]
 length = 0.3
 tracks/0/type = "value"
@@ -174,6 +254,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Credits_In = SubResource( 8 )
+anims/Credits_Out = SubResource( 9 )
 anims/MainMenu_In = SubResource( 1 )
 anims/MainMenu_Out = SubResource( 2 )
 anims/Options_In = SubResource( 3 )
@@ -208,7 +290,6 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -277,6 +358,7 @@ __meta__ = {
 }
 
 [node name="Options" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -345,6 +427,64 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Credits" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="BtnBack" parent="Credits" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -96.0
+margin_top = -68.0
+margin_right = 96.0
+margin_bottom = -36.0
+
+[node name="Label" type="Label" parent="Credits/BtnBack"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Back"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="RichTextLabel" parent="Credits"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -183.0
+margin_top = -76.0
+margin_right = 183.0
+margin_bottom = 84.0
+custom_fonts/normal_font = SubResource( 10 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[center][color=#005500]Coding spaghetti[/color] by [color=#003399]JestemStefan[/color]
+[color=#005500]Hotdogs, burgers and square art[/color] by [color=#003399]D4yz[/color]
+[color=#005500]Music & procrastination[/color] by [color=#003399]JohnGabrielUK[/color]
+[color=#005500]Swooshs, zeengs, nhoms and ASMR[/color] by [color=#003399]romeromey[/color]
+[color=#005500]This screen[/color] by [color=#003399]Vela[/color][/center]"
+text = "Coding spaghetti by JestemStefan
+Hotdogs, burgers and square art by D4yz
+Music & procrastination by JohnGabrielUK
+Swooshs, zeengs, nhoms and ASMR by romeromey
+This screen by Vela"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="FadeRect" type="ColorRect" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
@@ -363,3 +503,4 @@ anims/FadeOut = SubResource( 7 )
 [connection signal="clicked" from="MainMenu/VBox/BtnOptions" to="." method="_on_BtnOptions_clicked"]
 [connection signal="clicked" from="MainMenu/VBox/BtnCredits" to="." method="_on_BtnCredits_clicked"]
 [connection signal="clicked" from="Options/BtnBack" to="." method="_on_Options_BtnBack_clicked"]
+[connection signal="clicked" from="Credits/BtnBack" to="." method="_on_Credits_BtnBack_clicked"]

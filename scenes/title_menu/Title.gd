@@ -9,6 +9,9 @@ onready var buttons_mainmenu = get_node("MainMenu/VBox").get_children()
 onready var buttons_options = [
 	get_node("Options/BtnBack")
 ]
+onready var buttons_credits = [
+	get_node("Credits/BtnBack")
+]
 
 func _ready():
 	# Make sure we start with the screen faded out
@@ -16,6 +19,7 @@ func _ready():
 	fade_anims.advance(0)                     # force update
 	transition_anims.play("MainMenu_Out", -1, 1.0, true)
 	transition_anims.play("Options_Out", -1, 1.0, true)
+	transition_anims.play("Credits_Out", -1, 1.0, true)
 
 	yield(get_tree().create_timer(0.3), "timeout")
 	
@@ -76,9 +80,19 @@ func _on_BtnOptions_clicked(button_object):
 		is_during_animation = false
 
 
-func _on_BtnCredits_clicked(_button_object):
+func _on_BtnCredits_clicked(button_object):
 	if not is_during_animation:
-		pass # Replace with function body.
+		is_during_animation = true
+
+		yield(fade_out_selected(buttons_mainmenu, button_object), "completed")
+		transition_anims.play("MainMenu_Out")
+		yield(transition_anims, "animation_finished")
+		
+		transition_anims.play("Credits_In")
+		yield(transition_anims, "animation_finished")
+		yield(fade_in_all(buttons_credits), "completed")
+		
+		is_during_animation = false
 
 # ==============================================================================
 # OPTIONS
@@ -89,6 +103,23 @@ func _on_Options_BtnBack_clicked(button_object):
 
 		yield(fade_out_selected(buttons_options, button_object), "completed")
 		transition_anims.play("Options_Out")
+		yield(transition_anims, "animation_finished")
+		
+		transition_anims.play("MainMenu_In")
+		yield(transition_anims, "animation_finished")
+		yield(fade_in_all(buttons_mainmenu), "completed")
+		
+		is_during_animation = false
+
+# ==============================================================================
+# CREDITS
+
+func _on_Credits_BtnBack_clicked(button_object):
+	if not is_during_animation:
+		is_during_animation = true
+
+		yield(fade_out_selected(buttons_credits, button_object), "completed")
+		transition_anims.play("Credits_Out")
 		yield(transition_anims, "animation_finished")
 		
 		transition_anims.play("MainMenu_In")
