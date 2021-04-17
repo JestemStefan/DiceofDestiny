@@ -77,7 +77,7 @@ func move_to_tile(tile: BoardTile):
 	enter_state(Game_State.BOARD_WAITING)
 
 
-func start_encounter(encounter_type: String, enemy_data: Resource):
+func start_encounter(encounter_type: String, enemy_data: Resource, env: int):
 	
 	var transition_tween: Tween = transition_layer.make_transition_black_in()
 	yield(transition_tween, "tween_completed")
@@ -89,6 +89,7 @@ func start_encounter(encounter_type: String, enemy_data: Resource):
 			encounter_layer.add_child(encounter)
 			
 			encounter.enemy_stats = enemy_data
+			encounter.encounter_environment = env
 			encounter.start_encounter()
 	
 			enter_state(Game_State.ENCOUNTER)

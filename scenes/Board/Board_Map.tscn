@@ -62,6 +62,7 @@ connected_tiles = [ NodePath("../ForestTile_2"), NodePath("../ForestBossTile_1")
 [node name="ForestBossTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 176, 240 )
 Tile_Type = 2
+environment = 4
 enemy_to_fight = ExtResource( 8 )
 connected_tiles = [ NodePath("../ForestTile_3"), NodePath("../DesertTile_1") ]
 
@@ -105,7 +106,7 @@ connected_tiles = [ NodePath("../DesertTile_2"), NodePath("../DesertTile_3"), No
 [node name="DesertBossTile_2" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 80, 48 )
 Tile_Type = 2
-environment = 2
+environment = 4
 enemy_to_fight = ExtResource( 10 )
 connected_tiles = [ NodePath("../DesertTile_5") ]
 
@@ -140,7 +141,7 @@ connected_tiles = [ NodePath("../DesertTile_8"), NodePath("../DesertBossTile_3")
 [node name="DesertBossTile_3" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 240, 304 )
 Tile_Type = 2
-environment = 1
+environment = 4
 enemy_to_fight = ExtResource( 13 )
 connected_tiles = [ NodePath("../DesertTile_9") ]
 
@@ -161,7 +162,7 @@ connected_tiles = [ NodePath("../SwampTile_1"), NodePath("../SwampBossTile_1") ]
 [node name="SwampBossTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 432, 304 )
 Tile_Type = 2
-environment = 3
+environment = 4
 enemy_to_fight = ExtResource( 14 )
 connected_tiles = [ NodePath("../SwampTile_2") ]
 
@@ -188,10 +189,13 @@ connected_tiles = [ NodePath("../SwampTile_4"), NodePath("../DM_Domain") ]
 
 [node name="DM_Domain" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 432, 48 )
+Tile_Type = 4
+environment = 5
 enemy_to_fight = ExtResource( 12 )
 connected_tiles = [ NodePath("../SwampTile_5") ]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 16, 176 )
 
 [node name="MapOverlay" type="ColorRect" parent="."]
 visible = false

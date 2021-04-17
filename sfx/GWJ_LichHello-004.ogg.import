@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ_LichHello-004.ogg-ecbf3dfb489bb2a65649a5b37f9b6c16.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ_LichHello-004.ogg"
+dest_files=[ "res://.import/GWJ_LichHello-004.ogg-ecbf3dfb489bb2a65649a5b37f9b6c16.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

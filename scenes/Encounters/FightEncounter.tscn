@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Encounter_Player/Encounter_Player.gd" type="Script" id=2]
 [ext_resource path="res://scenes/DiceRoller/Dices.tscn" type="PackedScene" id=3]
 [ext_resource path="res://art/Knight_Idle.png" type="Texture" id=4]
-[ext_resource path="res://art/Combat_Platform.png" type="Texture" id=5]
+[ext_resource path="res://art/Battle_Platform.png" type="Texture" id=5]
 [ext_resource path="res://src/encounter_enemy/Encounter_Enemy.gd" type="Script" id=6]
 [ext_resource path="res://art/UI/UI_Enemy_HP.png" type="Texture" id=7]
 [ext_resource path="res://art/UI/UI_Player_Name.png" type="Texture" id=8]
@@ -97,6 +97,7 @@ position = Vector2( 52, 7 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 offset = Vector2( -128, 0 )
+vframes = 5
 
 [node name="PlayerSprite" type="Sprite" parent="Encounter_Player"]
 position = Vector2( 50, 4 )
@@ -218,6 +219,7 @@ position = Vector2( 1, 1 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 offset = Vector2( 128, 0 )
+vframes = 5
 
 [node name="EnemyControllerTween" type="Tween" parent="Encounter_Enemy"]
 

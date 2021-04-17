@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ_LichHits-001.ogg-c8ad8bea7738c53c1336204b58947460.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ_LichHits-001.ogg"
+dest_files=[ "res://.import/GWJ_LichHits-001.ogg-c8ad8bea7738c53c1336204b58947460.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
