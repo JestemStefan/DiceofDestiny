@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ32_GoblinHits-001.ogg-b4a20da477ae3c54787394735efa9bdf.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ32_GoblinHits-001.ogg"
+dest_files=[ "res://.import/GWJ32_GoblinHits-001.ogg-b4a20da477ae3c54787394735efa9bdf.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

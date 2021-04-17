@@ -29,7 +29,7 @@ connected_tiles = [ NodePath("../Board_Tile") ]
 
 [node name="Board_Tile3" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 352, 160 )
-Tile_Type = 1
+Tile_Type = 3
 enemy_to_fight = ExtResource( 4 )
 connected_tiles = [ NodePath("../Board_Tile") ]
 

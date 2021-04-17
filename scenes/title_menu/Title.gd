@@ -58,7 +58,7 @@ func _on_BtnStartGame_clicked(button_object):
 		yield(fade_anims, "animation_finished")
 		
 		is_during_animation = false
-		get_tree().change_scene("res://scenes/Testing/GameWorld.tscn")
+		var _err1 = get_tree().change_scene("res://scenes/Testing/GameWorld.tscn")
 
 
 func _on_BtnOptions_clicked(button_object):
@@ -76,7 +76,7 @@ func _on_BtnOptions_clicked(button_object):
 		is_during_animation = false
 
 
-func _on_BtnCredits_clicked(button_object):
+func _on_BtnCredits_clicked(_button_object):
 	if not is_during_animation:
 		pass # Replace with function body.
 

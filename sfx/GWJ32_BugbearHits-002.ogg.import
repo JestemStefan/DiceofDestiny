@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ32_BugbearHits-002.ogg-ccad5b9912681b2275c6a6d0ec3a5bb4.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ32_BugbearHits-002.ogg"
+dest_files=[ "res://.import/GWJ32_BugbearHits-002.ogg-ccad5b9912681b2275c6a6d0ec3a5bb4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

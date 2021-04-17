@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ32_CubeHitswav-002.ogg-001dde8e42d1bfe5f5731fe48a875e73.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ32_CubeHitswav-002.ogg"
+dest_files=[ "res://.import/GWJ32_CubeHitswav-002.ogg-001dde8e42d1bfe5f5731fe48a875e73.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
