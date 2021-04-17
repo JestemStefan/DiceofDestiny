@@ -67,6 +67,9 @@ func create_action_box(skill_list: Array):
 
 			"Heal":
 				action_box.set_actionbox_type(action_box.Action_type.HEAL)
+			
+			"7":
+				action_box.set_actionbox_type(action_box.Action_type.HEAL)
 	
 	
 	

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ_SlimeHello.ogg-da1bd34c3b568931eb42865ebd86a296.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ_SlimeHello.ogg"
+dest_files=[ "res://.import/GWJ_SlimeHello.ogg-da1bd34c3b568931eb42865ebd86a296.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -5,8 +5,9 @@ var player_max_health: int = 30
 var player_health: int = player_max_health
 
 var player_skills = {"Attack":true,
-					"Block": false,
-					"Heal": false}
+					"Block": true,
+					"Heal": true,
+					"7": true}
 
 var player_dice_amount: int = 3
 var last_dice_amount: int = player_dice_amount
@@ -16,8 +17,8 @@ var isCheater: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_player_skill_list()
-	unlock_player_skill("Block")
-	unlock_player_skill("Heal")
+	#unlock_player_skill("Block")
+	#unlock_player_skill("Heal")
 	get_player_skill_list()
 
 
