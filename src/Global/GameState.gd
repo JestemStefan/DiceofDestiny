@@ -9,6 +9,9 @@ var player_skills = {"Attack":true,
 					"Heal": false}
 
 var player_dice_amount: int = 3
+var last_dice_amount: int = player_dice_amount
+
+var isCheater: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,10 +50,31 @@ func unlock_player_skill(skill_name: String):
 
 
 func add_dice():
-	player_dice_amount += 1
+	if !isCheater:
+		player_dice_amount += 1
+		
+		if player_dice_amount > 7:
+			player_dice_amount = 7
+		
+		last_dice_amount = player_dice_amount
+		
+	else:
+		last_dice_amount += 1
+		if last_dice_amount > 7:
+			last_dice_amount = 7
 	
 	level_up()
 
 
 func remove_dice():
 	player_dice_amount -= 1
+
+
+func activate_cheats():
+	player_dice_amount = 7
+	isCheater = true
+	
+
+func deavtivate_cheats():
+	player_dice_amount = last_dice_amount
+	isCheater = false

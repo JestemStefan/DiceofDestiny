@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/CheaterSound.ogg-67d30ee8172508f02797090c9b61970f.oggstr"
+
+[deps]
+
+source_file="res://sfx/CheaterSound.ogg"
+dest_files=[ "res://.import/CheaterSound.ogg-67d30ee8172508f02797090c9b61970f.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

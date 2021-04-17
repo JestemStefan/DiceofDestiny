@@ -110,7 +110,8 @@ func take_damage(damage: int):
 	else:
 		play_sound("Block")
 	
-	player_hp -= damage
+	if !GameState.isCheater:
+		player_hp -= damage
 	
 	update_healthbar()
 	yield(get_tree().create_timer(0.5), "timeout")
