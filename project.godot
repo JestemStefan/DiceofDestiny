@@ -82,6 +82,7 @@ config/icon="res://icon.png"
 
 GameController="*res://src/Global/GameController.gd"
 GameState="*res://src/Global/GameState.gd"
+CheatCode="*res://src/Global/CheatCode.gd"
 
 [display]
 
