@@ -31,8 +31,6 @@ onready var enemy_controller_tween: Tween = $EnemyControllerTween
 onready var enemy_hand: Node2D = $EnemyFilthyHand
 onready var enemy_hand_tween: Tween = $EnemyFilthyHand/HandTween
 
-onready var hp_bar: ProgressBar = $EnemyHealthBar
-
 
 var isShaking: bool = false
 var initial_offset: Vector2
@@ -93,9 +91,8 @@ func update_enemy_sprite(sprite: Sprite):
 
 
 func update_healthbar():
-	
-	hp_bar.max_value = enemy_max_health
-	hp_bar.value = enemy_health
+	$EnemyHealthbar.setup_hp_bar(enemy_max_health)
+	$EnemyHealthbar.update_healthbar(enemy_health)
 
 
 func update_block_amount():
@@ -330,12 +327,12 @@ func tween_dice(dice: Dice, final_pos: Vector2):
 func hide_stuff():
 	$UI_Enemy_Stats.hide()
 	$EnemyStats.hide()
-	$UI_Enemy_HP.hide()
+	#$UI_Enemy_HP.hide()
 	$EnemySkills.hide()
 
 
 func show_stuff():
 	$UI_Enemy_Stats.show()
 	$EnemyStats.show()
-	$UI_Enemy_HP.show()
+	#$UI_Enemy_HP.show()
 	$EnemySkills.show()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/encounters/Encounter.gd" type="Script" id=1]
 [ext_resource path="res://src/Encounter_Player/Encounter_Player.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://art/UI/UI_Enemy.png" type="Texture" id=15]
 [ext_resource path="res://font/Alagard_16.tres" type="DynamicFont" id=16]
 [ext_resource path="res://art/Placeholders/block_skill_sprite.png" type="Texture" id=17]
+[ext_resource path="res://scenes/UI_Stuff/Healthbar.tscn" type="PackedScene" id=20]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -112,13 +113,13 @@ visible = false
 position = Vector2( -176, -42 )
 
 [node name="Skill1" type="Position2D" parent="Encounter_Player/Skills"]
-position = Vector2( 142, 144 )
+position = Vector2( 250, 144 )
 
 [node name="Skill2" type="Position2D" parent="Encounter_Player/Skills"]
 position = Vector2( 196, 144 )
 
 [node name="Skill3" type="Position2D" parent="Encounter_Player/Skills"]
-position = Vector2( 250, 144 )
+position = Vector2( 142, 144 )
 
 [node name="Skill4" type="Position2D" parent="Encounter_Player/Skills"]
 position = Vector2( 97, 144 )
@@ -195,20 +196,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerHealth" type="ProgressBar" parent="Encounter_Player"]
-visible = false
-margin_left = -61.0
-margin_top = 131.0
-margin_right = 179.0
-margin_bottom = 163.0
-step = 1.0
-value = 50.0
-percent_visible = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Player_SFX" type="AudioStreamPlayer" parent="Encounter_Player"]
+
+[node name="PlayerHealthbar" parent="Encounter_Player" instance=ExtResource( 20 )]
+visible = false
+position = Vector2( -15, 146 )
 
 [node name="Encounter_Enemy" type="Node2D" parent="."]
 position = Vector2( 367, 163 )
@@ -238,13 +230,13 @@ visible = false
 position = Vector2( 0, 96 )
 
 [node name="Skill1" type="Position2D" parent="Encounter_Enemy/EnemySkills"]
-position = Vector2( 85, -1 )
+position = Vector2( -23, -1 )
 
 [node name="Skill2" type="Position2D" parent="Encounter_Enemy/EnemySkills"]
 position = Vector2( 31, -1 )
 
 [node name="Skill3" type="Position2D" parent="Encounter_Enemy/EnemySkills"]
-position = Vector2( -23, -1 )
+position = Vector2( 85, -1 )
 
 [node name="Skill4" type="Position2D" parent="Encounter_Enemy/EnemySkills"]
 position = Vector2( 126, -3 )
@@ -299,19 +291,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EnemyHealthBar" type="ProgressBar" parent="Encounter_Enemy"]
-visible = false
-margin_left = -127.0
-margin_top = 124.0
-margin_right = 113.0
-margin_bottom = 156.0
-step = 1.0
-value = 50.0
-percent_visible = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="EnemyBlock" type="Sprite" parent="Encounter_Enemy"]
 visible = false
 position = Vector2( -57, -34 )
@@ -328,6 +307,11 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EnemyHealthbar" parent="Encounter_Enemy" instance=ExtResource( 20 )]
+visible = false
+position = Vector2( 66, 139 )
+reverse_fill = true
 
 [node name="Dices" parent="." instance=ExtResource( 3 )]
 position = Vector2( 240, 100 )

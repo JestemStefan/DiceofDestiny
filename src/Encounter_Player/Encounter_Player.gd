@@ -71,9 +71,8 @@ func create_action_box(skill_list: Array):
 	
 	
 func update_healthbar():
-	$PlayerHealth.max_value = player_maxHP
-	$PlayerHealth.value = player_hp
-
+	$PlayerHealthbar.setup_hp_bar(player_maxHP)
+	$PlayerHealthbar.update_healthbar(player_hp)
 
 
 func update_block_amount():
