@@ -16,6 +16,7 @@ var current_encounter: Encounter
 
 onready var fight_encounter_instance = preload("res://scenes/Encounters/FightEncounter.tscn")
 
+var transition_layer: TransitionLayer
 
 func _ready():
 	pass
@@ -79,6 +80,9 @@ func move_to_tile(tile: BoardTile):
 
 func start_encounter(encounter_type: String, enemy_data: Resource):
 	
+	var transition_tween: Tween = transition_layer.make_transition_black_in()
+	yield(transition_tween, "tween_completed")
+	
 	match encounter_type:
 		"Fight":
 			
@@ -87,14 +91,26 @@ func start_encounter(encounter_type: String, enemy_data: Resource):
 			
 			encounter.enemy_stats = enemy_data
 			encounter.start_encounter()
-			
-	enter_state(GameState.ENCOUNTER)
 	
+	enter_state(GameState.ENCOUNTER)
+
+	transition_tween = transition_layer.make_transition_black_out()
+	yield(transition_tween, "tween_completed")
+	transition_layer.transition_black_hide()
+
 
 func end_encounter():
+	var transition_tween: Tween = transition_layer.make_transition_black_in()
+	yield(transition_tween, "tween_completed")
+	
+	
 	current_encounter.call_deferred("free")
 	current_encounter = null
 	
 	enter_state(GameState.BOARD_WAITING)
 	current_board_tile.update_tile_type(current_board_tile.TileTypes.EMPTY_TILE)
 	current_board_tile.enter_state(current_board_tile.TileState.CURRENT)
+	
+	transition_tween = transition_layer.make_transition_black_out()
+	yield(transition_tween, "tween_completed")
+	transition_layer.transition_black_hide()

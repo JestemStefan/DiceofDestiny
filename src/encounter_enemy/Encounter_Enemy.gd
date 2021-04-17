@@ -58,29 +58,29 @@ func enter_state(new_state: int):
 			emit_signal("enemy_died")
 
 
-func load_enemy_data(enemy_stats: Resource):
-	enemy_name = enemy_stats.enemy_name
+func load_enemy_data(enemy_data: Resource):
+	enemy_name = enemy_data.enemy_name
 	$UI_Enemy_Name/EnemyName.text = enemy_name
 	print("Enemy name: " + enemy_name)
 	
-	enemy_level = enemy_stats.enemy_level
+	enemy_level = enemy_data.enemy_level
 	print("Level: " + str(enemy_level))
 	
-	var enemy_sprite_scene: Sprite = enemy_stats.enemy_sprite.instance()
+	var enemy_sprite_scene: Sprite = enemy_data.enemy_sprite.instance()
 	add_child(enemy_sprite_scene)
 	
 	update_enemy_sprite(enemy_sprite_scene)
 	
-	enemy_dice_count = enemy_stats.enemy_dice_count
+	enemy_dice_count = enemy_data.enemy_dice_count
 	print("Enemy has " + str(enemy_dice_count) + " dices")
 	
-	enemy_max_health = enemy_stats.get_enemyHP()
-	enemy_health = enemy_stats.get_enemyHP()
+	enemy_max_health = enemy_data.get_enemyHP()
+	enemy_health = enemy_data.get_enemyHP()
 	print("HP: " + str(enemy_max_health))
 	
 	update_healthbar()
 	
-	enemy_skills = enemy_stats.get_enemy_skill_list()
+	enemy_skills = enemy_data.get_enemy_skill_list()
 	print(enemy_skills)
 	
 	create_action_box(enemy_skills)
@@ -230,7 +230,7 @@ func play_turn():
 	
 	for spawned_dice in generated_dices:
 	
-		dice_tween.interpolate_property(spawned_dice, 
+		var _err1 = dice_tween.interpolate_property(spawned_dice, 
 									"global_position:y", 
 									null, 
 									spawned_dice.initial_position.y, 
@@ -239,7 +239,7 @@ func play_turn():
 									Tween.EASE_OUT, 
 									dice_drop_delay)
 		
-		dice_tween.interpolate_property(spawned_dice, 
+		var _err2 = dice_tween.interpolate_property(spawned_dice, 
 									"global_position:x", 
 									spawned_dice.global_position.x + rand_range(-500, 500), 
 									spawned_dice.initial_position.x, 
@@ -250,7 +250,7 @@ func play_turn():
 		
 		dice_drop_delay += 0.1
 	
-	dice_tween.start()
+	var _err_start = dice_tween.start()
 	yield(dice_tween, "tween_all_completed")
 	dice_tween.call_deferred("free")
 	

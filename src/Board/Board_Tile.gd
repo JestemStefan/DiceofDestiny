@@ -5,7 +5,7 @@ class_name BoardTile
 enum TileState {CLOSED, OPEN, CURRENT}
 var current_tilestate: int = TileState.CLOSED
 
-enum TileTypes{EMPTY_TILE, FIGHT_TILE, CHEST_TILE}
+enum TileTypes{EMPTY_TILE, FIGHT_TILE, BOSS_TILE, REST_TILE}
 export(TileTypes) var Tile_Type = TileTypes.EMPTY_TILE setget update_tile_type
 
 export(Resource) var enemy_to_fight
@@ -50,7 +50,10 @@ func enter_state(new_state):
 				TileTypes.FIGHT_TILE:
 					$InteractionButton.visible = true
 				
-				TileTypes.CHEST_TILE:
+				TileTypes.BOSS_TILE:
+					$InteractionButton.visible = true
+					
+				TileTypes.REST_TILE:
 					$InteractionButton.visible = true
 	
 
@@ -76,10 +79,15 @@ func update_tile_type(new_type: int = Tile_Type):
 		
 		TileTypes.FIGHT_TILE:
 			$TileSprite.frame = 1
+			$InteractionButton.text = "Fight"
 		
-		TileTypes.CHEST_TILE:
+		TileTypes.BOSS_TILE:
 			$TileSprite.frame = 0
-
+			$InteractionButton.text = "Boss"
+		
+		TileTypes.REST_TILE:
+			$TileSprite.frame = 3
+			$InteractionButton.text = "Rest"
 
 func open_connected_tiles():
 	var list_of_opened_tiles: Array = []
@@ -119,7 +127,7 @@ func _on_Board_Tile_mouse_entered():
 		$Tween.interpolate_property($TileSprite, "scale", $TileSprite.get_scale(), Vector2(1.5, 1.5), 0.25, Tween.TRANS_CUBIC, Tween.EASE_IN)
 		$Tween.start()
 
-	
+
 
 
 func _on_Board_Tile_mouse_exited():
@@ -130,5 +138,20 @@ func _on_Board_Tile_mouse_exited():
 
 
 func _on_InteractionButton_button_up():
-	$InteractionButton.hide()
-	GameController.start_encounter("Fight", enemy_to_fight)
+	
+	match Tile_Type:
+		TileTypes.EMPTY_TILE:
+			$InteractionButton.hide()
+		
+		TileTypes.FIGHT_TILE:
+			GameController.start_encounter("Fight", enemy_to_fight)
+			$InteractionButton.hide()
+		
+		TileTypes.BOSS_TILE:
+			GameController.start_encounter("Fight", enemy_to_fight)
+			$InteractionButton.hide()
+			
+		TileTypes.REST_TILE:
+			pass
+	
+	

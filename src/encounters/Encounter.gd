@@ -39,13 +39,13 @@ func start_encounter():
 	
 	player_animplayer.play("Idle")
 	var player_tween:Tween = slide_player_in()
-	
+	var enemy_tween:Tween = slide_enemy_in()
 	
 	enemy_animplayer.play("Idle")
-	var enemy_tween:Tween = slide_enemy_in()
 	
 	yield(player_tween,"tween_completed")
 	player_tween.call_deferred("free")
+	
 	yield(enemy_tween,"tween_completed")
 	enemy_tween.call_deferred("free")
 	
@@ -142,6 +142,7 @@ func slide_enemy_in():
 
 
 func end_encounter():
+	$BackToMapButton.hide()
 	GameState.add_dice()
 	GameController.end_encounter()
 
@@ -260,7 +261,7 @@ func _on_RollButton_button_up():
 	var dice_drop_delay: float = 0
 	for dice in generated_dices:
 	
-		dice_tween.interpolate_property(dice, 
+		var _err1 = dice_tween.interpolate_property(dice, 
 									"global_position:y", 
 									null, 
 									dice.initial_position.y, 
@@ -269,7 +270,7 @@ func _on_RollButton_button_up():
 									Tween.EASE_OUT, 
 									dice_drop_delay)
 		
-		dice_tween.interpolate_property(dice, 
+		var _err2 = dice_tween.interpolate_property(dice, 
 									"global_position:x", 
 									dice.global_position.x + rand_range(-500, 500), 
 									dice.initial_position.x, 
@@ -280,7 +281,7 @@ func _on_RollButton_button_up():
 		
 		dice_drop_delay += 0.1
 	
-	dice_tween.start()
+	var _tween_start = dice_tween.start()
 	yield(dice_tween, "tween_all_completed")
 	dice_tween.call_deferred("free")
 	
