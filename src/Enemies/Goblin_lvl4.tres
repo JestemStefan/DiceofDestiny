@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Enemies/Goblin_Sprite.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Enemies/EnemyStats.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+enemy_name = "Goblin"
+enemy_level = 1
+isBoss = false
+enemy_sprite = ExtResource( 1 )
+enemy_dice_count = 4
+enemy_max_health = 35
+attack_skill = true
+block_skill = false
+heal_skill = false

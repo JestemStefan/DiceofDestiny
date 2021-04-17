@@ -1,55 +1,195 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/Board/Board_Tile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Board/Board_Map.gd" type="Script" id=3]
-[ext_resource path="res://src/Enemies/Bugbear.tres" type="Resource" id=4]
-[ext_resource path="res://src/Enemies/Goblin.tres" type="Resource" id=5]
-[ext_resource path="res://src/Enemies/DM.tres" type="Resource" id=6]
-[ext_resource path="res://src/Enemies/GelatinousCube.tres" type="Resource" id=7]
-[ext_resource path="res://src/Enemies/Lich.tres" type="Resource" id=8]
+[ext_resource path="res://src/Enemies/Goblin_lvl2.tres" type="Resource" id=4]
+[ext_resource path="res://src/Enemies/Goblin_lvl1.tres" type="Resource" id=5]
+[ext_resource path="res://src/Enemies/Bugbear_Lvl1.tres" type="Resource" id=6]
+[ext_resource path="res://src/Enemies/Bugbear_Lvl2.tres" type="Resource" id=7]
+[ext_resource path="res://src/Enemies/Lich_lvl1.tres" type="Resource" id=8]
+[ext_resource path="res://art/Map.png" type="Texture" id=9]
+[ext_resource path="res://src/Enemies/Lich_lvl2.tres" type="Resource" id=10]
+[ext_resource path="res://src/Enemies/GelatinousCube_lvl3.tres" type="Resource" id=11]
+[ext_resource path="res://src/Enemies/DM.tres" type="Resource" id=12]
+[ext_resource path="res://src/Enemies/Lich_lvl3.tres" type="Resource" id=13]
+[ext_resource path="res://src/Enemies/Lich_lvl4.tres" type="Resource" id=14]
+[ext_resource path="res://src/Enemies/GelatinousCube_lvl2.tres" type="Resource" id=15]
+[ext_resource path="res://src/Enemies/GelatinousCube_lvl1.tres" type="Resource" id=16]
+[ext_resource path="res://src/Enemies/Goblin_lvl3.tres" type="Resource" id=17]
+[ext_resource path="res://src/Enemies/Bugbear_Lvl3.tres" type="Resource" id=18]
+[ext_resource path="res://src/Enemies/Goblin_lvl4.tres" type="Resource" id=19]
 
 [node name="Board_Map" type="Node2D" groups=[
 "BoardMap",
 ]]
 script = ExtResource( 3 )
 
+[node name="MapSprite" type="Sprite" parent="."]
+position = Vector2( 240, 160 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="Board_Tiles" type="Node2D" parent="."]
 
-[node name="Board_Tile" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 256, 192 )
-connected_tiles = [ NodePath("../Board_Tile2"), NodePath("../Board_Tile3"), NodePath("../Board_Tile4"), NodePath("../Board_Tile5"), NodePath("../Board_Tile6") ]
+[node name="StartTile" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 48, 144 )
+Tile_Type = 3
+connected_tiles = [ NodePath("../ForestTile_1") ]
 isStartTile = true
+isLocked = false
 
-[node name="Board_Tile2" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 256, 96 )
+[node name="ForestTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 112, 208 )
+connected_tiles = [ NodePath("../StartTile"), NodePath("../ForestTile_2") ]
+isLocked = false
+
+[node name="ForestTile_2" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 48, 240 )
 Tile_Type = 1
 enemy_to_fight = ExtResource( 5 )
-connected_tiles = [ NodePath("../Board_Tile") ]
+connected_tiles = [ NodePath("../ForestTile_1"), NodePath("../ForestTile_3") ]
+isLocked = false
 
-[node name="Board_Tile3" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 352, 160 )
-Tile_Type = 3
+[node name="ForestTile_3" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 112, 272 )
+Tile_Type = 1
 enemy_to_fight = ExtResource( 4 )
-connected_tiles = [ NodePath("../Board_Tile") ]
+connected_tiles = [ NodePath("../ForestTile_2"), NodePath("../ForestBossTile_1") ]
 
-[node name="Board_Tile4" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 352, 256 )
+[node name="ForestBossTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 176, 240 )
 Tile_Type = 2
-enemy_to_fight = ExtResource( 6 )
-connected_tiles = [ NodePath("../Board_Tile") ]
-
-[node name="Board_Tile5" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 256, 288 )
-Tile_Type = 1
-enemy_to_fight = ExtResource( 7 )
-connected_tiles = [ NodePath("../Board_Tile") ]
-
-[node name="Board_Tile6" parent="Board_Tiles" instance=ExtResource( 1 )]
-position = Vector2( 160, 256 )
-Tile_Type = 1
 enemy_to_fight = ExtResource( 8 )
-connected_tiles = [ NodePath("../Board_Tile") ]
+connected_tiles = [ NodePath("../ForestTile_3"), NodePath("../DesertTile_1") ]
+
+[node name="DesertTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 208, 176 )
+Tile_Type = 3
+environment = 2
+connected_tiles = [ NodePath("../ForestBossTile_1"), NodePath("../DesertTile_2"), NodePath("../DesertTile_3"), NodePath("../DesertTile_4") ]
+
+[node name="DesertTile_2" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 144, 144 )
+Tile_Type = 1
+environment = 2
+enemy_to_fight = ExtResource( 6 )
+connected_tiles = [ NodePath("../DesertTile_1"), NodePath("../DesertTile_5") ]
+isLocked = false
+
+[node name="DesertTile_3" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 240, 112 )
+Tile_Type = 1
+environment = 2
+enemy_to_fight = ExtResource( 17 )
+connected_tiles = [ NodePath("../DesertTile_1"), NodePath("../DesertTile_4"), NodePath("../DesertTile_5"), NodePath("../DesertTile_7") ]
+isLocked = false
+
+[node name="DesertTile_4" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 304, 144 )
+Tile_Type = 1
+environment = 2
+enemy_to_fight = ExtResource( 7 )
+connected_tiles = [ NodePath("../DesertTile_1"), NodePath("../DesertTile_3"), NodePath("../DesertTile_7"), NodePath("../SwampTile_1"), NodePath("../DesertTile_8") ]
+isLocked = false
+
+[node name="DesertTile_5" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 176, 80 )
+Tile_Type = 1
+environment = 2
+enemy_to_fight = ExtResource( 7 )
+connected_tiles = [ NodePath("../DesertTile_2"), NodePath("../DesertTile_3"), NodePath("../DesertBossTile_2"), NodePath("../DesertTile_6") ]
+
+[node name="DesertBossTile_2" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 80, 48 )
+Tile_Type = 2
+environment = 2
+enemy_to_fight = ExtResource( 10 )
+connected_tiles = [ NodePath("../DesertTile_5") ]
+
+[node name="DesertTile_6" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 240, 48 )
+Tile_Type = 1
+environment = 2
+enemy_to_fight = ExtResource( 7 )
+connected_tiles = [ NodePath("../DesertTile_5"), NodePath("../DesertTile_7") ]
+
+[node name="DesertTile_7" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 304, 80 )
+Tile_Type = 1
+environment = 2
+enemy_to_fight = ExtResource( 7 )
+connected_tiles = [ NodePath("../DesertTile_6"), NodePath("../DesertTile_3"), NodePath("../DesertTile_4"), NodePath("../SwampTile_3") ]
+
+[node name="DesertTile_8" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 272, 208 )
+Tile_Type = 1
+environment = 2
+enemy_to_fight = ExtResource( 19 )
+connected_tiles = [ NodePath("../DesertTile_4"), NodePath("../DesertTile_9") ]
+
+[node name="DesertTile_9" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 304, 272 )
+Tile_Type = 1
+environment = 1
+enemy_to_fight = ExtResource( 18 )
+connected_tiles = [ NodePath("../DesertTile_8"), NodePath("../DesertBossTile_3") ]
+
+[node name="DesertBossTile_3" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 240, 304 )
+Tile_Type = 2
+environment = 1
+enemy_to_fight = ExtResource( 13 )
+connected_tiles = [ NodePath("../DesertTile_9") ]
+
+[node name="SwampTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 368, 208 )
+Tile_Type = 1
+environment = 3
+enemy_to_fight = ExtResource( 16 )
+connected_tiles = [ NodePath("../DesertTile_4"), NodePath("../SwampTile_2") ]
+
+[node name="SwampTile_2" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 400, 240 )
+Tile_Type = 1
+environment = 3
+enemy_to_fight = ExtResource( 15 )
+connected_tiles = [ NodePath("../SwampTile_1"), NodePath("../SwampBossTile_1") ]
+
+[node name="SwampBossTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 432, 304 )
+Tile_Type = 2
+environment = 3
+enemy_to_fight = ExtResource( 14 )
+connected_tiles = [ NodePath("../SwampTile_2") ]
+
+[node name="SwampTile_3" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 368, 80 )
+Tile_Type = 3
+environment = 3
+connected_tiles = [ NodePath("../DesertTile_7"), NodePath("../SwampTile_4") ]
+
+[node name="SwampTile_4" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 400, 144 )
+Tile_Type = 1
+environment = 3
+enemy_to_fight = ExtResource( 11 )
+connected_tiles = [ NodePath("../SwampTile_3"), NodePath("../SwampTile_5") ]
+isLocked = false
+
+[node name="SwampTile_5" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 464, 144 )
+Tile_Type = 1
+environment = 3
+enemy_to_fight = ExtResource( 11 )
+connected_tiles = [ NodePath("../SwampTile_4"), NodePath("../DM_Domain") ]
+
+[node name="DM_Domain" parent="Board_Tiles" instance=ExtResource( 1 )]
+position = Vector2( 432, 48 )
+enemy_to_fight = ExtResource( 12 )
+connected_tiles = [ NodePath("../SwampTile_5") ]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 

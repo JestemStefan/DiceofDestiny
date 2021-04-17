@@ -1,16 +1,16 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/Enemies/EnemyStats.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Enemies/Bugbear_Sprite.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Enemies/Lich.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
-enemy_name = "Bugbear"
+enemy_name = "Lich"
 enemy_level = 1
-isBoss = false
+isBoss = true
 enemy_sprite = ExtResource( 2 )
-enemy_dice_count = 2
-enemy_max_health = 30
+enemy_dice_count = 6
+enemy_max_health = 60
 attack_skill = true
 block_skill = true
-heal_skill = false
+heal_skill = true
