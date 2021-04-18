@@ -1,0 +1,252 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://font/alagard.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://art/title_menu/bg.png" type="Texture" id=2]
+[ext_resource path="res://font/Alagard_16_Outline.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scenes/title_menu/ButtonItem.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/TextEnd/TextEnd.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Text1:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.00909697, 0.397334 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Text2:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.059097, 0.447334 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Text3:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.109097, 0.497334 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("BtnOK:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.0156124, -0.0856507, 0.0156124, 0.0856507, 0, -0.00597787, -0.0968316, 0.00597787, 0.0968316 ),
+"times": PoolRealArray( 0.00533581, 0.131511 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BtnOK:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.00314128, 0.132445 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Show"
+length = 2.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Text1:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Text2:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 1.95 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Text3:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("BtnOK:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.00597787, -0.0968316, 0.00597787, 0.0968316, 1, -0.0156124, -0.0856507, 0.0156124, 0.0856507 ),
+"times": PoolRealArray( 2, 2.1 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BtnOK:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[node name="TextEnd" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+modulate = Color( 0.3, 0.3, 0.3, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text1" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = -24.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 0.33, 0.33, 0.33, 1 )
+visible_characters = 0
+percent_visible = 0.0
+text = "And so the reign of chance was ended. The victorious hero seized the dice that had brought valiant men low and raised fools to royalty, and crushed them beneath his steel boot.
+
+It is not for I to say, dear player, what became of those faraway lands, whose people were so afeared of fate's fickle hand that they sought stasis over entropy. Perhaps, in his rush to the mountaintop, that unknown champion did not consider the fate he would fix in place, nor the world now doomed never to stray from the set passage of time down which it now helplessly drifts.
+
+Maybe, with the passing of seasons, we shall see what destiny is made with mortal hands.
+
+Thank you for playing."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = -24.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 0.66, 0.66, 0.66, 1 )
+visible_characters = 0
+percent_visible = 0.0
+text = "And so the reign of chance was ended. The victorious hero seized the dice that had brought valiant men low and raised fools to royalty, and crushed them beneath his steel boot.
+
+It is not for I to say, dear player, what became of those faraway lands, whose people were so afeared of fate's fickle hand that they sought stasis over entropy. Perhaps, in his rush to the mountaintop, that unknown champion did not consider the fate he would fix in place, nor the world now doomed never to stray from the set passage of time down which it now helplessly drifts.
+
+Maybe, with the passing of seasons, we shall see what destiny is made with mortal hands.
+
+Thank you for playing."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text3" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = -24.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+visible_characters = 0
+percent_visible = 0.0
+text = "And so the reign of chance was ended. The victorious hero seized the dice that had brought valiant men low and raised fools to royalty, and crushed them beneath his steel boot.
+
+It is not for I to say, dear player, what became of those faraway lands, whose people were so afeared of fate's fickle hand that they sought stasis over entropy. Perhaps, in his rush to the mountaintop, that unknown champion did not consider the fate he would fix in place, nor the world now doomed never to stray from the set passage of time down which it now helplessly drifts.
+
+Maybe, with the passing of seasons, we shall see what destiny is made with mortal hands.
+
+Thank you for playing."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Hide = SubResource( 3 )
+anims/Show = SubResource( 2 )
+
+[node name="BtnOK" parent="." instance=ExtResource( 4 )]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = -44.0
+margin_right = 224.0
+margin_bottom = -12.0
+
+[node name="Label" type="Label" parent="BtnOK"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Continue"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="clicked" from="BtnOK" to="." method="_on_BtnOK_clicked"]
