@@ -11,6 +11,9 @@ onready var buttons_options = [
 ]
 
 func _ready():
+	
+	AudioManager.play_theme("Title")
+	
 	# Make sure we start with the screen faded out
 	fade_anims.play("FadeOut", -1, 1.0, true) # Move animation to end
 	fade_anims.advance(0)                     # force update

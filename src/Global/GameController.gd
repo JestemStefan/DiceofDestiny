@@ -86,11 +86,13 @@ func start_encounter(encounter_type: String, enemy_data: Resource = null, env: i
 	match encounter_type:
 		"Fight":
 			
+			
 			var encounter: Encounter = fight_encounter_instance.instance()
 			encounter_layer.add_child(encounter)
 			
 			encounter.enemy_stats = enemy_data
 			encounter.encounter_environment = env
+			
 			encounter.start_encounter()
 	
 			enter_state(Game_State.ENCOUNTER)
@@ -113,6 +115,7 @@ func end_encounter():
 	current_encounter = null
 	
 	# Prepare the board
+	AudioManager.play_theme("Map")
 	enter_state(Game_State.BOARD_WAITING)
 	current_board_tile.update_tile_type(current_board_tile.TileTypes.EMPTY_TILE)
 	current_board_tile.enter_state(current_board_tile.TileState.CURRENT)
