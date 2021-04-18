@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GWJ_PowerUpEnemy.ogg-8f262de5d9fe83007646c4c0e42e55dd.oggstr"
+
+[deps]
+
+source_file="res://sfx/GWJ_PowerUpEnemy.ogg"
+dest_files=[ "res://.import/GWJ_PowerUpEnemy.ogg-8f262de5d9fe83007646c4c0e42e55dd.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

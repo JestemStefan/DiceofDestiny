@@ -1,6 +1,4 @@
-
 [gd_scene load_steps=22 format=2]
-
 
 [ext_resource path="res://scenes/Board/Board_Tile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -22,9 +20,7 @@
 [ext_resource path="res://src/Enemies/Bugbear_Lvl3.tres" type="Resource" id=18]
 [ext_resource path="res://src/Enemies/Goblin_lvl4.tres" type="Resource" id=19]
 [ext_resource path="res://sfx/GWJ_DiceSlides-002.ogg" type="AudioStream" id=20]
-
 [ext_resource path="res://src/Enemies/Slime lvl1.tres" type="Resource" id=21]
-
 
 [node name="Board_Map" type="Node2D" groups=[
 "BoardMap",
@@ -58,12 +54,14 @@ Tile_Type = 1
 enemy_to_fight = ExtResource( 5 )
 connected_tiles = [ NodePath("../ForestTile_1"), NodePath("../ForestTile_3") ]
 isLocked = false
+dice_difficulty = 1
 
 [node name="ForestTile_3" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 112, 272 )
 Tile_Type = 1
 enemy_to_fight = ExtResource( 4 )
 connected_tiles = [ NodePath("../ForestTile_2"), NodePath("../ForestBossTile_1") ]
+dice_difficulty = 2
 
 [node name="ForestBossTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 176, 240 )
@@ -71,6 +69,7 @@ Tile_Type = 2
 environment = 4
 enemy_to_fight = ExtResource( 8 )
 connected_tiles = [ NodePath("../ForestTile_3"), NodePath("../DesertTile_1") ]
+dice_difficulty = 3
 
 [node name="DesertTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 208, 176 )
@@ -85,6 +84,7 @@ environment = 2
 enemy_to_fight = ExtResource( 6 )
 connected_tiles = [ NodePath("../DesertTile_1"), NodePath("../DesertTile_5") ]
 isLocked = false
+dice_difficulty = 3
 
 [node name="DesertTile_3" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 240, 112 )
@@ -93,6 +93,7 @@ environment = 2
 enemy_to_fight = ExtResource( 17 )
 connected_tiles = [ NodePath("../DesertTile_1"), NodePath("../DesertTile_4"), NodePath("../DesertTile_5"), NodePath("../DesertTile_7") ]
 isLocked = false
+dice_difficulty = 3
 
 [node name="DesertTile_4" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 304, 144 )
@@ -101,6 +102,7 @@ environment = 2
 enemy_to_fight = ExtResource( 7 )
 connected_tiles = [ NodePath("../DesertTile_1"), NodePath("../DesertTile_3"), NodePath("../DesertTile_7"), NodePath("../SwampTile_1"), NodePath("../DesertTile_8") ]
 isLocked = false
+dice_difficulty = 3
 
 [node name="DesertTile_5" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 176, 80 )
@@ -108,6 +110,7 @@ Tile_Type = 1
 environment = 2
 enemy_to_fight = ExtResource( 7 )
 connected_tiles = [ NodePath("../DesertTile_2"), NodePath("../DesertTile_3"), NodePath("../DesertBossTile_2"), NodePath("../DesertTile_6") ]
+dice_difficulty = 3
 
 [node name="DesertBossTile_2" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 80, 48 )
@@ -115,6 +118,7 @@ Tile_Type = 2
 environment = 4
 enemy_to_fight = ExtResource( 10 )
 connected_tiles = [ NodePath("../DesertTile_5") ]
+dice_difficulty = 4
 
 [node name="DesertTile_6" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 240, 48 )
@@ -122,6 +126,7 @@ Tile_Type = 1
 environment = 2
 enemy_to_fight = ExtResource( 7 )
 connected_tiles = [ NodePath("../DesertTile_5"), NodePath("../DesertTile_7") ]
+dice_difficulty = 3
 
 [node name="DesertTile_7" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 304, 80 )
@@ -129,6 +134,7 @@ Tile_Type = 1
 environment = 2
 enemy_to_fight = ExtResource( 7 )
 connected_tiles = [ NodePath("../DesertTile_6"), NodePath("../DesertTile_3"), NodePath("../DesertTile_4"), NodePath("../SwampTile_3") ]
+dice_difficulty = 3
 
 [node name="DesertTile_8" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 272, 208 )
@@ -136,6 +142,7 @@ Tile_Type = 1
 environment = 2
 enemy_to_fight = ExtResource( 19 )
 connected_tiles = [ NodePath("../DesertTile_4"), NodePath("../DesertTile_9") ]
+dice_difficulty = 4
 
 [node name="DesertTile_9" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 304, 272 )
@@ -143,6 +150,7 @@ Tile_Type = 1
 environment = 2
 enemy_to_fight = ExtResource( 18 )
 connected_tiles = [ NodePath("../DesertTile_8"), NodePath("../DesertBossTile_3") ]
+dice_difficulty = 4
 
 [node name="DesertBossTile_3" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 240, 304 )
@@ -150,6 +158,7 @@ Tile_Type = 2
 environment = 4
 enemy_to_fight = ExtResource( 13 )
 connected_tiles = [ NodePath("../DesertTile_9") ]
+dice_difficulty = 5
 
 [node name="SwampTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 368, 208 )
@@ -157,6 +166,7 @@ Tile_Type = 1
 environment = 3
 enemy_to_fight = ExtResource( 21 )
 connected_tiles = [ NodePath("../DesertTile_4"), NodePath("../SwampTile_2") ]
+dice_difficulty = 3
 
 [node name="SwampTile_2" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 400, 240 )
@@ -164,6 +174,7 @@ Tile_Type = 1
 environment = 3
 enemy_to_fight = ExtResource( 15 )
 connected_tiles = [ NodePath("../SwampTile_1"), NodePath("../SwampBossTile_1") ]
+dice_difficulty = 5
 
 [node name="SwampBossTile_1" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 432, 304 )
@@ -171,6 +182,7 @@ Tile_Type = 2
 environment = 4
 enemy_to_fight = ExtResource( 14 )
 connected_tiles = [ NodePath("../SwampTile_2") ]
+dice_difficulty = 6
 
 [node name="SwampTile_3" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 368, 80 )
@@ -185,6 +197,7 @@ environment = 3
 enemy_to_fight = ExtResource( 16 )
 connected_tiles = [ NodePath("../SwampTile_3"), NodePath("../SwampTile_5") ]
 isLocked = false
+dice_difficulty = 4
 
 [node name="SwampTile_5" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 464, 144 )
@@ -192,6 +205,7 @@ Tile_Type = 1
 environment = 3
 enemy_to_fight = ExtResource( 11 )
 connected_tiles = [ NodePath("../SwampTile_4"), NodePath("../DM_Domain") ]
+dice_difficulty = 6
 
 [node name="DM_Domain" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 432, 48 )
@@ -199,6 +213,7 @@ Tile_Type = 4
 environment = 5
 enemy_to_fight = ExtResource( 12 )
 connected_tiles = [ NodePath("../SwampTile_5") ]
+dice_difficulty = 7
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 16, 176 )

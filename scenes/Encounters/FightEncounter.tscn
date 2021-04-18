@@ -270,9 +270,7 @@ __meta__ = {
 
 [node name="PlayerBlock" type="Sprite" parent="Encounter_Player"]
 visible = false
-
 position = Vector2( 82, -26 )
-
 texture = ExtResource( 17 )
 
 [node name="BlockAmount" type="Label" parent="Encounter_Player/PlayerBlock"]
@@ -464,9 +462,7 @@ __meta__ = {
 
 [node name="EnemyBlock" type="Sprite" parent="Encounter_Enemy"]
 visible = false
-
 position = Vector2( -31, -32 )
-
 texture = ExtResource( 17 )
 
 [node name="BlockAmount" type="Label" parent="Encounter_Enemy/EnemyBlock"]

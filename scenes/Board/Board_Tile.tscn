@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://art/tiles.png" type="Texture" id=1]
 [ext_resource path="res://src/Board/Board_Tile.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://art/UI/Buttons/SmallButton_Normal.png" type="Texture" id=4]
 [ext_resource path="res://art/UI/Buttons/SmallButton_Pressed.png" type="Texture" id=5]
 [ext_resource path="res://art/UI/Buttons/SmallButton_Hover.png" type="Texture" id=6]
+[ext_resource path="res://art/Tiny_Dice.png" type="Texture" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 12.0
@@ -68,6 +69,12 @@ rect_scale = Vector2( 0.6, 0.6 )
 text = "Interact"
 align = 1
 valign = 1
+
+[node name="TinyDice" type="Sprite" parent="."]
+visible = false
+position = Vector2( -29.6141, 16.1639 )
+texture = ExtResource( 7 )
+hframes = 7
 
 [connection signal="input_event" from="." to="." method="_on_Board_Tile_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_Board_Tile_mouse_entered"]

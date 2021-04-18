@@ -18,6 +18,8 @@ export(Array, NodePath) var connected_tiles
 export var isStartTile: bool = false
 export var isLocked: bool = true
 
+export var dice_difficulty: int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#var err = connect("input_event", self, "_on_Board_Tile_input_event")
@@ -71,7 +73,8 @@ func enter_state(new_state):
 				TileTypes.DM_TILE:
 					$InteractionButton.visible = true
 
-
+	
+	
 func open_tile():
 	enter_state(TileState.OPEN)
 
@@ -119,6 +122,18 @@ func update_tile_type(new_type: int = Tile_Type):
 		TileTypes.DM_TILE:
 			$TileSprite.frame = 8
 			$InteractionButton/Label.text = "BOSS"
+	
+	$TinyDice.show()
+	match dice_difficulty:
+		0: $TinyDice.hide()
+		1: $TinyDice.frame = 0
+		2: $TinyDice.frame = 1
+		3: $TinyDice.frame = 2
+		4: $TinyDice.frame = 3
+		5: $TinyDice.frame = 4
+		6: $TinyDice.frame = 5
+		7: $TinyDice.frame = 6
+
 
 func unlock_tiles():
 	var list_of_tiles_to_unlock: Array = []
