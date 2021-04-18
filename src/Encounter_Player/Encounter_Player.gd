@@ -201,6 +201,9 @@ func heal(amount: int):
 func shake(on_off: bool, shake_strength: float = 2):
 	isShaking = on_off
 	shake_offest = shake_strength
+	
+	if isShaking == false:
+		player_sprite.offset = Vector2.ZERO
 
 
 func hide_stuff():
