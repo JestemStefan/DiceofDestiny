@@ -68,11 +68,11 @@ func update_actionbox(isPlayer: bool):
 			
 			Action_type.SPECIAL_OFF: 
 				$Box_Sprite.frame = 7
-				hint_label.text = "Enemy skills twice\n as effective in X amount of rounds"
+				hint_label.text = "Enemy skills will be twice\n as effective in X amount of rounds"
 				
 			Action_type.SPECIAL_ON: 
 				$Box_Sprite.frame = 8
-				hint_label.text = "Enemy skills twice\n as effective in this round"
+				hint_label.text = "Enemy skills are twice\n as effective in this round"
 
 
 func use_dice(dice_value: int):
