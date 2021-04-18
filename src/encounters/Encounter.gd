@@ -259,6 +259,8 @@ func switch_turns(next_turn: int):
 				$RollButton.set_disabled(false)
 				$UndoActionButton.show()
 				$EndTurnButton.show()
+				
+				
 				current_turn = Turn.PLAYER
 				
 				encounter_player.show_stuff()
