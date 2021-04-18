@@ -10,7 +10,7 @@ func _ready():
 	get_node("BtnOK").hide()
 	
 	anim.play("Show")
-
+	AudioManager.play_theme("Epilogue")
 
 
 func _on_BtnOK_clicked(object):
