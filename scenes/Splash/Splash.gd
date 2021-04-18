@@ -25,4 +25,4 @@ func title_screen():
 		
 	done = true
 	
-	get_tree().change_scene("res://scenes/title_menu/Title.tscn")
+	var _ok = get_tree().change_scene("res://scenes/title_menu/Title.tscn")

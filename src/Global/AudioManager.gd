@@ -8,11 +8,16 @@ onready var final_boss_theme: AudioStreamOGGVorbis = preload("res://music/final_
 
 var current_player: AudioStreamPlayer = null
 
+var last_map_theme_position: float = 0
+
 func play_theme(theme_name: String):
 	
-	var tween = Tween.new()
+	#var tween = Tween.new()
 	
 	if current_player != null:
+		if current_player.stream == map_theme:
+			last_map_theme_position = current_player.get_playback_position()
+
 		current_player.call_deferred("free")
 	
 	
@@ -22,6 +27,7 @@ func play_theme(theme_name: String):
 	current_player = theme_player
 	
 	var theme_to_play: AudioStreamOGGVorbis
+	var start_from: float = 0
 	
 	match theme_name:
 		"Title":
@@ -29,6 +35,7 @@ func play_theme(theme_name: String):
 		
 		"Map":
 			theme_to_play = map_theme
+			start_from = last_map_theme_position
 		
 		"Battle":
 			theme_to_play = battle_theme
@@ -38,4 +45,5 @@ func play_theme(theme_name: String):
 	
 	theme_player.stream = theme_to_play
 	theme_player.bus = "BGM"
-	theme_player.play()
+	
+	theme_player.play(start_from)
