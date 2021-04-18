@@ -101,11 +101,11 @@ func update_tile_type(new_type: int = Tile_Type):
 		
 		TileTypes.FIGHT_TILE:
 			$TileSprite.frame = 1
-			$InteractionButton.text = "Fight"
+			$InteractionButton/Label.text = "Fight"
 		
 		TileTypes.BOSS_TILE:
 			$TileSprite.frame = 7
-			$InteractionButton.text = "Boss"
+			$InteractionButton/Label.text = "Boss"
 		
 		TileTypes.REST_TILE:
 			match environment:
@@ -114,11 +114,11 @@ func update_tile_type(new_type: int = Tile_Type):
 				EnvironmentTypes.DESERT: $TileSprite.frame = 11
 				EnvironmentTypes.SWAMP: $TileSprite.frame = 10
 			
-			$InteractionButton.text = "Rest"
+			$InteractionButton/Label.text = "Rest"
 		
 		TileTypes.DM_TILE:
 			$TileSprite.frame = 8
-			$InteractionButton.text = "BOSS"
+			$InteractionButton/Label.text = "BOSS"
 
 func unlock_tiles():
 	var list_of_tiles_to_unlock: Array = []

@@ -45,7 +45,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "BoostOFF"
 tracks/0/type = "value"
 tracks/0/path = NodePath("UI_Player_Stats:self_modulate")
@@ -60,8 +60,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "BoostON"
+[sub_resource type="Animation" id=3]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("UI_Player_Stats:self_modulate")
@@ -247,7 +246,7 @@ __meta__ = {
 
 [node name="PlayerBlock" type="Sprite" parent="Encounter_Player"]
 visible = false
-position = Vector2( 109, -28 )
+position = Vector2( 58, -28 )
 texture = ExtResource( 17 )
 
 [node name="BlockAmount" type="Label" parent="Encounter_Player/PlayerBlock"]
@@ -326,8 +325,8 @@ __meta__ = {
 }
 
 [node name="BoostAnimation" type="AnimationPlayer" parent="Encounter_Player"]
-anims/BoostOFF = SubResource( 3 )
-anims/BoostON = SubResource( 2 )
+anims/BoostOFF = SubResource( 2 )
+anims/BoostON = SubResource( 3 )
 
 [node name="Encounter_Enemy" type="Node2D" parent="."]
 position = Vector2( 367, 163 )
@@ -439,7 +438,7 @@ __meta__ = {
 
 [node name="EnemyBlock" type="Sprite" parent="Encounter_Enemy"]
 visible = false
-position = Vector2( -57, -34 )
+position = Vector2( -8, -34 )
 texture = ExtResource( 17 )
 
 [node name="BlockAmount" type="Label" parent="Encounter_Enemy/EnemyBlock"]
@@ -486,16 +485,30 @@ position = Vector2( -96, 0 )
 [node name="Dice7" type="Position2D" parent="Dices"]
 position = Vector2( 96, 0 )
 
-[node name="BackToMapButton" type="Button" parent="."]
+[node name="BackToMapButton" type="TextureButton" parent="."]
 visible = false
-margin_left = 128.0
-margin_top = 128.0
-margin_right = 361.0
-margin_bottom = 192.0
-text = "YOU WON  (Click to return to map)"
+margin_left = 178.0
+margin_top = 102.0
+margin_right = 306.0
+margin_bottom = 164.0
+hint_tooltip = "Back to Board Map"
+texture_normal = ExtResource( 22 )
+texture_pressed = ExtResource( 23 )
+texture_hover = ExtResource( 24 )
+texture_disabled = ExtResource( 21 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="BackToMapButton"]
+margin_left = 20.0
+margin_top = 14.0
+margin_right = 109.0
+margin_bottom = 47.0
+text = "You won!"
+align = 1
+valign = 1
 
 [connection signal="button_up" from="EndTurnButton" to="." method="_on_EndTurnButton_button_up"]
 [connection signal="button_up" from="UndoActionButton" to="." method="_on_UndoActionButton_button_up"]

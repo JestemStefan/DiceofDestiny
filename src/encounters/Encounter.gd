@@ -94,6 +94,8 @@ func start_encounter():
 	
 	$RollButton.show()
 	$EndTurnButton.show()
+	
+	$BackToMapButton/Label.text = "You won! \n +1 Dice!"
 
 	switch_turns(Turn.PLAYER) 
 

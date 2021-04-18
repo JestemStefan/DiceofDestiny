@@ -14,3 +14,7 @@ func _ready():
 
 func cover(on_off: bool):
 	$MapOverlay.visible = on_off
+
+
+func play_move_sound():
+	$MoveSound.play()
