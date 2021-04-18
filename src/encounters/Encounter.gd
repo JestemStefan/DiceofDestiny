@@ -59,7 +59,7 @@ func start_encounter():
 			
 		Environment_Type.BOSS: 
 			combat_platform_index = 3
-			AudioManager.play_theme("Battle")
+			AudioManager.play_theme("Boss")
 			
 		Environment_Type.DM: 
 			combat_platform_index = 4

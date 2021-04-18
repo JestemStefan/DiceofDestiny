@@ -4,7 +4,9 @@ extends Node
 onready var title_theme: AudioStreamOGGVorbis = preload("res://music/title.ogg")
 onready var map_theme: AudioStreamOGGVorbis = preload("res://music/overworld.ogg")
 onready var battle_theme: AudioStreamOGGVorbis = preload("res://music/battle.ogg")
+onready var boss_theme: AudioStreamOGGVorbis = preload("res://music/lich.ogg")
 onready var final_boss_theme: AudioStreamOGGVorbis = preload("res://music/final_boss.ogg")
+onready var epilogue_theme: AudioStreamOGGVorbis = preload("res://music/epilogue2.ogg")
 
 var current_player: AudioStreamPlayer = null
 
@@ -39,9 +41,16 @@ func play_theme(theme_name: String):
 		
 		"Battle":
 			theme_to_play = battle_theme
+			
+		"Boss":
+			theme_to_play = boss_theme
 		
 		"FinalBoss":
 			theme_to_play = final_boss_theme
+		
+		"Epilogue":
+			theme_to_play = epilogue_theme
+		
 	
 	theme_player.stream = theme_to_play
 	theme_player.bus = "BGM"
