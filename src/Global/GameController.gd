@@ -158,5 +158,8 @@ func game_finished():
 	if current_encounter != null:
 		current_encounter.call_deferred("free")
 		current_encounter = null
+		
+	current_board_tile = null
+	GameState.reset_game()
 	
 	var _ok = get_tree().change_scene("res://scenes/TextEnd/TextEnd.tscn")

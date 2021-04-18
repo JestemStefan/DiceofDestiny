@@ -22,6 +22,19 @@ func _ready():
 	get_player_skill_list()
 
 
+func reset_game():
+	player_max_health = 30
+	player_health = player_max_health
+
+	player_skills = {"Attack":true,
+						"Block": true,
+						"Heal": true,
+						"7": true}
+
+	player_dice_amount = 3
+	last_dice_amount = player_dice_amount
+
+	isCheater = false
 
 func get_player_skill_list():
 	var available_skill_list: Array = []
