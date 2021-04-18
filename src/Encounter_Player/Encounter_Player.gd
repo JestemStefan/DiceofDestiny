@@ -237,12 +237,17 @@ func play_sound(sound_name: String):
 
 func check_special_seven():
 	if player_stats["7"] == 7:
+		if isSpecialSevenOn == false:
+			$PlayerSpecialAudioStreamPlayer.play()
+		
 		isSpecialSevenOn = true
 		
 		boost_animplayer.play("BoostON")
+		
 		
 		print("Special 7 boost ON")
 	else:
 		isSpecialSevenOn = false
 		boost_animplayer.play("BoostOFF")
+		$PlayerSpecialAudioStreamPlayer.stop()
 		print("Special 7 boost OFF")

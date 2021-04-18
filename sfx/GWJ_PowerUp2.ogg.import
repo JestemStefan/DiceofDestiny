@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ_PowerUp2.ogg-0f5111765dabfe340fd214ad4e41c53b.og
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

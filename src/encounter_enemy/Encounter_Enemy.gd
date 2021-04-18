@@ -322,6 +322,7 @@ func play_turn():
 		$EnemySkills/EnemySpecial/Special_Skill_Label.text = ""
 		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
 		enemy_boost_anim_player.play("BoostON")
+		$EnemySpecialAudioStreamPlayer.play()
 	
 	
 	# for every dice generated
