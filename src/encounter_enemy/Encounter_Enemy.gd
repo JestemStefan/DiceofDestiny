@@ -20,6 +20,8 @@ onready var enemy_block_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Ski
 var enemy_special_delay: int = 5
 var special_available: bool = false
 
+onready var enemy_boost_anim_player: AnimationPlayer = $EnemyBoostAnimationPlayer
+
 var enemy_actions: Dictionary = {"Attack": null,
 								"Block": null,
 								"Heal":null}
@@ -132,18 +134,25 @@ func update_stats(stats: Dictionary):
 	
 	enemy_stats = stats
 	
+	var boost: int = 1
+	
+	if special_available:
+		boost = 2
+	else:
+		boost = 1
+	
 	var text_to_insert: String = ""
 	
 	for stat_name in enemy_stats.keys():
 		match stat_name:
 			"Attack":
-				text_to_insert += str(enemy_stats[stat_name]) + " :" + stat_name + "\n"
+				text_to_insert += str(enemy_stats[stat_name] * boost) + " :" + stat_name + "\n"
 			
 			"Block":
-				text_to_insert += str(enemy_stats[stat_name]) + " :" + stat_name + "\n"
+				text_to_insert += str(enemy_stats[stat_name] * boost) + " :" + stat_name + "\n"
 			
 			"Heal":
-				text_to_insert += str(enemy_stats[stat_name]) + " :" + stat_name + "\n"
+				text_to_insert += str(enemy_stats[stat_name] * boost) + " :" + stat_name + "\n"
 		
 
 	$EnemyStats.text = text_to_insert
@@ -312,6 +321,7 @@ func play_turn():
 		
 		$EnemySkills/EnemySpecial/Special_Skill_Label.text = str(enemy_special_delay)
 		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
+		enemy_boost_anim_player.play("BoostON")
 	
 	
 	# for every dice generated
@@ -371,6 +381,7 @@ func check_special():
 		$EnemySkills/EnemySpecial/Special_Skill_Label.text = str(enemy_special_delay)
 		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
 		special_available = false
+		enemy_boost_anim_player.play("BoostOFF")
 	
 	update_stats(enemy_stats)
 
