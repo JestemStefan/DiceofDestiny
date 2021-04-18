@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hands.png-3336009f3db73d94db19188711320d36.stex"
+path="res://.import/Tiny_Dice_Offset_Right.png-30d6da31f52230d7b3f95d43ec84c3b6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/hands.png"
-dest_files=[ "res://.import/hands.png-3336009f3db73d94db19188711320d36.stex" ]
+source_file="res://art/Tiny_Dice_Offset_Right.png"
+dest_files=[ "res://.import/Tiny_Dice_Offset_Right.png-30d6da31f52230d7b3f95d43ec84c3b6.stex" ]
 
 [params]
 

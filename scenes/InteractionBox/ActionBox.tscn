@@ -19,5 +19,23 @@ hframes = 9
 
 [node name="Tween_Size" type="Tween" parent="."]
 
+[node name="Hint" type="Label" parent="."]
+visible = false
+margin_left = -56.0
+margin_top = -48.0
+margin_right = 183.0
+margin_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_scale = Vector2( 0.5, 0.5 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Put dice of value 7
+to make skills twice as effective"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="mouse_entered" from="." to="." method="_on_Action_Box_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Action_Box_mouse_exited"]

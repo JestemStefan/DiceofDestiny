@@ -8,7 +8,7 @@
 [ext_resource path="res://src/encounter_enemy/Encounter_Enemy.gd" type="Script" id=6]
 [ext_resource path="res://art/UI/UI_Enemy_HP.png" type="Texture" id=7]
 [ext_resource path="res://art/UI/UI_Player_Name.png" type="Texture" id=8]
-[ext_resource path="res://art/Placeholders/enemy_hand_placeholder.png" type="Texture" id=9]
+[ext_resource path="res://art/hands.png" type="Texture" id=9]
 [ext_resource path="res://art/UI/UI_Enemy_Name.png" type="Texture" id=10]
 [ext_resource path="res://art/UI/UI_Enemy_Stats.png" type="Texture" id=11]
 [ext_resource path="res://art/UI/UI_Player_Stats.png" type="Texture" id=12]
@@ -375,9 +375,10 @@ vframes = 5
 visible = false
 
 [node name="EnemyHandSprite" type="Sprite" parent="Encounter_Enemy/EnemyFilthyHand"]
-scale = Vector2( 0.15, 0.15 )
 z_index = 2
 texture = ExtResource( 9 )
+hframes = 7
+frame = 4
 
 [node name="HandTween" type="Tween" parent="Encounter_Enemy/EnemyFilthyHand"]
 
