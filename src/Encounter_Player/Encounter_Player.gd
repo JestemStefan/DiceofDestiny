@@ -5,6 +5,7 @@ var action_box_instance: PackedScene = preload("res://scenes/InteractionBox/Acti
 onready var skill_positions: Array = [$Skills/Skill1, $Skills/Skill2, $Skills/Skill3, $Skills/Skill4, $Skills/Skill5]
 
 onready var player_sprite: Sprite = $PlayerSprite
+onready var special_seven_label: Label = $PlayerSpecialLabel
 
 onready var player_sfx: AudioStreamPlayer = $Player_SFX
 onready var hurt_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_RecieveDamage_PlayerGWJ_DiceDungeon_VOX-003.ogg")
@@ -17,10 +18,14 @@ var player_block: int
 
 var player_stats: Dictionary  = {"Attack": 0,
 								"Block": 0,
-								"Heal": 0}
+								"Heal": 0,
+								"7": 0}
 
 var isShaking: bool = false
 var shake_offest: float = 2
+
+var isSpecialSevenOn: bool = false
+
 
 func _ready():
 	update_player_info()
@@ -69,7 +74,7 @@ func create_action_box(skill_list: Array):
 				action_box.set_actionbox_type(action_box.Action_type.HEAL)
 			
 			"7":
-				action_box.set_actionbox_type(action_box.Action_type.HEAL)
+				action_box.set_actionbox_type(action_box.Action_type.SEVEN)
 	
 	
 	
@@ -94,8 +99,31 @@ func update_stats(stats: Dictionary):
 	
 	var text_to_insert: String = ""
 	
+	var boost: int = 1
+	if isSpecialSevenOn:
+		boost = 2
+	
+	
 	for stat_name in player_stats.keys():
-		text_to_insert += stat_name + ": " + str(player_stats[stat_name]) + "\n"
+		match stat_name:
+			"Attack":
+				text_to_insert += stat_name + ": " + str(player_stats[stat_name] * boost) + "\n"
+			
+			"Block":
+				text_to_insert += stat_name + ": " + str(player_stats[stat_name] * boost) + "\n"
+			
+			"Heal":
+				text_to_insert += stat_name + ": " + str(player_stats[stat_name] * boost) + "\n"
+				
+			"7":
+				check_special_seven()
+				
+				if player_stats[stat_name] > 0:
+					special_seven_label.show()
+					special_seven_label.text = str(player_stats[stat_name])
+				else:
+					special_seven_label.hide()
+					special_seven_label.text = ""
 
 	$PlayerStats.text = text_to_insert
 
@@ -167,14 +195,14 @@ func shake(on_off: bool, shake_strength: float = 2):
 func hide_stuff():
 	$UI_Player_Stats.hide()
 	$PlayerStats.hide()
-	#$UI_Player_HP.hide()
+	
 	$Skills.hide()
 
 
 func show_stuff():
 	$UI_Player_Stats.show()
 	$PlayerStats.show()
-	#$UI_Player_HP.show()
+	
 	$Skills.show()
 
 
@@ -191,3 +219,12 @@ func play_sound(sound_name: String):
 			player_sfx.stream = hurt_sound
 	
 	player_sfx.play()
+
+
+func check_special_seven():
+	if player_stats["7"] == 7:
+		isSpecialSevenOn = true
+		print("Special 7 boost ON")
+	else:
+		isSpecialSevenOn = false
+		print("Special 7 boost OFF")

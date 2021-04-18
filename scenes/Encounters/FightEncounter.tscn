@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/encounters/Encounter.gd" type="Script" id=1]
 [ext_resource path="res://src/Encounter_Player/Encounter_Player.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://art/UI/UI_Enemy.png" type="Texture" id=15]
 [ext_resource path="res://font/Alagard_16.tres" type="DynamicFont" id=16]
 [ext_resource path="res://art/Placeholders/block_skill_sprite.png" type="Texture" id=17]
+[ext_resource path="res://scenes/InteractionBox/ActionBox.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/UI_Stuff/Healthbar.tscn" type="PackedScene" id=20]
 
 [sub_resource type="Animation" id=1]
@@ -44,14 +45,12 @@ modulate = Color( 0.235294, 0.235294, 0.235294, 1 )
 position = Vector2( 120, 275 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 13 )
-offset = Vector2( -128, 0 )
 
 [node name="UI_Enemy" type="Sprite" parent="."]
 modulate = Color( 0.235294, 0.235294, 0.235294, 1 )
 position = Vector2( 360, 275 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 15 )
-offset = Vector2( 128, 0 )
 
 [node name="RollButton" type="Button" parent="."]
 visible = false
@@ -97,7 +96,6 @@ script = ExtResource( 2 )
 position = Vector2( 52, 7 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
-offset = Vector2( -128, 0 )
 vframes = 5
 
 [node name="PlayerSprite" type="Sprite" parent="Encounter_Player"]
@@ -167,7 +165,7 @@ position = Vector2( 196, 144 )
 position = Vector2( 142, 144 )
 
 [node name="Skill4" type="Position2D" parent="Encounter_Player/Skills"]
-position = Vector2( 142, -13 )
+position = Vector2( 354, 86 )
 
 [node name="Skill5" type="Position2D" parent="Encounter_Player/Skills"]
 position = Vector2( 97, 103 )
@@ -200,6 +198,19 @@ __meta__ = {
 visible = false
 position = Vector2( -15, 146 )
 
+[node name="PlayerSpecialLabel" type="Label" parent="Encounter_Player"]
+visible = false
+margin_left = 166.0
+margin_top = 31.0
+margin_right = 192.0
+margin_bottom = 57.0
+text = "5"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Encounter_Enemy" type="Node2D" parent="."]
 position = Vector2( 367, 163 )
 script = ExtResource( 6 )
@@ -208,7 +219,6 @@ script = ExtResource( 6 )
 position = Vector2( 1, 1 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
-offset = Vector2( 128, 0 )
 vframes = 5
 
 [node name="EnemyControllerTween" type="Tween" parent="Encounter_Enemy"]
@@ -227,6 +237,25 @@ texture = ExtResource( 9 )
 visible = false
 position = Vector2( 0, 96 )
 
+[node name="EnemySpecial" parent="Encounter_Enemy/EnemySkills" instance=ExtResource( 18 )]
+position = Vector2( -127, -59 )
+
+[node name="Box_Sprite" parent="Encounter_Enemy/EnemySkills/EnemySpecial" index="1"]
+frame = 7
+
+[node name="Special_Skill_Label" type="Label" parent="Encounter_Enemy/EnemySkills/EnemySpecial"]
+margin_left = -16.0
+margin_top = -12.0
+margin_right = 2.0
+margin_bottom = 3.0
+rect_scale = Vector2( 2, 2 )
+text = "5"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Skill1" type="Position2D" parent="Encounter_Enemy/EnemySkills"]
 position = Vector2( -23, -1 )
 
@@ -237,7 +266,7 @@ position = Vector2( 31, -1 )
 position = Vector2( 85, -1 )
 
 [node name="Skill4" type="Position2D" parent="Encounter_Enemy/EnemySkills"]
-position = Vector2( 126, -3 )
+position = Vector2( -127, -59 )
 
 [node name="Skill5" type="Position2D" parent="Encounter_Enemy/EnemySkills"]
 position = Vector2( 127, -47 )
@@ -252,7 +281,6 @@ texture = ExtResource( 11 )
 position = Vector2( 45, -109 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 10 )
-offset = Vector2( 128, 0 )
 
 [node name="EnemyName" type="Label" parent="Encounter_Enemy/UI_Enemy_Name"]
 visible = false
@@ -350,3 +378,5 @@ __meta__ = {
 [connection signal="button_up" from="UndoActionButton" to="." method="_on_UndoActionButton_button_up"]
 [connection signal="enemy_died" from="Encounter_Enemy" to="." method="_on_Encounter_Enemy_enemy_died"]
 [connection signal="button_up" from="BackToMapButton" to="." method="_on_BackToMapButton_button_up"]
+
+[editable path="Encounter_Enemy/EnemySkills/EnemySpecial"]

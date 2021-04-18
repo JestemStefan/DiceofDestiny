@@ -9,6 +9,11 @@ var enemy_health: int
 var enemy_block: int
 var enemy_skills: Array
 
+onready var special_skill: ActionBox = $EnemySkills/EnemySpecial
+
+var enemy_special_delay: int = 5
+var special_available: bool = false
+
 var enemy_actions: Dictionary = {"Attack": null,
 								"Block": null,
 								"Heal":null}
@@ -79,9 +84,9 @@ func load_enemy_data(enemy_data: Resource):
 	update_healthbar()
 	
 	enemy_skills = enemy_data.get_enemy_skill_list()
-	print(enemy_skills)
 	
 	create_action_box(enemy_skills)
+	print(enemy_skills)
 
 
 func update_enemy_sprite(sprite: Sprite):
@@ -111,7 +116,16 @@ func update_stats(stats: Dictionary):
 	var text_to_insert: String = ""
 	
 	for stat_name in enemy_stats.keys():
-		text_to_insert += str(enemy_stats[stat_name]) + " :" + stat_name + "\n"
+		match stat_name:
+			"Attack":
+				text_to_insert += str(enemy_stats[stat_name]) + " :" + stat_name + "\n"
+			
+			"Block":
+				text_to_insert += str(enemy_stats[stat_name]) + " :" + stat_name + "\n"
+			
+			"Heal":
+				text_to_insert += str(enemy_stats[stat_name]) + " :" + stat_name + "\n"
+		
 
 	$EnemyStats.text = text_to_insert
 
@@ -123,10 +137,9 @@ func create_action_box(skill_list: Array):
 
 		var action_box: ActionBox = action_box_instance.instance()
 		$EnemySkills.add_child(action_box)
-		
+			
 		# save actions to dict
 		enemy_actions[skill] = action_box
-		
 		action_box.global_position = skill_positions[skill_index].global_position
 		
 		skill_index += 1
@@ -216,6 +229,8 @@ func move_hand(final_position: Vector2):
 
 func play_turn():
 	
+	
+	
 	# spawn dices for enemy
 	var generated_dices: Array = GameController.current_encounter.dices.roll_random(enemy_dice_count)
 	GameController.current_encounter.dices_in_memory = generated_dices
@@ -255,6 +270,17 @@ func play_turn():
 	# reset position of enemy hand visualization
 	enemy_hand.global_position = enemy_sprite.global_position
 	enemy_hand.show()
+	
+	
+	# if enemy can use special skill
+	if special_available:
+		
+		# move hand on the dice
+		var _eh_err = enemy_hand_tween.interpolate_property(enemy_hand, "global_position", null, special_skill.global_position, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		var _et_start = enemy_hand_tween.start()
+		yield(enemy_hand_tween, "tween_completed")
+		
+		GameController.current_encounter.use_special_skill()
 	
 	
 	# for every dice generated
@@ -299,6 +325,33 @@ func play_turn():
 	GameController.current_encounter.switch_turns(GameController.current_encounter.Turn.PLAYER)
 
 
+func check_special():
+	enemy_special_delay -= 1
+	
+	
+	
+	if enemy_special_delay <= 0:
+		$EnemySkills/EnemySpecial/Special_Skill_Label.text = ""
+		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_ON, false)
+		special_available = true
+		
+	else:
+		
+		$EnemySkills/EnemySpecial/Special_Skill_Label.text = str(enemy_special_delay)
+		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
+		special_available = false
+
+
+func reset_special():
+	enemy_special_delay = 6
+	check_special()
+
+
+func use_special_skill():
+	pass
+
+
+
 func pick_random_action():
 	
 	var max_skill_index: int = len(enemy_skills)
@@ -327,12 +380,14 @@ func tween_dice(dice: Dice, final_pos: Vector2):
 func hide_stuff():
 	$UI_Enemy_Stats.hide()
 	$EnemyStats.hide()
-	#$UI_Enemy_HP.hide()
+	
 	$EnemySkills.hide()
+	#$EnemySkills/EnemySpecial.hide()
 
 
 func show_stuff():
 	$UI_Enemy_Stats.show()
 	$EnemyStats.show()
-	#$UI_Enemy_HP.show()
+	
 	$EnemySkills.show()
+	#$EnemySkills/EnemySpecial.show()

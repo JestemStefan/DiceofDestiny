@@ -137,7 +137,7 @@ func open_connected_tiles():
 	
 	for connected_tile in connected_tiles:
 		var tile_to_open = get_node(connected_tile)
-		if tile_to_open.isLocked == false:
+		if tile_to_open.isLocked == false or GameState.isCheater:
 			tile_to_open.open_tile()
 			list_of_opened_tiles.append(tile_to_open)
 	
