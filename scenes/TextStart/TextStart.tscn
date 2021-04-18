@@ -1,0 +1,245 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://font/alagard.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://art/title_menu/bg.png" type="Texture" id=2]
+[ext_resource path="res://font/Alagard_16_Outline.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scenes/title_menu/ButtonItem.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/TextStart/TextStart.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Text1:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.00909697, 0.397334 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Text2:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.059097, 0.447334 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Text3:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.109097, 0.497334 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("BtnOK:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.0156124, -0.0856507, 0.0156124, 0.0856507, 0, -0.00597787, -0.0968316, 0.00597787, 0.0968316 ),
+"times": PoolRealArray( 0.00533581, 0.131511 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BtnOK:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.00314128, 0.132445 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 2.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Text1:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Text2:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 1.95 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Text3:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("BtnOK:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.00597787, -0.0968316, 0.00597787, 0.0968316, 1, -0.0156124, -0.0856507, 0.0156124, 0.0856507 ),
+"times": PoolRealArray( 2, 2.1 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BtnOK:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[node name="TextStart" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+modulate = Color( 0.3, 0.3, 0.3, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text1" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -32.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 0.33, 0.33, 0.33, 1 )
+visible_characters = 0
+percent_visible = 0.0
+text = "It is said that, in days of lore, the gods looked favourably upon those with courageous hearts and ferocious blades. The land was ripe with heroes who trained body and mind to protect that which they loved.
+
+But those days are past. Atop the mountain's peak, an uncaring overlord decides the fate of all, strong and feeble, with naught but the roll of a die.
+
+Seeking to restore order, a courageous knight begins his journey to the summit, to topple the tyrant. But to gain what he seeks, he must embrace the very thing he so hates, and turn the whims of Lady Luck to his advantage..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -32.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 0.66, 0.66, 0.66, 1 )
+visible_characters = 0
+percent_visible = 0.0
+text = "It is said that, in days of lore, the gods looked favourably upon those with courageous hearts and ferocious blades. The land was ripe with heroes who trained body and mind to protect that which they loved.
+
+But those days are past. Atop the mountain's peak, an uncaring overlord decides the fate of all, strong and feeble, with naught but the roll of a die.
+
+Seeking to restore order, a courageous knight begins his journey to the summit, to topple the tyrant. But to gain what he seeks, he must embrace the very thing he so hates, and turn the whims of Lady Luck to his advantage..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text3" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -32.0
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+visible_characters = 0
+percent_visible = 0.0
+text = "It is said that, in days of lore, the gods looked favourably upon those with courageous hearts and ferocious blades. The land was ripe with heroes who trained body and mind to protect that which they loved.
+
+But those days are past. Atop the mountain's peak, an uncaring overlord decides the fate of all, strong and feeble, with naught but the roll of a die.
+
+Seeking to restore order, a courageous knight begins his journey to the summit, to topple the tyrant. But to gain what he seeks, he must embrace the very thing he so hates, and turn the whims of Lady Luck to his advantage..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Hide = SubResource( 2 )
+anims/Show = SubResource( 3 )
+
+[node name="BtnOK" parent="." instance=ExtResource( 4 )]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -96.0
+margin_top = -44.0
+margin_right = 96.0
+margin_bottom = -12.0
+
+[node name="Label" type="Label" parent="BtnOK"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Continue"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="clicked" from="BtnOK" to="." method="_on_BtnOK_clicked"]

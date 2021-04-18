@@ -65,7 +65,7 @@ func _on_BtnStartGame_clicked(button_object):
 		yield(fade_anims, "animation_finished")
 		
 		is_during_animation = false
-		var _err1 = get_tree().change_scene("res://scenes/Testing/GameWorld.tscn")
+		var _err1 = get_tree().change_scene("res://scenes/TextStart/TextStart.tscn")
 
 
 func _on_BtnOptions_clicked(button_object):
