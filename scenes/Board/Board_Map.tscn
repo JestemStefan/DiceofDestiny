@@ -136,7 +136,7 @@ connected_tiles = [ NodePath("../DesertTile_4"), NodePath("../DesertTile_9") ]
 [node name="DesertTile_9" parent="Board_Tiles" instance=ExtResource( 1 )]
 position = Vector2( 304, 272 )
 Tile_Type = 1
-environment = 1
+environment = 2
 enemy_to_fight = ExtResource( 18 )
 connected_tiles = [ NodePath("../DesertTile_8"), NodePath("../DesertBossTile_3") ]
 
