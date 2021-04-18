@@ -18,3 +18,7 @@ func cover(on_off: bool):
 
 func play_move_sound():
 	$MoveSound.play()
+	
+
+func play_rest_sound():
+	$RestSound.play()

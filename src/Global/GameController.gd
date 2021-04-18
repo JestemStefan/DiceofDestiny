@@ -101,6 +101,7 @@ func start_encounter(encounter_type: String, enemy_data: Resource = null, env: i
 			
 		"Rest":
 			GameState.player_health = GameState.player_max_health
+			
 
 	transition_tween = transition_layer.make_transition_black_out()
 	yield(transition_tween, "tween_completed")
@@ -138,6 +139,8 @@ func player_died():
 	current_encounter = null
 	
 	move_to_tile(last_rest_tile)
+	current_board.play_rest_sound()
+	AudioManager.play_theme("Map")
 	start_encounter("Rest")
 	
 	# Transition out of black

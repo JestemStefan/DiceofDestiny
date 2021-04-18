@@ -213,6 +213,7 @@ func _on_InteractionButton_button_up():
 			$InteractionButton.hide()
 			
 		TileTypes.REST_TILE:
+			GameController.current_board.play_rest_sound()
 			GameController.start_encounter("Rest", enemy_to_fight, environment)
 			GameController.last_rest_tile = self
 			#$InteractionButton.hide()

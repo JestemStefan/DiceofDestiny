@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/Board/Board_Tile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://src/Enemies/Goblin_lvl4.tres" type="Resource" id=19]
 [ext_resource path="res://sfx/GWJ_DiceSlides-002.ogg" type="AudioStream" id=20]
 [ext_resource path="res://src/Enemies/Slime lvl1.tres" type="Resource" id=21]
+[ext_resource path="res://sfx/GWJ_Rest3.1.ogg" type="AudioStream" id=22]
 
 [node name="Board_Map" type="Node2D" groups=[
 "BoardMap",
@@ -230,5 +231,10 @@ __meta__ = {
 
 [node name="MoveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 20 )
-volume_db = -20.0
+volume_db = -10.0
+bus = "SFX"
+
+[node name="RestSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+volume_db = -10.0
 bus = "SFX"
