@@ -71,7 +71,6 @@ align = 1
 valign = 1
 
 [node name="TinyDice" type="Sprite" parent="."]
-visible = false
 position = Vector2( -29.6141, 16.1639 )
 texture = ExtResource( 7 )
 hframes = 7
