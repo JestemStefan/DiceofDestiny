@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ32_BugbearHello.ogg-a02c08c4846497394988962c4a443
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

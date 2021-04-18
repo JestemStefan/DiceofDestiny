@@ -72,7 +72,7 @@ func update_healthbar(new_hp: float):
 		pos_x += tile_step * tile_scale
 		
 		# fill the middle
-		for sprite in range(new_hp - 2):
+		for _sprite in range(new_hp - 2):
 			add_fill_tile(pos_x)
 			pos_x += tile_step * tile_scale
 		

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ_SlimeHits-001.ogg-916900768807d2ddd4072565bb9321
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

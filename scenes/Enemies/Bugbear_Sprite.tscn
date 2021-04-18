@@ -28,3 +28,7 @@ vframes = 4
 
 [node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 1 )
+
+[node name="EnemyAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+bus = "SFX"

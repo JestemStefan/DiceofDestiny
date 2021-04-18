@@ -51,13 +51,14 @@ func update_actionbox(isPlayer: bool):
 				
 			Action_type.BLOCK: 
 				$Box_Sprite.frame = 5
+
 				
 			Action_type.HEAL: 
 				$Box_Sprite.frame = 6
 			
 			Action_type.SPECIAL_OFF: 
 				$Box_Sprite.frame = 7
-			
+				
 			Action_type.SPECIAL_ON: 
 				$Box_Sprite.frame = 8
 

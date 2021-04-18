@@ -39,10 +39,10 @@ func level_up():
 		1: player_max_health = 30
 		2: player_max_health = 30
 		3: player_max_health = 30
-		4: player_max_health = 40
-		5: player_max_health = 50
-		6: player_max_health = 60
-		7: player_max_health = 70
+		4: player_max_health = 45
+		5: player_max_health = 60
+		6: player_max_health = 75
+		7: player_max_health = 100
 	
 	player_health = player_max_health
 

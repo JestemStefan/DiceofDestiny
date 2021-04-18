@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ_LichHello-001.ogg-a489f3247691e1563986c545fef606
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

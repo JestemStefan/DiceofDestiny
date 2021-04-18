@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://art/Placeholders/DM_placeholder.png" type="Texture" id=1]
+[ext_resource path="res://art/DM_Lich_Idle.png" type="Texture" id=1]
+[ext_resource path="res://sfx/GWJ_DMHello.ogg" type="AudioStream" id=2]
+[ext_resource path="res://scenes/Enemies/DM_Sprite.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
-length = 0.1
+length = 1.2
 loop = true
+step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -13,17 +16,90 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Idle2"
+length = 0.8
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 21, 22, 23, 24 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Transformation"
+length = 5.0
+step = 0.2
+tracks/0/type = "audio"
+tracks/0/path = NodePath("TransformationSFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 2 )
+} ],
+"times": PoolRealArray( 1 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4.4, 4.6, 4.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 4.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "change_to_nerd"
+} ]
 }
 
 [node name="EnemySprite" type="Sprite"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 offset = Vector2( 128, -8 )
-flip_h = true
+hframes = 6
+vframes = 5
+script = ExtResource( 3 )
 
 [node name="EnemyAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 1 )
+anims/Idle2 = SubResource( 3 )
+anims/Transformation = SubResource( 2 )
+
+[node name="EnemyAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+
+[node name="TransformationSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )

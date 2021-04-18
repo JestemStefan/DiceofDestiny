@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ_DiceSlides-001.ogg-f88be9fde8a29a80fe177ccafae53
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -11,6 +11,8 @@ var current_board_tile: BoardTile
 var all_tiles: Array
 var open_tiles: Array
 
+var last_rest_tile: BoardTile
+
 var encounter_layer: CanvasLayer
 var current_encounter: Encounter
 
@@ -76,7 +78,7 @@ func move_to_tile(tile: BoardTile):
 	enter_state(Game_State.BOARD_WAITING)
 
 
-func start_encounter(encounter_type: String, enemy_data: Resource, env: int):
+func start_encounter(encounter_type: String, enemy_data: Resource = null, env: int = 0):
 	
 	var transition_tween: Tween = transition_layer.make_transition_black_in()
 	yield(transition_tween, "tween_completed")
@@ -119,3 +121,34 @@ func end_encounter():
 	transition_tween = transition_layer.make_transition_black_out()
 	yield(transition_tween, "tween_completed")
 	transition_layer.transition_black_hide()
+
+
+func player_died():
+	# Transition to black
+	var transition_tween: Tween = transition_layer.make_transition_black_in()
+	yield(transition_tween, "tween_completed")
+	
+	# Delete encounter
+	current_encounter.call_deferred("free")
+	current_encounter = null
+	
+	move_to_tile(last_rest_tile)
+	start_encounter("Rest")
+	
+	# Transition out of black
+	transition_tween = transition_layer.make_transition_black_out()
+	yield(transition_tween, "tween_completed")
+	transition_layer.transition_black_hide()
+
+
+func game_finished():
+	# Transition to black
+	var transition_tween: Tween = transition_layer.make_transition_black_in()
+	yield(transition_tween, "tween_completed")
+	
+	# Delete encounter
+	if current_encounter != null:
+		current_encounter.call_deferred("free")
+		current_encounter = null
+	
+	get_tree().change_scene("res://scenes/title_menu/Title.tscn")

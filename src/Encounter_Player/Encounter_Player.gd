@@ -16,6 +16,9 @@ var player_hp: int
 var player_maxHP: int
 var player_block: int
 
+var isDead: bool = false
+signal player_died
+
 var player_stats: Dictionary  = {"Attack": 0,
 								"Block": 0,
 								"Heal": 0,
@@ -148,6 +151,11 @@ func take_damage(damage: int):
 	shake(false)
 	
 	GameState.player_health = player_hp
+	
+	if player_hp <= 0:
+		isDead = true
+		emit_signal("player_died")
+		GameController.player_died()
 
 
 func get_block(amount: int):

@@ -4,7 +4,11 @@ class_name EnemyStats
 export var enemy_name: String
 export var enemy_level: int = 1
 export var isBoss: bool = false
+export var isDungeonMaster: bool = false
 export var enemy_sprite: PackedScene
+
+export var enemy_hello_sfx: AudioStreamOGGVorbis
+export var enemy_hurt_sfx: AudioStreamOGGVorbis
 
 export var enemy_dice_count: int = 1
 

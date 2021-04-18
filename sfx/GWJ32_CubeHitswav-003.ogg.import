@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ32_CubeHitswav-003.ogg-9f5c1ef52d71b6d6a97d8ebb69
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
