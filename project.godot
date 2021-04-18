@@ -74,8 +74,9 @@ _global_script_class_icons={
 
 [application]
 
-config/name="GWJ32"
+config/name="Dice of Destiny"
 run/main_scene="res://scenes/Splash/Splash.tscn"
+boot_splash/image="res://loading.png"
 config/icon="res://icon.png"
 
 [autoload]
