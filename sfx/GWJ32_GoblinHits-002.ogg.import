@@ -11,5 +11,5 @@ dest_files=[ "res://.import/GWJ32_GoblinHits-002.ogg-55a583616014787c78c028a019d
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

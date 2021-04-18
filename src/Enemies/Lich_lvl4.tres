@@ -1,14 +1,19 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://src/Enemies/EnemyStats.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Enemies/Lich.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sfx/GWJ_LichHits-004.ogg" type="AudioStream" id=3]
+[ext_resource path="res://sfx/GWJ_LichHello-004.ogg" type="AudioStream" id=4]
 
 [resource]
 script = ExtResource( 1 )
 enemy_name = "Lich"
 enemy_level = 1
 isBoss = true
+isDungeonMaster = false
 enemy_sprite = ExtResource( 2 )
+enemy_hello_sfx = ExtResource( 4 )
+enemy_hurt_sfx = ExtResource( 3 )
 enemy_dice_count = 6
 enemy_max_health = 60
 attack_skill = true

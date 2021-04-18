@@ -22,7 +22,7 @@ func roll_random(dice_amount: int)-> Array:
 		
 		var dice_value: int = randi()%6 + 1
 		
-		if GameState.isCheater:
+		if GameState.isCheater and GameController.current_encounter.current_turn == GameController.current_encounter.Turn.PLAYER:
 			dice_value = 6
 		
 		var new_dice = dice_instance.instance()

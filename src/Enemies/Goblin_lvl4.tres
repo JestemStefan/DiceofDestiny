@@ -1,14 +1,19 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Enemies/Goblin_Sprite.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Enemies/EnemyStats.gd" type="Script" id=2]
+[ext_resource path="res://sfx/GWJ32_GoblinHello3.ogg" type="AudioStream" id=3]
+[ext_resource path="res://sfx/GWJ32_GoblinHits-004.ogg" type="AudioStream" id=4]
 
 [resource]
 script = ExtResource( 2 )
 enemy_name = "Goblin"
 enemy_level = 1
 isBoss = false
+isDungeonMaster = false
 enemy_sprite = ExtResource( 1 )
+enemy_hello_sfx = ExtResource( 3 )
+enemy_hurt_sfx = ExtResource( 4 )
 enemy_dice_count = 4
 enemy_max_health = 35
 attack_skill = true

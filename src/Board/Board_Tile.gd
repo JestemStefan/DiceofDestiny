@@ -30,6 +30,7 @@ func _ready():
 		enter_state(TileState.OPEN)
 		GameController.update_open_tiles([self])
 		GameController.move_to_tile(self)
+		GameController.last_rest_tile = self
 	#else:
 		#enter_state(TileState.CLOSED)
 
@@ -66,7 +67,9 @@ func enter_state(new_state):
 					
 				TileTypes.REST_TILE:
 					$InteractionButton.visible = true
-	
+				
+				TileTypes.DM_TILE:
+					$InteractionButton.visible = true
 
 
 func open_tile():
@@ -196,6 +199,11 @@ func _on_InteractionButton_button_up():
 			
 		TileTypes.REST_TILE:
 			GameController.start_encounter("Rest", enemy_to_fight, environment)
+			GameController.last_rest_tile = self
 			#$InteractionButton.hide()
+		
+		TileTypes.DM_TILE:
+			GameController.start_encounter("Fight", enemy_to_fight, environment)
+			$InteractionButton.hide()
 	
 	

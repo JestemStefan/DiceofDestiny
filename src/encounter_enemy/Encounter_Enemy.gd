@@ -11,6 +11,12 @@ var enemy_skills: Array
 
 onready var special_skill: ActionBox = $EnemySkills/EnemySpecial
 
+
+var enemy_hello_sound: AudioStreamOGGVorbis
+var enemy_hurt_sound: AudioStreamOGGVorbis
+onready var enemy_attack_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_AttackGWJ_Skills_Attack-001.ogg")
+onready var enemy_block_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_DefendGWJ_Skills_Defend-002.ogg")
+
 var enemy_special_delay: int = 5
 var special_available: bool = false
 
@@ -26,6 +32,7 @@ var action_box_instance: PackedScene = preload("res://scenes/InteractionBox/Acti
 onready var skill_positions: Array = [$EnemySkills/Skill1, $EnemySkills/Skill2, $EnemySkills/Skill3, $EnemySkills/Skill4, $EnemySkills/Skill5]
 
 signal enemy_died
+signal DM_died
 
 enum State{IDLE, DEAD}
 var current_state: int = State.IDLE
@@ -36,9 +43,11 @@ onready var enemy_controller_tween: Tween = $EnemyControllerTween
 onready var enemy_hand: Node2D = $EnemyFilthyHand
 onready var enemy_hand_tween: Tween = $EnemyFilthyHand/HandTween
 
-
 var isShaking: bool = false
 var initial_offset: Vector2
+
+var isDungeanMaster: bool = false
+var isNerd: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -58,16 +67,26 @@ func enter_state(new_state: int):
 			pass
 		
 		State.DEAD:
-			emit_signal("enemy_died")
+			if isDungeanMaster:
+				emit_signal("DM_died")
+			else:
+				emit_signal("enemy_died")
 
 
-func load_enemy_data(enemy_data: Resource):
+func load_enemy_data(enemy_data: EnemyStats):
+	
+	# Check if enemy is DM
+	isDungeanMaster = enemy_data.isDungeonMaster
+	
 	enemy_name = enemy_data.enemy_name
 	$UI_Enemy_Name/EnemyName.text = enemy_name
 	print("Enemy name: " + enemy_name)
 	
 	enemy_level = enemy_data.enemy_level
 	print("Level: " + str(enemy_level))
+	
+	enemy_hello_sound = enemy_data.enemy_hello_sfx
+	enemy_hurt_sound = enemy_data.enemy_hurt_sfx
 	
 	var enemy_sprite_scene: Sprite = enemy_data.enemy_sprite.instance()
 	add_child(enemy_sprite_scene)
@@ -156,21 +175,30 @@ func create_action_box(skill_list: Array):
 
 
 func take_damage(damage: int):
+	#reduce damage by block value
 	damage = block_damage(damage)
+	
+	if damage > 0:
+		play_sound("Hurt")
+	else:
+		play_sound("Block")
 	
 	enemy_health -= damage
 	
+	if isDungeanMaster and not isNerd:
+		if enemy_health <= 50:
+			isNerd = true
+			enemy_sprite.transition()
+	
 	if enemy_health <= 0:
+		if isDungeanMaster:
+			GameController.game_finished()
 		enter_state(State.DEAD)
 	
 	shake(true)
-		
-	#reduce damage by block value
-	
 	update_healthbar()
 	yield(get_tree().create_timer(0.5), "timeout")
 	shake(false)
-	
 
 
 func get_block(amount: int):
@@ -351,7 +379,6 @@ func use_special_skill():
 	pass
 
 
-
 func pick_random_action():
 	
 	var max_skill_index: int = len(enemy_skills)
@@ -391,3 +418,23 @@ func show_stuff():
 	
 	$EnemySkills.show()
 	#$EnemySkills/EnemySpecial.show()
+
+
+func play_sound(sound_name: String):
+	
+	var enemy_sfx_player: AudioStreamPlayer = $EnemySprite/EnemyAudioStreamPlayer
+	
+	match sound_name:
+		"Attack":
+			enemy_sfx_player.stream = enemy_attack_sfx
+			
+		"Block":
+			enemy_sfx_player.stream = enemy_block_sfx
+		
+		"Hurt":
+			enemy_sfx_player.stream = enemy_hurt_sound
+		
+		"Hello":
+			enemy_sfx_player.stream = enemy_hello_sound
+			
+	enemy_sfx_player.play()

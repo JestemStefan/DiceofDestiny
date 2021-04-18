@@ -65,6 +65,7 @@ func start_encounter():
 	yield(enemy_tween,"tween_completed")
 	enemy_tween.call_deferred("free")
 	
+	encounter_enemy.play_sound("Hello")
 	
 	$Encounter_Player/PlayerHealthbar.show()
 	$Encounter_Player/UI_Player_Name/PlayerName.show()
@@ -250,7 +251,7 @@ func switch_turns(next_turn: int):
 		if child is Dice:
 			child.call_deferred("free")
 	
-	if encounter_enemy.current_state != encounter_enemy.State.DEAD:
+	if encounter_enemy.current_state != encounter_enemy.State.DEAD and encounter_player.isDead == false:
 		
 		match next_turn:
 			
@@ -350,9 +351,9 @@ func _on_Encounter_Enemy_enemy_died():
 	var _err = tween.interpolate_property(enemy_sprite, 
 										"offset", 
 										null, 
-										Vector2(0,128), 1, 
+										Vector2(128, 0), 1, 
 										Tween.TRANS_CUBIC, 
-										Tween.EASE_OUT)
+										Tween.EASE_IN_OUT)
 	
 	var _tween_start = tween.start()
 	yield(tween, "tween_completed")
@@ -403,6 +404,7 @@ func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
 
 	print(action_buffer)
 
+
 func _on_UndoActionButton_button_up():
 	
 	for action_name in action_buffer.keys():
@@ -422,3 +424,57 @@ func _on_UndoActionButton_button_up():
 		hidden_dice.show()
 		
 		
+
+
+func _on_Encounter_Player_player_died():
+	$RollButton.hide()
+	$UndoActionButton.hide()
+	$EndTurnButton.hide()
+	
+	#$Encounter_Player/Skills.hide()
+	#$Encounter_Player/PlayerHealth.hide()
+	
+	encounter_enemy.hide_stuff()
+	encounter_player.hide_stuff()
+	
+	dices.hide()
+	
+	var tween: Tween = Tween.new()
+	add_child(tween)
+	var _err = tween.interpolate_property(player_sprite, 
+										"offset", 
+										null, 
+										Vector2(-128, 0), 1, 
+										Tween.TRANS_CUBIC, 
+										Tween.EASE_IN_OUT)
+	
+	var _tween_start = tween.start()
+	yield(tween, "tween_completed")
+	
+	$BackToMapButton.show()
+
+
+func _on_Encounter_Enemy_DM_died():
+	$RollButton.hide()
+	$UndoActionButton.hide()
+	$EndTurnButton.hide()
+	
+	#$Encounter_Player/Skills.hide()
+	#$Encounter_Player/PlayerHealth.hide()
+	
+	encounter_enemy.hide_stuff()
+	encounter_player.hide_stuff()
+	
+	dices.hide()
+	
+	var tween: Tween = Tween.new()
+	add_child(tween)
+	var _err = tween.interpolate_property(enemy_sprite, 
+										"offset", 
+										null, 
+										Vector2(128, 0), 1, 
+										Tween.TRANS_CUBIC, 
+										Tween.EASE_IN_OUT)
+	
+	var _tween_start = tween.start()
+	yield(tween, "tween_completed")

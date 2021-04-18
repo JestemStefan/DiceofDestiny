@@ -76,11 +76,11 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="EndTurnButton"]
-margin_left = 4.0
-margin_top = 6.0
-margin_right = 76.0
-margin_bottom = 21.0
+margin_right = 102.0
+margin_bottom = 53.0
 rect_scale = Vector2( 0.3, 0.3 )
+hint_tooltip = "Execute actions and end turn"
+mouse_filter = 1
 text = "End Turn"
 align = 1
 valign = 1
@@ -102,11 +102,11 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="UndoActionButton"]
-margin_left = 4.5
-margin_top = 5.0
-margin_right = 44.5
-margin_bottom = 20.0
+margin_right = 59.0
+margin_bottom = 32.0
 rect_scale = Vector2( 0.5, 0.5 )
+hint_tooltip = "Undo current actions and try again"
+mouse_filter = 1
 text = "Undo"
 align = 1
 valign = 1
@@ -125,14 +125,17 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="RollButton"]
-margin_left = 6.0
-margin_top = 5.0
-margin_right = 46.0
-margin_bottom = 20.0
+margin_right = 60.0
+margin_bottom = 32.0
 rect_scale = Vector2( 0.6, 0.6 )
+hint_tooltip = "Roll dices"
+mouse_filter = 1
 text = "Roll"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Encounter_Player" type="Node2D" parent="."]
 position = Vector2( 62, 156 )
@@ -242,6 +245,7 @@ __meta__ = {
 }
 
 [node name="Player_SFX" type="AudioStreamPlayer" parent="Encounter_Player"]
+bus = "SFX"
 
 [node name="PlayerHealthbar" parent="Encounter_Player" instance=ExtResource( 20 )]
 visible = false
@@ -249,10 +253,10 @@ position = Vector2( -15, 146 )
 
 [node name="PlayerSpecialLabel" type="Label" parent="Encounter_Player"]
 visible = false
-margin_left = 166.0
-margin_top = 31.0
-margin_right = 192.0
-margin_bottom = 57.0
+margin_left = 172.0
+margin_top = 36.0
+margin_right = 186.0
+margin_bottom = 51.0
 text = "5"
 align = 1
 valign = 1
@@ -427,6 +431,8 @@ __meta__ = {
 [connection signal="button_up" from="EndTurnButton" to="." method="_on_EndTurnButton_button_up"]
 [connection signal="button_up" from="UndoActionButton" to="." method="_on_UndoActionButton_button_up"]
 [connection signal="button_up" from="RollButton" to="." method="_on_RollButton_button_up"]
+[connection signal="player_died" from="Encounter_Player" to="." method="_on_Encounter_Player_player_died"]
+[connection signal="DM_died" from="Encounter_Enemy" to="." method="_on_Encounter_Enemy_DM_died"]
 [connection signal="enemy_died" from="Encounter_Enemy" to="." method="_on_Encounter_Enemy_enemy_died"]
 [connection signal="button_up" from="BackToMapButton" to="." method="_on_BackToMapButton_button_up"]
 
