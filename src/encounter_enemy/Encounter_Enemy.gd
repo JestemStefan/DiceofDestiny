@@ -319,7 +319,7 @@ func play_turn():
 		
 		GameController.current_encounter.use_special_skill()
 		
-		$EnemySkills/EnemySpecial/Special_Skill_Label.text = str(enemy_special_delay)
+		$EnemySkills/EnemySpecial/Special_Skill_Label.text = ""
 		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
 		enemy_boost_anim_player.play("BoostON")
 	
@@ -365,6 +365,7 @@ func play_turn():
 	GameController.current_encounter.reset_action_buffer()
 	if special_available:
 		reset_special()
+	
 	GameController.current_encounter.switch_turns(GameController.current_encounter.Turn.PLAYER)
 
 
@@ -389,12 +390,14 @@ func check_special():
 func reset_special():
 	enemy_special_delay = 6
 	check_special()
+	$EnemySkills/EnemySpecial/Special_Skill_Label.show()
 
 
 func use_special_skill():
 	$EnemySkills/EnemySpecial/Special_Skill_Label.text = ""
 	special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_ON, false)
 	special_available = true
+	$EnemySkills/EnemySpecial/Special_Skill_Label.hide()
 
 
 func pick_random_action():

@@ -89,6 +89,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnemySkills/EnemySpecial/Box_Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "BoostON"
@@ -99,6 +111,18 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EnemySkills/EnemySpecial/Box_Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
@@ -246,7 +270,9 @@ __meta__ = {
 
 [node name="PlayerBlock" type="Sprite" parent="Encounter_Player"]
 visible = false
-position = Vector2( 58, -28 )
+
+position = Vector2( 82, -26 )
+
 texture = ExtResource( 17 )
 
 [node name="BlockAmount" type="Label" parent="Encounter_Player/PlayerBlock"]
@@ -438,7 +464,9 @@ __meta__ = {
 
 [node name="EnemyBlock" type="Sprite" parent="Encounter_Enemy"]
 visible = false
-position = Vector2( -8, -34 )
+
+position = Vector2( -31, -32 )
+
 texture = ExtResource( 17 )
 
 [node name="BlockAmount" type="Label" parent="Encounter_Enemy/EnemyBlock"]

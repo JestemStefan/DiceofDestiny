@@ -94,8 +94,12 @@ func start_encounter():
 	
 	$RollButton.show()
 	$EndTurnButton.show()
-	
-	$BackToMapButton/Label.text = "You won! \n +1 Dice!"
+
+	if enemy_stats.isBoss:
+		$BackToMapButton/Label.text = "You won! \n +1 Dice!"
+	else:
+		$BackToMapButton/Label.text = "You won!"
+
 
 	switch_turns(Turn.PLAYER) 
 
