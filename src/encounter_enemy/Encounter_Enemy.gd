@@ -309,6 +309,9 @@ func play_turn():
 		yield(enemy_hand_tween, "tween_completed")
 		
 		GameController.current_encounter.use_special_skill()
+		
+		$EnemySkills/EnemySpecial/Special_Skill_Label.text = str(enemy_special_delay)
+		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
 	
 	
 	# for every dice generated
@@ -350,13 +353,13 @@ func play_turn():
 	
 	GameController.current_encounter.execute_buffer_actions()
 	GameController.current_encounter.reset_action_buffer()
+	if special_available:
+		reset_special()
 	GameController.current_encounter.switch_turns(GameController.current_encounter.Turn.PLAYER)
 
 
 func check_special():
 	enemy_special_delay -= 1
-	
-	
 	
 	if enemy_special_delay <= 0:
 		$EnemySkills/EnemySpecial/Special_Skill_Label.text = ""
@@ -368,6 +371,8 @@ func check_special():
 		$EnemySkills/EnemySpecial/Special_Skill_Label.text = str(enemy_special_delay)
 		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
 		special_available = false
+	
+	update_stats(enemy_stats)
 
 
 func reset_special():
@@ -376,7 +381,9 @@ func reset_special():
 
 
 func use_special_skill():
-	pass
+	$EnemySkills/EnemySpecial/Special_Skill_Label.text = ""
+	special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_ON, false)
+	special_available = true
 
 
 func pick_random_action():

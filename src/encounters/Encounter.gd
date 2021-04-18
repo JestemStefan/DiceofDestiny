@@ -221,16 +221,24 @@ func execute_buffer_actions():
 							encounter_player.heal(action_value  * skill_boost)
 				
 				Turn.ENEMY:
+					
+					var enemy_skill_boost: int = 1
+					
+					if encounter_enemy.special_available:
+						enemy_skill_boost = 2
+					else:
+						enemy_skill_boost = 1
+					
 					match action_name:
 						
 						"Attack":
-							encounter_player.take_damage(action_value)
+							encounter_player.take_damage(action_value * enemy_skill_boost)
 						
 						"Block":
-							encounter_enemy.get_block(action_value)
+							encounter_enemy.get_block(action_value * enemy_skill_boost)
 							
 						"Heal":
-							encounter_enemy.heal(action_value)
+							encounter_enemy.heal(action_value * enemy_skill_boost)
 
 
 func use_special_skill():
@@ -239,7 +247,7 @@ func use_special_skill():
 			pass
 		
 		Turn.ENEMY:
-			encounter_enemy.reset_special()
+			#encounter_enemy.reset_special()
 			print("Enemy used special skill")
 
 

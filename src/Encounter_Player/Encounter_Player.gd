@@ -98,6 +98,8 @@ func update_block_amount():
 
 func update_stats(stats: Dictionary):
 	
+	check_special_seven()
+	
 	player_stats = stats
 	
 	var text_to_insert: String = ""
@@ -119,7 +121,6 @@ func update_stats(stats: Dictionary):
 				text_to_insert += stat_name + ": " + str(player_stats[stat_name] * boost) + "\n"
 				
 			"7":
-				check_special_seven()
 				
 				if player_stats[stat_name] > 0:
 					special_seven_label.show()
