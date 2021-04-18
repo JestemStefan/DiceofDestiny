@@ -1,12 +1,15 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/title_menu/Title.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_menu/ButtonItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://font/alagard.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scenes/title_menu/VolumeControl.tscn" type="PackedScene" id=4]
 [ext_resource path="res://font/Alagard_16.tres" type="DynamicFont" id=5]
+[ext_resource path="res://art/title_menu/bg.png" type="Texture" id=6]
+[ext_resource path="res://art/logo.png" type="Texture" id=7]
+[ext_resource path="res://font/Alagard_16_Outline.tres" type="DynamicFont" id=8]
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=1]
 resource_name = "Credits_In"
 length = 1.6
 tracks/0/type = "value"
@@ -44,7 +47,7 @@ tracks/2/keys = {
 "values": [ 0.0, 0.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=2]
 resource_name = "Credits_Out"
 length = 0.2
 tracks/0/type = "value"
@@ -82,8 +85,7 @@ tracks/2/keys = {
 "values": [ 1.0, 0.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "MainMenu_In"
+[sub_resource type="Animation" id=3]
 length = 0.1
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("MainMenu:modulate:a")
@@ -108,8 +110,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "MainMenu_Out"
+[sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("MainMenu:modulate:a")
@@ -134,8 +135,7 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Options_In"
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Options:modulate:a")
@@ -160,8 +160,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Options_Out"
+[sub_resource type="Animation" id=6]
 length = 0.1
 tracks/0/type = "bezier"
 tracks/0/path = NodePath("Options:modulate:a")
@@ -186,15 +185,15 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=7]
 size = 32
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=8]
 extra_spacing_top = 10
 font_data = ExtResource( 3 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=9]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:visible")
@@ -219,7 +218,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3 )
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=10]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:visible")
@@ -254,12 +253,12 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Credits_In = SubResource( 8 )
-anims/Credits_Out = SubResource( 9 )
-anims/MainMenu_In = SubResource( 1 )
-anims/MainMenu_Out = SubResource( 2 )
-anims/Options_In = SubResource( 3 )
-anims/Options_Out = SubResource( 4 )
+anims/Credits_In = SubResource( 1 )
+anims/Credits_Out = SubResource( 2 )
+anims/MainMenu_In = SubResource( 3 )
+anims/MainMenu_Out = SubResource( 4 )
+anims/Options_In = SubResource( 5 )
+anims/Options_Out = SubResource( 6 )
 
 [node name="Background" type="Control" parent="."]
 anchor_right = 1.0
@@ -269,20 +268,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="Background"]
+[node name="BG" type="TextureRect" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.717647, 0.717647, 0.717647, 1 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.690196, 0.654902, 0.576471, 0.752941 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TitleLabel" type="Label" parent="Background"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -256.0
 margin_right = 256.0
 margin_bottom = 89.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Untitled Dice Game"
+text = "Dice of Destiny"
 align = 1
 valign = 1
 __meta__ = {
@@ -296,26 +311,38 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Logo" type="TextureRect" parent="MainMenu"]
+anchor_right = 1.0
+margin_bottom = 223.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="VBox" type="VBoxContainer" parent="MainMenu"]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -96.0
-margin_top = -176.0
-margin_right = 96.0
+margin_left = -64.0
+margin_top = -140.0
+margin_right = 64.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BtnStartGame" parent="MainMenu/VBox" instance=ExtResource( 2 )]
+margin_right = 128.0
 
 [node name="Label" type="Label" parent="MainMenu/VBox/BtnStartGame"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 4.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 text = "Start Game"
 align = 1
 valign = 1
@@ -325,13 +352,14 @@ __meta__ = {
 
 [node name="BtnOptions" parent="MainMenu/VBox" instance=ExtResource( 2 )]
 margin_top = 36.0
+margin_right = 128.0
 margin_bottom = 68.0
 
 [node name="Label" type="Label" parent="MainMenu/VBox/BtnOptions"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 4.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Options"
 align = 1
@@ -342,13 +370,14 @@ __meta__ = {
 
 [node name="BtnCredits" parent="MainMenu/VBox" instance=ExtResource( 2 )]
 margin_top = 72.0
+margin_right = 128.0
 margin_bottom = 104.0
 
 [node name="Label" type="Label" parent="MainMenu/VBox/BtnCredits"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 4.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Credits"
 align = 1
@@ -380,7 +409,7 @@ margin_bottom = -36.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 4.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Back"
 align = 1
@@ -450,7 +479,7 @@ margin_bottom = -36.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 4.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Back"
 align = 1
@@ -468,7 +497,7 @@ margin_left = -183.0
 margin_top = -76.0
 margin_right = 183.0
 margin_bottom = 84.0
-custom_fonts/normal_font = SubResource( 10 )
+custom_fonts/normal_font = SubResource( 8 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "[center][color=#005500]Coding spaghetti[/color] by [color=#003399]JestemStefan[/color]
@@ -496,8 +525,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FadeRect"]
-anims/FadeIn = SubResource( 6 )
-anims/FadeOut = SubResource( 7 )
+anims/FadeIn = SubResource( 9 )
+anims/FadeOut = SubResource( 10 )
 
 [connection signal="clicked" from="MainMenu/VBox/BtnStartGame" to="." method="_on_BtnStartGame_clicked"]
 [connection signal="clicked" from="MainMenu/VBox/BtnOptions" to="." method="_on_BtnOptions_clicked"]
