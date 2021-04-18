@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/Board/Board_Tile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Player/Player.tscn" type="PackedScene" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://src/Enemies/Goblin_lvl3.tres" type="Resource" id=17]
 [ext_resource path="res://src/Enemies/Bugbear_Lvl3.tres" type="Resource" id=18]
 [ext_resource path="res://src/Enemies/Goblin_lvl4.tres" type="Resource" id=19]
+[ext_resource path="res://sfx/GWJ_DiceSlides-002.ogg" type="AudioStream" id=20]
 
 [node name="Board_Map" type="Node2D" groups=[
 "BoardMap",
@@ -206,3 +207,8 @@ color = Color( 0.0665436, 0.112392, 0.191406, 0.784314 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MoveSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+volume_db = -20.0
+bus = "SFX"
