@@ -27,7 +27,9 @@ var current_turn: int = Turn.PLAYER
 
 var action_buffer: Dictionary = {"Attack": 0,
 								"Block": 0,
-								"Heal": 0}
+								"Heal": 0,
+								"7": 0,
+								"Special": 0}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -178,17 +180,26 @@ func execute_buffer_actions():
 			match current_turn:
 				
 				Turn.PLAYER:
+					
+					var skill_boost: int = 1
+					
+					if encounter_player.isSpecialSevenOn:
+						skill_boost = 2
+					else:
+						skill_boost = 1
+					
 					match action_name:
 						
 						"Attack":
-							encounter_enemy.take_damage(action_value)
+							#print(action_value * skill_boost)
+							encounter_enemy.take_damage(action_value * skill_boost)
 							encounter_player.play_sound("Attack")
 						
 						"Block":
-							encounter_player.get_block(action_value)
+							encounter_player.get_block(action_value  * skill_boost)
 						
 						"Heal":
-							encounter_player.heal(action_value)
+							encounter_player.heal(action_value  * skill_boost)
 				
 				Turn.ENEMY:
 					match action_name:
@@ -201,6 +212,16 @@ func execute_buffer_actions():
 							
 						"Heal":
 							encounter_enemy.heal(action_value)
+
+
+func use_special_skill():
+	match current_turn:
+		Turn.PLAYER:
+			pass
+		
+		Turn.ENEMY:
+			encounter_enemy.reset_special()
+			print("Enemy used special skill")
 
 
 func reset_action_buffer():
@@ -246,6 +267,7 @@ func switch_turns(next_turn: int):
 				encounter_enemy.hide_stuff()
 				
 			Turn.ENEMY:
+				
 				$RollButton.hide()
 				$RollButton.set_disabled(true)
 				$UndoActionButton.hide()
@@ -258,6 +280,7 @@ func switch_turns(next_turn: int):
 				
 				current_turn = Turn.ENEMY
 				
+				encounter_enemy.check_special()
 				encounter_enemy.play_turn()
 
 
@@ -366,7 +389,6 @@ func _on_Dice_dice_dropped(dice: Dice):
 
 
 func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
-	pass
 	
 	action_buffer[action_name] += dice_value
 	
@@ -377,14 +399,14 @@ func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
 		Turn.ENEMY:
 			encounter_enemy.update_stats(action_buffer)
 
-
-	
+	print(action_buffer)
 
 func _on_UndoActionButton_button_up():
 	
 	for action_name in action_buffer.keys():
-		
 		action_buffer[action_name] = 0
+	
+	print(action_buffer)
 	
 	match current_turn:
 		Turn.PLAYER:

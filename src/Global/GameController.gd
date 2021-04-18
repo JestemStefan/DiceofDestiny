@@ -45,7 +45,6 @@ func update_open_tiles(tile_list: Array):
 	open_tiles = tile_list
 
 
-
 func close_opened_tiles():
 	for tile_to_close in open_tiles:
 		tile_to_close.close_tile()

@@ -1,7 +1,7 @@
 extends Area2D
 class_name ActionBox
 
-enum Action_type{ATTACK, BLOCK, HEAL, SEVEN}
+enum Action_type{ATTACK, BLOCK, HEAL, SEVEN, SPECIAL_OFF, SPECIAL_ON}
 #export(Action_type) var Action = Action_type.ATTACK
 var ActionBox_Type: int = Action_type.ATTACK
 
@@ -32,25 +32,35 @@ func update_actionbox(isPlayer: bool):
 		match ActionBox_Type:
 			
 			Action_type.ATTACK: 
-				$Box_Sprite.frame = 5
+				$Box_Sprite.frame = 0
 				
 			Action_type.BLOCK: 
-				$Box_Sprite.frame = 3
+				$Box_Sprite.frame = 1
 				
 			Action_type.HEAL: 
-				$Box_Sprite.frame = 4
+				$Box_Sprite.frame = 2
+				
+			Action_type.SEVEN:
+				$Box_Sprite.frame = 3
 	
 	else:
 		match ActionBox_Type:
 			
 			Action_type.ATTACK: 
-				$Box_Sprite.frame = 2
+				$Box_Sprite.frame = 4
 				
 			Action_type.BLOCK: 
-				$Box_Sprite.frame = 0
+				$Box_Sprite.frame = 5
 				
 			Action_type.HEAL: 
-				$Box_Sprite.frame = 1
+				$Box_Sprite.frame = 6
+			
+			Action_type.SPECIAL_OFF: 
+				$Box_Sprite.frame = 7
+			
+			Action_type.SPECIAL_ON: 
+				$Box_Sprite.frame = 8
+
 
 func use_dice(dice_value: int):
 	
@@ -66,6 +76,15 @@ func use_dice(dice_value: int):
 		
 		Action_type.HEAL:
 			action_name = "Heal"
+		
+		Action_type.SEVEN:
+			action_name = "7"
+		
+		Action_type.SPECIAL_OFF:
+			action_name = "Special"
+		
+		Action_type.SPECIAL_ON:
+			action_name = "Special"
 
 	emit_signal("actionbox_triggered", action_name, dice_value)
 
