@@ -323,6 +323,9 @@ func play_turn():
 		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
 		enemy_boost_anim_player.play("BoostON")
 		$EnemySpecialAudioStreamPlayer.play()
+		# Janky hack, m8!
+		yield(get_tree().create_timer(2.5), "timeout")
+		$EnemySpecialAudioStreamPlayer.stop() 
 	
 	
 	# for every dice generated

@@ -239,6 +239,9 @@ func check_special_seven():
 	if player_stats["7"] == 7:
 		if isSpecialSevenOn == false:
 			$PlayerSpecialAudioStreamPlayer.play()
+			# Janky hack, m8!
+			yield(get_tree().create_timer(2.5), "timeout")
+			$PlayerSpecialAudioStreamPlayer.stop() 
 		
 		isSpecialSevenOn = true
 		
