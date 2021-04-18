@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://src/encounters/Encounter.gd" type="Script" id=1]
 [ext_resource path="res://src/Encounter_Player/Encounter_Player.gd" type="Script" id=2]
@@ -19,6 +19,14 @@
 [ext_resource path="res://art/Placeholders/block_skill_sprite.png" type="Texture" id=17]
 [ext_resource path="res://scenes/InteractionBox/ActionBox.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/UI_Stuff/Healthbar.tscn" type="PackedScene" id=20]
+[ext_resource path="res://art/UI/Buttons/Big_Button_Disabled.png" type="Texture" id=21]
+[ext_resource path="res://art/UI/Buttons/Big_Button_Normal.png" type="Texture" id=22]
+[ext_resource path="res://art/UI/Buttons/Big_Button_Pressed.png" type="Texture" id=23]
+[ext_resource path="res://art/UI/Buttons/Big_Button_Hover.png" type="Texture" id=24]
+[ext_resource path="res://art/UI/Buttons/SmallButton_Disabled.png" type="Texture" id=25]
+[ext_resource path="res://art/UI/Buttons/SmallButton_Hover.png" type="Texture" id=26]
+[ext_resource path="res://art/UI/Buttons/SmallButton_Normal.png" type="Texture" id=27]
+[ext_resource path="res://art/UI/Buttons/SmallButton_Pressed.png" type="Texture" id=28]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -45,48 +53,86 @@ modulate = Color( 0.235294, 0.235294, 0.235294, 1 )
 position = Vector2( 120, 275 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 13 )
+offset = Vector2( -128, 0 )
 
 [node name="UI_Enemy" type="Sprite" parent="."]
 modulate = Color( 0.235294, 0.235294, 0.235294, 1 )
 position = Vector2( 360, 275 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 15 )
+offset = Vector2( 128, 0 )
 
-[node name="RollButton" type="Button" parent="."]
-visible = false
-margin_left = 213.0
-margin_top = 33.0
-margin_right = 277.0
-margin_bottom = 65.0
-custom_fonts/font = ExtResource( 16 )
-text = "ROLL"
+[node name="EndTurnButton" type="TextureButton" parent="."]
+margin_left = 275.0
+margin_right = 305.0
+margin_bottom = 16.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 27 )
+texture_pressed = ExtResource( 28 )
+texture_hover = ExtResource( 26 )
+texture_disabled = ExtResource( 25 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EndTurnButton" type="Button" parent="."]
-visible = false
-margin_left = 274.0
-margin_top = 1.0
-margin_right = 339.0
-margin_bottom = 33.0
-custom_fonts/font = ExtResource( 16 )
-text = "End turn"
+[node name="Label" type="Label" parent="EndTurnButton"]
+margin_left = 4.0
+margin_top = 6.0
+margin_right = 76.0
+margin_bottom = 21.0
+rect_scale = Vector2( 0.3, 0.3 )
+text = "End Turn"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UndoActionButton" type="Button" parent="."]
-visible = false
-margin_left = 139.0
-margin_top = 1.0
-margin_right = 216.0
-margin_bottom = 33.0
-custom_fonts/font = ExtResource( 16 )
-text = "UNDO"
+[node name="UndoActionButton" type="TextureButton" parent="."]
+margin_left = 145.0
+margin_right = 175.0
+margin_bottom = 16.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 27 )
+texture_pressed = ExtResource( 28 )
+texture_hover = ExtResource( 26 )
+texture_disabled = ExtResource( 25 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="UndoActionButton"]
+margin_left = 4.5
+margin_top = 5.0
+margin_right = 44.5
+margin_bottom = 20.0
+rect_scale = Vector2( 0.5, 0.5 )
+text = "Undo"
+align = 1
+valign = 1
+
+[node name="RollButton" type="TextureButton" parent="."]
+margin_left = 204.0
+margin_right = 240.0
+margin_bottom = 19.0
+rect_scale = Vector2( 2, 2 )
+texture_normal = ExtResource( 22 )
+texture_pressed = ExtResource( 23 )
+texture_hover = ExtResource( 24 )
+texture_disabled = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="RollButton"]
+margin_left = 6.0
+margin_top = 5.0
+margin_right = 46.0
+margin_bottom = 20.0
+rect_scale = Vector2( 0.6, 0.6 )
+text = "Roll"
+align = 1
+valign = 1
 
 [node name="Encounter_Player" type="Node2D" parent="."]
 position = Vector2( 62, 156 )
@@ -96,6 +142,7 @@ script = ExtResource( 2 )
 position = Vector2( 52, 7 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
+offset = Vector2( -128, 0 )
 vframes = 5
 
 [node name="PlayerSprite" type="Sprite" parent="Encounter_Player"]
@@ -119,6 +166,7 @@ texture = ExtResource( 12 )
 position = Vector2( 6, -102 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
+offset = Vector2( -128, 0 )
 
 [node name="PlayerName" type="Label" parent="Encounter_Player/UI_Player_Name"]
 visible = false
@@ -153,6 +201,7 @@ __meta__ = {
 }
 
 [node name="Skills" type="Node2D" parent="Encounter_Player"]
+visible = false
 position = Vector2( -176, -42 )
 
 [node name="Skill1" type="Position2D" parent="Encounter_Player/Skills"]
@@ -219,6 +268,7 @@ script = ExtResource( 6 )
 position = Vector2( 1, 1 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
+offset = Vector2( 128, 0 )
 vframes = 5
 
 [node name="EnemyControllerTween" type="Tween" parent="Encounter_Enemy"]
@@ -281,6 +331,7 @@ texture = ExtResource( 11 )
 position = Vector2( 45, -109 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 10 )
+offset = Vector2( 128, 0 )
 
 [node name="EnemyName" type="Label" parent="Encounter_Enemy/UI_Enemy_Name"]
 visible = false
@@ -373,9 +424,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="button_up" from="RollButton" to="." method="_on_RollButton_button_up"]
 [connection signal="button_up" from="EndTurnButton" to="." method="_on_EndTurnButton_button_up"]
 [connection signal="button_up" from="UndoActionButton" to="." method="_on_UndoActionButton_button_up"]
+[connection signal="button_up" from="RollButton" to="." method="_on_RollButton_button_up"]
 [connection signal="enemy_died" from="Encounter_Enemy" to="." method="_on_Encounter_Enemy_enemy_died"]
 [connection signal="button_up" from="BackToMapButton" to="." method="_on_BackToMapButton_button_up"]
 
