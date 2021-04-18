@@ -7,6 +7,8 @@ onready var skill_positions: Array = [$Skills/Skill1, $Skills/Skill2, $Skills/Sk
 onready var player_sprite: Sprite = $PlayerSprite
 onready var special_seven_label: Label = $PlayerSpecialLabel
 
+onready var boost_animplayer: AnimationPlayer = $BoostAnimation
+
 onready var player_sfx: AudioStreamPlayer = $Player_SFX
 onready var hurt_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_RecieveDamage_PlayerGWJ_DiceDungeon_VOX-003.ogg")
 onready var attack_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_AttackGWJ_Skills_Attack-001.ogg")
@@ -98,6 +100,8 @@ func update_block_amount():
 
 func update_stats(stats: Dictionary):
 	
+	check_special_seven()
+	
 	player_stats = stats
 	
 	var text_to_insert: String = ""
@@ -119,7 +123,6 @@ func update_stats(stats: Dictionary):
 				text_to_insert += stat_name + ": " + str(player_stats[stat_name] * boost) + "\n"
 				
 			"7":
-				check_special_seven()
 				
 				if player_stats[stat_name] > 0:
 					special_seven_label.show()
@@ -232,7 +235,11 @@ func play_sound(sound_name: String):
 func check_special_seven():
 	if player_stats["7"] == 7:
 		isSpecialSevenOn = true
+		
+		boost_animplayer.play("BoostON")
+		
 		print("Special 7 boost ON")
 	else:
 		isSpecialSevenOn = false
+		boost_animplayer.play("BoostOFF")
 		print("Special 7 boost OFF")

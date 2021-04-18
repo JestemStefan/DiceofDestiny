@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://src/encounters/Encounter.gd" type="Script" id=1]
 [ext_resource path="res://src/Encounter_Player/Encounter_Player.gd" type="Script" id=2]
@@ -43,6 +43,67 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "BoostOFF"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI_Player_Stats:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "BoostON"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI_Player_Stats:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.12549, 1, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "BoostOFF"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI_Enemy_Stats:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "BoostON"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI_Enemy_Stats:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="FightEncounter" type="Node2D"]
@@ -264,6 +325,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BoostAnimation" type="AnimationPlayer" parent="Encounter_Player"]
+anims/BoostOFF = SubResource( 3 )
+anims/BoostON = SubResource( 2 )
+
 [node name="Encounter_Enemy" type="Node2D" parent="."]
 position = Vector2( 367, 163 )
 script = ExtResource( 6 )
@@ -393,6 +458,10 @@ __meta__ = {
 visible = false
 position = Vector2( 66, 139 )
 reverse_fill = true
+
+[node name="EnemyBoostAnimationPlayer" type="AnimationPlayer" parent="Encounter_Enemy"]
+anims/BoostOFF = SubResource( 4 )
+anims/BoostON = SubResource( 5 )
 
 [node name="Dices" parent="." instance=ExtResource( 3 )]
 position = Vector2( 240, 100 )
