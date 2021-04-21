@@ -16,6 +16,7 @@ var enemy_hello_sound: AudioStreamOGGVorbis
 var enemy_hurt_sound: AudioStreamOGGVorbis
 onready var enemy_attack_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_AttackGWJ_Skills_Attack-001.ogg")
 onready var enemy_block_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_DefendGWJ_Skills_Defend-002.ogg")
+onready var enemy_special_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ_PowerUpEnemy.ogg")
 
 var enemy_special_delay: int = 5
 var special_available: bool = false
@@ -82,10 +83,8 @@ func load_enemy_data(enemy_data: EnemyStats):
 	
 	enemy_name = enemy_data.enemy_name
 	$UI_Enemy_Name/EnemyName.text = enemy_name
-	print("Enemy name: " + enemy_name)
 	
 	enemy_level = enemy_data.enemy_level
-	print("Level: " + str(enemy_level))
 	
 	enemy_hello_sound = enemy_data.enemy_hello_sfx
 	enemy_hurt_sound = enemy_data.enemy_hurt_sfx
@@ -96,18 +95,15 @@ func load_enemy_data(enemy_data: EnemyStats):
 	update_enemy_sprite(enemy_sprite_scene)
 	
 	enemy_dice_count = enemy_data.enemy_dice_count
-	print("Enemy has " + str(enemy_dice_count) + " dices")
-	
+
 	enemy_max_health = enemy_data.get_enemyHP()
 	enemy_health = enemy_data.get_enemyHP()
-	print("HP: " + str(enemy_max_health))
-	
+
 	update_healthbar()
 	
 	enemy_skills = enemy_data.get_enemy_skill_list()
 	
 	create_action_box(enemy_skills)
-	print(enemy_skills)
 
 
 func update_enemy_sprite(sprite: Sprite):
@@ -322,11 +318,8 @@ func play_turn():
 		$EnemySkills/EnemySpecial/Special_Skill_Label.text = ""
 		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
 		enemy_boost_anim_player.play("BoostON")
-		$EnemySpecialAudioStreamPlayer.play()
-		# Janky hack, m8!
-		yield(get_tree().create_timer(2.5), "timeout")
-		$EnemySpecialAudioStreamPlayer.stop() 
-	
+		
+		AudioManager.play_sfx(enemy_special_sfx)
 	
 	# for every dice generated
 	for dice in generated_dices:
@@ -409,7 +402,6 @@ func pick_random_action():
 	var max_skill_index: int = len(enemy_skills)
 	
 	var random_skill_name: String = enemy_skills[randi()% max_skill_index]
-	print("Enemy do: " + str(random_skill_name))
 	return enemy_actions[random_skill_name]
 
 

@@ -1,8 +1,10 @@
 extends Node2D
 class_name BoardMap
 
-
 var board_tiles: Array
+
+onready var sfx_rest_1: AudioStreamOGGVorbis = preload("res://sfx/GWJ_Rest3.1.ogg")
+onready var sfx_move_1: AudioStreamOGGVorbis = preload("res://sfx/GWJ_DiceSlides-002.ogg")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -17,8 +19,8 @@ func cover(on_off: bool):
 
 
 func play_move_sound():
-	$MoveSound.play()
+	AudioManager.play_sfx(sfx_move_1)
 	
 
 func play_rest_sound():
-	$RestSound.play()
+	AudioManager.play_sfx(sfx_rest_1)

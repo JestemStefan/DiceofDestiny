@@ -216,7 +216,7 @@ func execute_buffer_actions():
 					match action_name:
 						
 						"Attack":
-							#print(action_value * skill_boost)
+							
 							encounter_enemy.take_damage(action_value * skill_boost)
 							encounter_player.play_sound("Attack")
 						
@@ -253,7 +253,6 @@ func use_special_skill():
 			pass
 		
 		Turn.ENEMY:
-			#encounter_enemy.reset_special()
 			print("Enemy used special skill")
 
 
@@ -434,7 +433,6 @@ func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
 		Turn.ENEMY:
 			encounter_enemy.update_stats(action_buffer)
 
-	print(action_buffer)
 
 
 func _on_UndoActionButton_button_up():
@@ -442,7 +440,6 @@ func _on_UndoActionButton_button_up():
 	for action_name in action_buffer.keys():
 		action_buffer[action_name] = 0
 	
-	print(action_buffer)
 	
 	match current_turn:
 		Turn.PLAYER:

@@ -2,7 +2,7 @@ extends Node2D
 
 onready var dice_instance: PackedScene = preload("res://scenes/Dice/Test_Dice.tscn")
 
-onready var audio_diceroll: AudioStreamPlayer = $Audio_DiceRoll
+onready var sfx_diceroll: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceRollLong_3.ogg")
 
 onready var dice_positions: Array = [$Dice1, $Dice2, $Dice3, $Dice4, $Dice5, $Dice6, $Dice7]
 
@@ -13,7 +13,7 @@ func _ready():
 
 func roll_random(dice_amount: int)-> Array: 
 	
-	audio_diceroll.play()
+	AudioManager.play_sfx(sfx_diceroll)
 	
 	var generated_dices: Array = []
 	
