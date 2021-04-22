@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://src/encounters/Encounter.gd" type="Script" id=1]
 [ext_resource path="res://src/Encounter_Player/Encounter_Player.gd" type="Script" id=2]
@@ -18,7 +18,6 @@
 [ext_resource path="res://font/Alagard_16.tres" type="DynamicFont" id=16]
 [ext_resource path="res://art/Placeholders/block_skill_sprite.png" type="Texture" id=17]
 [ext_resource path="res://scenes/InteractionBox/ActionBox.tscn" type="PackedScene" id=18]
-[ext_resource path="res://sfx/GWJ_PowerUp2.ogg" type="AudioStream" id=19]
 [ext_resource path="res://scenes/UI_Stuff/Healthbar.tscn" type="PackedScene" id=20]
 [ext_resource path="res://art/UI/Buttons/Big_Button_Disabled.png" type="Texture" id=21]
 [ext_resource path="res://art/UI/Buttons/Big_Button_Normal.png" type="Texture" id=22]
@@ -28,7 +27,6 @@
 [ext_resource path="res://art/UI/Buttons/SmallButton_Hover.png" type="Texture" id=26]
 [ext_resource path="res://art/UI/Buttons/SmallButton_Normal.png" type="Texture" id=27]
 [ext_resource path="res://art/UI/Buttons/SmallButton_Pressed.png" type="Texture" id=28]
-[ext_resource path="res://sfx/GWJ_PowerUpEnemy.ogg" type="AudioStream" id=29]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Idle"
@@ -330,9 +328,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player_SFX" type="AudioStreamPlayer" parent="Encounter_Player"]
-bus = "SFX"
-
 [node name="PlayerHealthbar" parent="Encounter_Player" instance=ExtResource( 20 )]
 visible = false
 position = Vector2( -15, 146 )
@@ -353,10 +348,6 @@ __meta__ = {
 [node name="BoostAnimation" type="AnimationPlayer" parent="Encounter_Player"]
 anims/BoostOFF = SubResource( 2 )
 anims/BoostON = SubResource( 3 )
-
-[node name="PlayerSpecialAudioStreamPlayer" type="AudioStreamPlayer" parent="Encounter_Player"]
-stream = ExtResource( 19 )
-bus = "SFX"
 
 [node name="Encounter_Enemy" type="Node2D" parent="."]
 position = Vector2( 367, 163 )
@@ -492,10 +483,6 @@ reverse_fill = true
 [node name="EnemyBoostAnimationPlayer" type="AnimationPlayer" parent="Encounter_Enemy"]
 anims/BoostOFF = SubResource( 4 )
 anims/BoostON = SubResource( 5 )
-
-[node name="EnemySpecialAudioStreamPlayer" type="AudioStreamPlayer" parent="Encounter_Enemy"]
-stream = ExtResource( 29 )
-bus = "SFX"
 
 [node name="Dices" parent="." instance=ExtResource( 3 )]
 position = Vector2( 240, 100 )

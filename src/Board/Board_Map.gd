@@ -1,7 +1,6 @@
 extends Node2D
 class_name BoardMap
 
-
 var board_tiles: Array
 
 
@@ -14,11 +13,3 @@ func _ready():
 
 func cover(on_off: bool):
 	$MapOverlay.visible = on_off
-
-
-func play_move_sound():
-	$MoveSound.play()
-	
-
-func play_rest_sound():
-	$RestSound.play()

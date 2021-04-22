@@ -28,17 +28,10 @@ func cheat_code(event):
 					GameState.activate_cheats()
 					
 				print("Cheat code: " + str(GameState.isCheater))
-				hihi()
+				
+				AudioManager.play_sfx(cheater_sound)
+				
 				sequence_index = 0
 		else:
 			sequence_index = 0
-
-func hihi():
-	var audioplayer = AudioStreamPlayer.new()
-	add_child(audioplayer)
-	audioplayer.stream = cheater_sound
-	audioplayer.play()
-	
-	yield(audioplayer, "finished")
-	audioplayer.call_deferred("free")
 	

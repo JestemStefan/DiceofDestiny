@@ -9,10 +9,10 @@ onready var special_seven_label: Label = $PlayerSpecialLabel
 
 onready var boost_animplayer: AnimationPlayer = $BoostAnimation
 
-onready var player_sfx: AudioStreamPlayer = $Player_SFX
 onready var hurt_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_RecieveDamage_PlayerGWJ_DiceDungeon_VOX-003.ogg")
 onready var attack_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_AttackGWJ_Skills_Attack-001.ogg")
 onready var defend_sound:  AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_DefendGWJ_Skills_Defend-001.ogg")
+onready var player_special_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ_PowerUp2.ogg")
 
 var player_hp: int
 var player_maxHP: int
@@ -89,7 +89,6 @@ func update_healthbar():
 
 
 func update_block_amount():
-	print("Player block: " + str(player_block))
 	if player_block > 0:
 		$PlayerBlock.show()
 		$PlayerBlock/BlockAmount.text = str(player_block)
@@ -224,33 +223,26 @@ func play_sound(sound_name: String):
 	
 	match sound_name:
 		"Attack":
-			player_sfx.stream = attack_sound
+			AudioManager.play_sfx(attack_sound)
 		
 		"Block":
-			player_sfx.stream = defend_sound
+			AudioManager.play_sfx(defend_sound)
 			
 		"Hurt":
-			player_sfx.stream = hurt_sound
+			AudioManager.play_sfx(hurt_sound)
 	
-	player_sfx.play()
 
 
 func check_special_seven():
 	if player_stats["7"] == 7:
 		if isSpecialSevenOn == false:
-			$PlayerSpecialAudioStreamPlayer.play()
-			# Janky hack, m8!
-			yield(get_tree().create_timer(2.5), "timeout")
-			$PlayerSpecialAudioStreamPlayer.stop() 
+			AudioManager.play_sfx(player_special_sfx)
 		
 		isSpecialSevenOn = true
 		
 		boost_animplayer.play("BoostON")
 		
-		
-		print("Special 7 boost ON")
 	else:
 		isSpecialSevenOn = false
 		boost_animplayer.play("BoostOFF")
-		$PlayerSpecialAudioStreamPlayer.stop()
-		print("Special 7 boost OFF")
+

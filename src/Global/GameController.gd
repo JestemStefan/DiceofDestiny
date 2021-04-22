@@ -57,8 +57,6 @@ func move_to_tile(tile: BoardTile):
 	
 	var tween = Tween.new()
 	
-	current_board.play_move_sound()
-	
 	if current_board_tile != null:
 		current_board_tile.enter_state(BoardTile.TileState.CLOSED)
 	

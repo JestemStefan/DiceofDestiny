@@ -13,10 +13,9 @@ var interaction_box: ActionBox = null
 
 onready var tween_size: Tween = $Tween_Size
 
-onready var dice_sfx_player: AudioStreamPlayer = $SFX
-onready var pick_up_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceHandle_2.ogg")
-onready var drop_sound:  AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceHandle_1.ogg")
-onready var placement_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceSimplePlacement-001.ogg")
+onready var sfx_pick_up_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceHandle_2.ogg")
+onready var sfx_drop_sound:  AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceHandle_1.ogg")
+onready var sfx_placement_sound: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_DiceSimplePlacement-001.ogg")
 
 signal dice_picked_up
 signal dice_dropped
@@ -55,18 +54,15 @@ func set_dice_value(value: int):
 
 
 func play_drop_sound():
-	$SFX.stream = drop_sound
-	$SFX.play()
+	AudioManager.play_sfx(sfx_drop_sound)
 
 
 func play_pick_up_sound():
-	$SFX.stream = pick_up_sound
-	$SFX.play()
+	AudioManager.play_sfx(sfx_pick_up_sound)
 
 
 func play_placement_sound():
-	$SFX.stream = placement_sound
-	$SFX.play()
+	AudioManager.play_sfx(sfx_placement_sound)
 
 
 func _on_Dice_input_event(_viewport, event, _shape_idx):
@@ -89,14 +85,10 @@ func _on_Dice_input_event(_viewport, event, _shape_idx):
 
 func _on_Dice_area_entered(_area):
 	pass
-	#if area is ActionBox:
-	#	interaction_box = area
 
 
 func _on_Dice_area_exited(_area):
 	pass
-	#if area == interaction_box:
-		#interaction_box = null
 
 
 func _on_Dice_mouse_entered():

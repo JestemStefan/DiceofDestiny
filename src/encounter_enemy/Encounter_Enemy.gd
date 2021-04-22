@@ -16,6 +16,7 @@ var enemy_hello_sound: AudioStreamOGGVorbis
 var enemy_hurt_sound: AudioStreamOGGVorbis
 onready var enemy_attack_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_AttackGWJ_Skills_Attack-001.ogg")
 onready var enemy_block_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_DefendGWJ_Skills_Defend-002.ogg")
+onready var enemy_special_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ_PowerUpEnemy.ogg")
 
 var enemy_special_delay: int = 5
 var special_available: bool = false
@@ -80,12 +81,9 @@ func load_enemy_data(enemy_data: EnemyStats):
 	# Check if enemy is DM
 	isDungeanMaster = enemy_data.isDungeonMaster
 	
-	enemy_name = enemy_data.enemy_name
-	$UI_Enemy_Name/EnemyName.text = enemy_name
-	print("Enemy name: " + enemy_name)
+	update_enemy_name(enemy_data.enemy_name)
 	
 	enemy_level = enemy_data.enemy_level
-	print("Level: " + str(enemy_level))
 	
 	enemy_hello_sound = enemy_data.enemy_hello_sfx
 	enemy_hurt_sound = enemy_data.enemy_hurt_sfx
@@ -96,18 +94,35 @@ func load_enemy_data(enemy_data: EnemyStats):
 	update_enemy_sprite(enemy_sprite_scene)
 	
 	enemy_dice_count = enemy_data.enemy_dice_count
-	print("Enemy has " + str(enemy_dice_count) + " dices")
-	
+
 	enemy_max_health = enemy_data.get_enemyHP()
 	enemy_health = enemy_data.get_enemyHP()
-	print("HP: " + str(enemy_max_health))
-	
+
 	update_healthbar()
 	
 	enemy_skills = enemy_data.get_enemy_skill_list()
 	
 	create_action_box(enemy_skills)
-	print(enemy_skills)
+
+
+func update_enemy_name(new_name: String):
+	$UI_Enemy_Name/EnemyName.percent_visible = 0
+	enemy_name = new_name
+	$UI_Enemy_Name/EnemyName.text = new_name
+	
+	var name_tween = Tween.new()
+	add_child(name_tween)
+	name_tween.interpolate_property($UI_Enemy_Name/EnemyName, 
+									"percent_visible", 
+									null, 
+									1, 
+									1, 
+									Tween.TRANS_LINEAR, 
+									Tween.EASE_IN_OUT,
+									0.5)
+	name_tween.start()
+	yield(name_tween, "tween_completed")
+	name_tween.call_deferred("free")
 
 
 func update_enemy_sprite(sprite: Sprite):
@@ -203,11 +218,11 @@ func take_damage(damage: int):
 		if isDungeanMaster:
 			GameController.game_finished()
 		enter_state(State.DEAD)
-	
-	shake(true)
-	update_healthbar()
-	yield(get_tree().create_timer(0.5), "timeout")
-	shake(false)
+	else:
+		shake(true)
+		update_healthbar()
+		yield(get_tree().create_timer(0.5), "timeout")
+		shake(false)
 
 
 func get_block(amount: int):
@@ -322,11 +337,8 @@ func play_turn():
 		$EnemySkills/EnemySpecial/Special_Skill_Label.text = ""
 		special_skill.set_actionbox_type(special_skill.Action_type.SPECIAL_OFF, false)
 		enemy_boost_anim_player.play("BoostON")
-		$EnemySpecialAudioStreamPlayer.play()
-		# Janky hack, m8!
-		yield(get_tree().create_timer(2.5), "timeout")
-		$EnemySpecialAudioStreamPlayer.stop() 
-	
+		
+		AudioManager.play_sfx(enemy_special_sfx)
 	
 	# for every dice generated
 	for dice in generated_dices:
@@ -409,7 +421,6 @@ func pick_random_action():
 	var max_skill_index: int = len(enemy_skills)
 	
 	var random_skill_name: String = enemy_skills[randi()% max_skill_index]
-	print("Enemy do: " + str(random_skill_name))
 	return enemy_actions[random_skill_name]
 
 
@@ -447,19 +458,15 @@ func show_stuff():
 
 func play_sound(sound_name: String):
 	
-	var enemy_sfx_player: AudioStreamPlayer = $EnemySprite/EnemyAudioStreamPlayer
-	
 	match sound_name:
 		"Attack":
-			enemy_sfx_player.stream = enemy_attack_sfx
+			AudioManager.play_sfx(enemy_attack_sfx)
 			
 		"Block":
-			enemy_sfx_player.stream = enemy_block_sfx
+			AudioManager.play_sfx(enemy_block_sfx)
 		
 		"Hurt":
-			enemy_sfx_player.stream = enemy_hurt_sound
+			AudioManager.play_sfx(enemy_hurt_sound)
 		
 		"Hello":
-			enemy_sfx_player.stream = enemy_hello_sound
-			
-	enemy_sfx_player.play()
+			AudioManager.play_sfx(enemy_hello_sound)

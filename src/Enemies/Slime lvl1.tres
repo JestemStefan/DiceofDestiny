@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource( 1 )
-enemy_name = "Rimiru"
+enemy_name = "Rimuru"
 enemy_level = 1
 isBoss = false
 isDungeonMaster = false
