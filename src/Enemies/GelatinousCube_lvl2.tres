@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource( 2 )
-enemy_name = "Gelatinous Bube"
+enemy_name = "Gelatinous Cube"
 enemy_level = 1
 isBoss = false
 isDungeonMaster = false

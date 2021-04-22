@@ -2,6 +2,9 @@ tool
 extends Area2D
 class_name BoardTile
 
+onready var sfx_rest_1: AudioStreamOGGVorbis = preload("res://sfx/GWJ_Rest3.1.ogg")
+onready var sfx_move_1: AudioStreamOGGVorbis = preload("res://sfx/GWJ_DiceSlides-002.ogg")
+
 enum TileState {CLOSED, OPEN, CURRENT}
 var current_tilestate: int = TileState.CLOSED
 
@@ -22,8 +25,8 @@ export var dice_difficulty: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#var err = connect("input_event", self, "_on_Board_Tile_input_event")
 	
+	# Wait until parent is ready
 	yield(get_tree(), "idle_frame")
 	
 	update_tile_type()
@@ -176,6 +179,7 @@ func _on_Board_Tile_input_event(_viewport, event, _shape_idx):
 						
 						TileState.OPEN:
 							GameController.move_to_tile(self)
+							AudioManager.play_sfx(sfx_move_1)
 						
 						TileState.CURRENT:
 							pass
@@ -213,7 +217,7 @@ func _on_InteractionButton_button_up():
 			$InteractionButton.hide()
 			
 		TileTypes.REST_TILE:
-			GameController.current_board.play_rest_sound()
+			AudioManager.play_sfx(sfx_rest_1)
 			GameController.start_encounter("Rest", enemy_to_fight, environment)
 			GameController.last_rest_tile = self
 			#$InteractionButton.hide()

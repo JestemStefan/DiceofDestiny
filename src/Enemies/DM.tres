@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource( 1 )
-enemy_name = "Dungeon Master"
+enemy_name = "Dark Wizard"
 enemy_level = 1
 isBoss = true
 isDungeonMaster = true

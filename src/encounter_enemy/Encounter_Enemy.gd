@@ -81,8 +81,7 @@ func load_enemy_data(enemy_data: EnemyStats):
 	# Check if enemy is DM
 	isDungeanMaster = enemy_data.isDungeonMaster
 	
-	enemy_name = enemy_data.enemy_name
-	$UI_Enemy_Name/EnemyName.text = enemy_name
+	update_enemy_name(enemy_data.enemy_name)
 	
 	enemy_level = enemy_data.enemy_level
 	
@@ -104,6 +103,26 @@ func load_enemy_data(enemy_data: EnemyStats):
 	enemy_skills = enemy_data.get_enemy_skill_list()
 	
 	create_action_box(enemy_skills)
+
+
+func update_enemy_name(new_name: String):
+	$UI_Enemy_Name/EnemyName.percent_visible = 0
+	enemy_name = new_name
+	$UI_Enemy_Name/EnemyName.text = new_name
+	
+	var name_tween = Tween.new()
+	add_child(name_tween)
+	name_tween.interpolate_property($UI_Enemy_Name/EnemyName, 
+									"percent_visible", 
+									null, 
+									1, 
+									1, 
+									Tween.TRANS_LINEAR, 
+									Tween.EASE_IN_OUT,
+									0.5)
+	name_tween.start()
+	yield(name_tween, "tween_completed")
+	name_tween.call_deferred("free")
 
 
 func update_enemy_sprite(sprite: Sprite):
@@ -199,11 +218,11 @@ func take_damage(damage: int):
 		if isDungeanMaster:
 			GameController.game_finished()
 		enter_state(State.DEAD)
-	
-	shake(true)
-	update_healthbar()
-	yield(get_tree().create_timer(0.5), "timeout")
-	shake(false)
+	else:
+		shake(true)
+		update_healthbar()
+		yield(get_tree().create_timer(0.5), "timeout")
+		shake(false)
 
 
 func get_block(amount: int):
@@ -439,19 +458,15 @@ func show_stuff():
 
 func play_sound(sound_name: String):
 	
-	var enemy_sfx_player: AudioStreamPlayer = $EnemySprite/EnemyAudioStreamPlayer
-	
 	match sound_name:
 		"Attack":
-			enemy_sfx_player.stream = enemy_attack_sfx
+			AudioManager.play_sfx(enemy_attack_sfx)
 			
 		"Block":
-			enemy_sfx_player.stream = enemy_block_sfx
+			AudioManager.play_sfx(enemy_block_sfx)
 		
 		"Hurt":
-			enemy_sfx_player.stream = enemy_hurt_sound
+			AudioManager.play_sfx(enemy_hurt_sound)
 		
 		"Hello":
-			enemy_sfx_player.stream = enemy_hello_sound
-			
-	enemy_sfx_player.play()
+			AudioManager.play_sfx(enemy_hello_sound)

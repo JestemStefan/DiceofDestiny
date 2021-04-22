@@ -3,9 +3,6 @@ class_name BoardMap
 
 var board_tiles: Array
 
-onready var sfx_rest_1: AudioStreamOGGVorbis = preload("res://sfx/GWJ_Rest3.1.ogg")
-onready var sfx_move_1: AudioStreamOGGVorbis = preload("res://sfx/GWJ_DiceSlides-002.ogg")
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,11 +13,3 @@ func _ready():
 
 func cover(on_off: bool):
 	$MapOverlay.visible = on_off
-
-
-func play_move_sound():
-	AudioManager.play_sfx(sfx_move_1)
-	
-
-func play_rest_sound():
-	AudioManager.play_sfx(sfx_rest_1)

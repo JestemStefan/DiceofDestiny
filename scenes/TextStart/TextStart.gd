@@ -13,7 +13,7 @@ func _ready():
 
 
 
-func _on_BtnOK_clicked(object):
+func _on_BtnOK_clicked(_object):
 	anim.play("Hide")
 	yield(anim, "animation_finished")
 	
