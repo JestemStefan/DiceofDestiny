@@ -18,7 +18,7 @@ onready var enemy_attack_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Sk
 onready var enemy_block_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ32_Skills_DefendGWJ_Skills_Defend-002.ogg")
 onready var enemy_special_sfx: AudioStreamOGGVorbis = preload("res://sfx/GWJ_PowerUpEnemy.ogg")
 
-var enemy_special_delay: int = 5
+var enemy_special_delay: int = 3
 var special_available: bool = false
 
 onready var enemy_boost_anim_player: AnimationPlayer = $EnemyBoostAnimationPlayer
@@ -208,6 +208,7 @@ func take_damage(damage: int):
 		play_sound("Block")
 	
 	enemy_health -= damage
+	update_healthbar()
 	
 	if isDungeanMaster and not isNerd:
 		if enemy_health <= 50:
@@ -220,7 +221,7 @@ func take_damage(damage: int):
 		enter_state(State.DEAD)
 	else:
 		shake(true)
-		update_healthbar()
+		
 		yield(get_tree().create_timer(0.5), "timeout")
 		shake(false)
 
@@ -404,7 +405,7 @@ func check_special():
 
 
 func reset_special():
-	enemy_special_delay = 6
+	enemy_special_delay = 4
 	check_special()
 	$EnemySkills/EnemySpecial/Special_Skill_Label.show()
 
@@ -419,8 +420,16 @@ func use_special_skill():
 func pick_random_action():
 	
 	var max_skill_index: int = len(enemy_skills)
+	var random_index: int = randi()% (max_skill_index + 1)
 	
-	var random_skill_name: String = enemy_skills[randi()% max_skill_index]
+	print(random_index)
+	var random_skill_name: String
+	match random_index:
+		0: random_skill_name = enemy_skills[random_index]
+		1: random_skill_name = enemy_skills[(random_index - 1)]
+		2: random_skill_name = enemy_skills[(random_index - 1)]
+		3: random_skill_name = enemy_skills[(random_index - 1)]
+	
 	return enemy_actions[random_skill_name]
 
 
