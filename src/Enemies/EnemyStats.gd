@@ -6,6 +6,8 @@ export var enemy_level: int = 1
 export var isBoss: bool = false
 export var isDungeonMaster: bool = false
 export var enemy_sprite: PackedScene
+enum HandSprite{PLAYER, GOBLIN, BUGBEAR, CUBE, LICH, DM, SLIME}
+export(HandSprite) var hand_sprite = HandSprite.PLAYER
 
 export var enemy_hello_sfx: AudioStreamOGGVorbis
 export var enemy_hurt_sfx: AudioStreamOGGVorbis

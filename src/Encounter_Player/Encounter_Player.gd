@@ -84,6 +84,7 @@ func create_action_box(skill_list: Array):
 	
 	
 func update_healthbar():
+	GameState.player_health = player_hp
 	$PlayerHealthbar.setup_hp_bar(player_maxHP)
 	$PlayerHealthbar.update_healthbar(player_hp)
 

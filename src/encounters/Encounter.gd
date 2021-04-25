@@ -65,6 +65,7 @@ func start_encounter():
 			combat_platform_index = 4
 			AudioManager.play_theme("FinalBoss")
 	
+	$Encounter_Enemy/EnemyFilthyHand/EnemyHandSprite.frame = enemy_stats.hand_sprite
 	
 	$Encounter_Enemy/Combat_Platform.frame = combat_platform_index
 	$Encounter_Player/Combat_Platform.frame = combat_platform_index
@@ -434,7 +435,6 @@ func _on_Action_Box_actionbox_triggered(action_name: String, dice_value: int):
 			encounter_enemy.update_stats(action_buffer)
 
 
-
 func _on_UndoActionButton_button_up():
 	
 	for action_name in action_buffer.keys():
@@ -451,8 +451,6 @@ func _on_UndoActionButton_button_up():
 	for hidden_dice in dices_in_memory:
 		hidden_dice.enter_state(hidden_dice.State.FREE)
 		hidden_dice.show()
-		
-		
 
 
 func _on_Encounter_Player_player_died():
