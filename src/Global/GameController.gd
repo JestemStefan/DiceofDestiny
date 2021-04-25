@@ -137,7 +137,7 @@ func player_died():
 	current_encounter = null
 	
 	move_to_tile(last_rest_tile)
-	current_board.play_rest_sound()
+	#current_board.play_rest_sound()
 	AudioManager.play_theme("Map")
 	start_encounter("Rest")
 	

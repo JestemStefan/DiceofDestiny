@@ -12,6 +12,7 @@ enemy_level = 1
 isBoss = false
 isDungeonMaster = false
 enemy_sprite = ExtResource( 1 )
+hand_sprite = 3
 enemy_hello_sfx = ExtResource( 4 )
 enemy_hurt_sfx = ExtResource( 3 )
 enemy_dice_count = 6
